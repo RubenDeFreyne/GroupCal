@@ -89,5 +89,16 @@ class CalDatabaseTest {
 
 
     //ACTIVITY TESTS
+    @Test
+    @Throws(Exception::class)
+    fun insertAndGetActivity() {
+        val group = Group()
+        groupDao.insert(group)
+        val dbGroup = groupDao.getAllGroups().last()
+        val activity= Activity(0L, dbGroup.id, "activity")
+        activityDao.insert(activity)
+        val dbActivity = activityDao.getAllActivities().last()
+        assertEquals(dbGroup.id, dbActivity.group_id)
+    }
 }
 

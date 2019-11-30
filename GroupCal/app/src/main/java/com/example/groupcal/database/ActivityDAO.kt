@@ -27,4 +27,6 @@ interface ActivityDAO {
     /*@Query("SELECT * FROM activity_table WHERE startDate = :date")
     fun getByDay(date: LocalDateTime): Activity?*/
 
+    //TODO: Query voor activiteiten van groep
+
 }
