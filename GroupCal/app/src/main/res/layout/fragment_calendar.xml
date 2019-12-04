@@ -18,7 +18,7 @@
         app:timeColumnBackgroundColor="@color/colorWhite"
         app:headerRowPadding="12dp"
         app:columnGap="8dp"
-        app:numberOfVisibleDays="3"
+        app:numberOfVisibleDays="1"
         app:headerRowBackgroundColor="@color/colorBackground"
         app:dayBackgroundColor="@color/colorWhite"
         app:todayBackgroundColor="@color/colorWhite" />
