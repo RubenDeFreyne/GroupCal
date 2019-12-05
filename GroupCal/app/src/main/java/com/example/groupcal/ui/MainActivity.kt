@@ -101,12 +101,33 @@ class MainActivity :
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
+        when (item.itemId) {
+            R.id.nav_calendar -> openDetailFragment(PlannerFragment.newInstance("test1", "test2")) // todo
+            R.id.nav_logout -> {
+                // Logout
+                val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+                sharedPref.edit().clear().apply()
+                // Open AuthActivity
 
+                finish()
+            }
+        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
+
+    private fun openDetailFragment(newFragment: Fragment) {
+
+            this.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_content_container, newFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit()
+
+    }
 
 
 

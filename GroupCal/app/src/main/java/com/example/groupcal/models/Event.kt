@@ -4,7 +4,7 @@ import com.alamkanak.weekview.WeekViewDisplayable
 import com.alamkanak.weekview.WeekViewEvent
 import java.util.*
 
-data class Activity(
+data class Event(
     val id: Long,
     val title: String,
     val startTime: Calendar,
@@ -13,9 +13,9 @@ data class Activity(
     val color: Int,
     val isAllDay: Boolean,
     val isCanceled: Boolean
-) : WeekViewDisplayable<Activity> {
+) : WeekViewDisplayable<Event> {
 
-    override fun toWeekViewEvent(): WeekViewEvent<Activity> {
+    override fun toWeekViewEvent(): WeekViewEvent<Event> {
         // Build the styling of the event, for instance background color and strike-through
         val style = WeekViewEvent.Style.Builder()
             .setBackgroundColor(color)
@@ -23,7 +23,7 @@ data class Activity(
             .build()
 
         // Build the WeekViewEvent via the Builder
-        return WeekViewEvent.Builder<Activity>(this)
+        return WeekViewEvent.Builder(this)
             .setId(id)
             .setTitle(title)
             .setStartTime(startTime)

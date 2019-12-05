@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
@@ -13,14 +15,16 @@
         app:eventTextColor="@color/colorWhite"
         app:timeColumnTextSize="12sp"
         app:hourHeight="60dp"
-        app:timeColumnPadding="8dp"
+        app:timeColumnPadding="16dp"
         app:timeColumnTextColor="@color/colorPrimaryDark"
         app:timeColumnBackgroundColor="@color/colorWhite"
-        app:headerRowPadding="12dp"
-        app:columnGap="8dp"
+        app:headerRowPadding="0dp"
+        app:singleDayHorizontalMargin="8dp"
         app:numberOfVisibleDays="1"
-        app:headerRowBackgroundColor="@color/colorBackground"
+        app:headerRowBackgroundColor="@color/colorWhite"
         app:dayBackgroundColor="@color/colorWhite"
-        app:todayBackgroundColor="@color/colorWhite" />
+        app:todayBackgroundColor="@color/colorWhite"
+        app:headerRowTextSize="0dp"
+        app:eventCornerRadius="8dp"/>
 
 </LinearLayout>
