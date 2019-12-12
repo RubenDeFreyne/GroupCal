@@ -20,6 +20,7 @@
         style="@style/Widget.MaterialComponents.FloatingActionButton">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/dayButton"
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,6 +33,7 @@
             app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/weekButton"
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
