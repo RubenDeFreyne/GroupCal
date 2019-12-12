@@ -102,7 +102,7 @@ class MainActivity :
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
         when (item.itemId) {
-            R.id.nav_calendar -> openDetailFragment(PlannerFragment.newInstance("test1", "test2")) // todo
+            R.id.nav_calendar -> openDetailFragment(PlannerFragment.newInstance()) // todo
             R.id.nav_logout -> {
                 // Logout
                 val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
