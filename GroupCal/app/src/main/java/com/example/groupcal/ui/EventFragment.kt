@@ -8,8 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProviders
 
 import com.example.groupcal.R
+import com.example.groupcal.viewmodels.CalendarViewModel
+import com.example.groupcal.viewmodels.EventViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +36,7 @@ class EventFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
 
+    private lateinit var viewModel: EventViewModel
 
 
     override fun onCreateView(
@@ -45,7 +49,10 @@ class EventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProviders.of(this) .get(EventViewModel::class.java)
         val args = EventFragmentArgs.fromBundle(arguments)
+        viewModel.getEvent(args.id)
+
 
         titleText = view.findViewById(R.id.titleText)
         dateText = view.findViewById(R.id.dateText)
@@ -53,7 +60,12 @@ class EventFragment : Fragment() {
         dateTextDetail = view.findViewById(R.id.dateTextDetail)
         locationText = view.findViewById(R.id.locationText)
 
-        
+        titleText.setText(viewModel.title)
+        dateText.setText(viewModel.date)
+        timeText.setText(viewModel.time)
+        dateTextDetail.setText(viewModel.dateDetail)
+        locationText.setText(viewModel.location)
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

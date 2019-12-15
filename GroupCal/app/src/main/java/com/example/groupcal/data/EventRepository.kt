@@ -1,6 +1,7 @@
 package com.example.groupcal.data
 
 import android.graphics.Color
+import android.util.Log
 import com.alamkanak.weekview.WeekViewDisplayable
 import com.example.groupcal.models.Event
 import java.text.DateFormat
@@ -8,6 +9,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EventRepository {
+
+    val events = mutableListOf<WeekViewDisplayable<Event>>()
+
+    fun getEvent(id : Long): WeekViewDisplayable<Event>? {
+        Log.i("test", events.toString())
+        return events.first { event -> event.toWeekViewEvent().id == id }
+    }
 
     fun getEventsInRange(
         startDate: Calendar,
@@ -17,7 +25,6 @@ class EventRepository {
         val month = startDate.get(Calendar.MONTH) + 1
 
         val idOffset = year + 10L * month
-        val events = mutableListOf<WeekViewDisplayable<Event>>()
 
         events += newEvent(
             id = idOffset + 1,
@@ -28,7 +35,8 @@ class EventRepository {
             minute = 0,
             duration = 90,
             color = Color.parseColor("#808000"),
-            title = "Swimming"
+            title = "Swimming",
+            location = "Beach"
         ).toWeekViewEvent()
 
         // Add multi-day event
@@ -41,7 +49,8 @@ class EventRepository {
             minute = 0,
             duration = 5 * 60,
             color = Color.parseColor("#808000"),
-            title = "Dinner"
+            title = "Dinner",
+            location = "mcDonalds"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -54,7 +63,8 @@ class EventRepository {
             duration = 60,
             color = Color.parseColor("#808000"),
             isCanceled = true,
-            title = "Breakfast"
+            title = "Breakfast",
+            location = "Duncan Donuts"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -66,7 +76,8 @@ class EventRepository {
             minute = 30,
             duration = 60,
             color = Color.parseColor("#808000"),
-            title = "Breakfast"
+            title = "Breakfast",
+            location = "Hotel"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -78,7 +89,8 @@ class EventRepository {
             minute = 30,
             duration = 45,
             color = Color.parseColor("#808000"),
-            title = "Breakfast"
+            title = "Breakfast",
+            location = "mcDonalds"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -90,7 +102,8 @@ class EventRepository {
             minute = 30,
             duration = 2 * 60,
             color = Color.parseColor("#808000"),
-            title = "Lunch"
+            title = "Lunch",
+            location = "Pizza Hut"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -102,7 +115,8 @@ class EventRepository {
             minute = 0,
             duration = 4 * 60,
             color = Color.parseColor("#808000"),
-            title = "Hiking"
+            title = "Hiking",
+            location = "Dunes"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -115,7 +129,8 @@ class EventRepository {
             duration = 3 * 60,
             color = Color.parseColor("#808000"),
             isCanceled = true,
-            title = "Party"
+            title = "Party",
+            location = "Beach Bar"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -127,7 +142,8 @@ class EventRepository {
             minute = 0,
             duration = 3 * 60,
             color = Color.parseColor("#808000"),
-            title = "Brunch"
+            title = "Brunch",
+            location = "Hotel"
         ).toWeekViewEvent()
 
         events += newEvent(
@@ -139,7 +155,8 @@ class EventRepository {
             minute = 0,
             duration = 3 * 60,
             color = Color.parseColor("#808000"),
-            title = "Beach"
+            title = "Tanning",
+            location = "Beach"
         ).toWeekViewEvent()
 
         // All-day event
@@ -153,7 +170,8 @@ class EventRepository {
             duration = 24 * 60,
             isAllDay = true,
             color = Color.parseColor("#808000"),
-            title = "Day Off"
+            title = "Day Off",
+            location = "Hotel"
         ).toWeekViewEvent()
 
         // All-day event until 00:00 next day
@@ -167,7 +185,8 @@ class EventRepository {
             duration = 10 * 60,
             isAllDay = true,
             color = Color.parseColor("#808000"),
-            title = "Day Off"
+            title = "Day Off",
+            location = "Hotel"
         ).toWeekViewEvent()
 
         return events
@@ -184,7 +203,8 @@ class EventRepository {
         color: Int,
         isAllDay: Boolean = false,
         isCanceled: Boolean = false,
-        title: String
+        title: String,
+        location: String
     ): Event {
         val startTime = Calendar.getInstance().apply {
             set(Calendar.YEAR, year)
@@ -197,7 +217,7 @@ class EventRepository {
         }
         val endTime = startTime.clone() as Calendar
         endTime.add(Calendar.MINUTE, duration)
-        return Event(id, title, startTime, endTime, "Location $id", color, isAllDay, isCanceled)
+        return Event(id, title, startTime, endTime, location, color, isAllDay, isCanceled)
     }
 
     private fun buildEventTitle(time: Calendar): String {
