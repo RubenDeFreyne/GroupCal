@@ -18,6 +18,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 import com.example.groupcal.R
 import com.google.android.material.navigation.NavigationView
@@ -31,8 +33,6 @@ class MainActivity :
     /**
      * Whether or not the activity is in two pane mode.
      */
-    private var twoPane: Boolean = false
-    private lateinit var clientsListView: ListView
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +102,7 @@ class MainActivity :
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
         when (item.itemId) {
-            R.id.nav_calendar -> openDetailFragment(PlannerFragment.newInstance()) // todo
+            R.id.nav_calendar -> this.findNavController(R.id.myNavHostFragment).navigateUp()
             R.id.nav_logout -> {
                 // Logout
                 val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
@@ -122,7 +122,7 @@ class MainActivity :
 
             this.supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_content_container, newFragment)
+                .replace(R.id.myNavHostFragment, newFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()

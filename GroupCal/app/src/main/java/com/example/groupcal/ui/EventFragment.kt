@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 import com.example.groupcal.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -24,18 +23,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class EventFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var titleText: TextView
+    private lateinit var dateText: TextView
+    private lateinit var timeText: TextView
+    private lateinit var dateTextDetail: TextView
+    private lateinit var locationText: TextView
+
+
     private var listener: OnFragmentInteractionListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +41,19 @@ class EventFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val args = EventFragmentArgs.fromBundle(arguments)
+
+        titleText = view.findViewById(R.id.titleText)
+        dateText = view.findViewById(R.id.dateText)
+        timeText = view.findViewById(R.id.timeText)
+        dateTextDetail = view.findViewById(R.id.dateTextDetail)
+        locationText = view.findViewById(R.id.locationText)
+
+        
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -66,23 +77,5 @@ class EventFragment : Fragment() {
         fun onFragmentInteraction(uri: Uri)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EventFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EventFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

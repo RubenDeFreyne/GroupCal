@@ -1,6 +1,7 @@
 package com.example.groupcal.ui
 
 import android.graphics.Color
+import android.graphics.RectF
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.alamkanak.weekview.OnEventClickListener
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewDisplayable
 
@@ -33,27 +37,19 @@ import java.util.*
  */
 class PlannerFragment : Fragment() {
 
+
     private lateinit var viewModel: CalendarViewModel
 
-    private val weekView: WeekView<Event> by lazy {
-        requireActivity().findViewById<WeekView<Event>>(R.id.weekView)
-    }
+    private lateinit var weekView: WeekView<Event>
 
-    private val dayText: TextView by lazy {
-        requireActivity().findViewById<TextView>(R.id.textView3)
-    }
 
-    private val dayButton: Button by lazy {
-        requireActivity().findViewById<Button>(R.id.dayButton)
-    }
+    private lateinit var dayText: TextView
 
-    private val monthText: TextView by lazy {
-        requireActivity().findViewById<TextView>(R.id.textView4)
-    }
+    private lateinit var dayButton: Button
 
-    private val weekButton: Button by lazy {
-        requireActivity().findViewById<Button>(R.id.weekButton)
-    }
+    private lateinit var monthText: TextView
+
+    private lateinit var weekButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +63,12 @@ class PlannerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel = ViewModelProviders.of(this) .get(CalendarViewModel::class.java)
+
+        weekView = view.findViewById<WeekView<Event>>(R.id.weekView)
+        monthText = view.findViewById<TextView>(R.id.textView4)
+        dayText = view.findViewById<TextView>(R.id.textView3)
+        dayButton = view.findViewById<Button>(R.id.dayButton)
+        weekButton = view.findViewById<Button>(R.id.weekButton)
 
         val events: MutableLiveData<List<WeekViewDisplayable<Event>>> = loadEvents()
         events.observe(this, androidx.lifecycle.Observer { a -> weekView.submit(a) })
@@ -86,6 +88,7 @@ class PlannerFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
         weekView.setOnRangeChangeListener { firstVisibleDate, lastVisibleDate ->
             run {
                 viewModel.currentlyViewing = firstVisibleDate
@@ -115,6 +118,17 @@ class PlannerFragment : Fragment() {
             dayButton.setTextColor(Color.parseColor("#33000000"))
             weekView.goToDate(viewModel.currentlyViewing)
         })
+
+
+        weekView.setOnEventClickListener { data, rect ->  this.findNavController().navigate(PlannerFragmentDirections.actionPlannerFragmentToEventFragment(data.id))}
+
+
+
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
     }
 
