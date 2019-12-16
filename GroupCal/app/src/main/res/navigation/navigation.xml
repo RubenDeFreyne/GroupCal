@@ -14,6 +14,9 @@
             android:id="@+id/action_plannerFragment_pop"
             app:popUpTo="@id/plannerFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_plannerFragment_to_addEventFragment"
+            app:destination="@id/addEventFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
@@ -25,5 +28,13 @@
             app:popUpToInclusive="true" />
         <argument android:name="id"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="com.example.groupcal.ui.AddEventFragment"
+        android:label="AddEventFragment" >
+        <argument
+            android:name="time"
+            app:argType="string" />
     </fragment>
 </navigation>
