@@ -56,7 +56,7 @@ class EventFragment : Fragment() {
         dateText = view.findViewById(R.id.datePreviewText)
         timeText = view.findViewById(R.id.timePreviewText)
         dateTextDetail = view.findViewById(R.id.dateTextView)
-        locationText = view.findViewById(R.id.startTimeTextView)
+        locationText = view.findViewById(R.id.locationTextView)
 
         titleText.setText(viewModel.title)
         dateText.setText(viewModel.date)

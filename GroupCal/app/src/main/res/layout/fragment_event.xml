@@ -86,12 +86,12 @@
                     android:layout_marginStart="32dp"
                     android:text="Date:"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/startTimeLabelText"
+                    app:layout_constraintBottom_toTopOf="@+id/locationLabelText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/startTimeLabelText"
+                    android:id="@+id/locationLabelText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -108,12 +108,13 @@
                     android:layout_marginEnd="32dp"
                     android:text="21/11/2019"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/startTimeTextView"
+                    app:layout_constraintBottom_toTopOf="@+id/locationTextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="@color/colorPrimary"/>
 
                 <TextView
-                    android:id="@+id/startTimeTextView"
+                    android:id="@+id/locationTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
@@ -121,7 +122,8 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/dateTextView"
+                    android:textColor="@color/colorPrimary"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -169,7 +171,8 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/paidEditText"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="@color/colorPrimary"/>
 
                 <TextView
                     android:id="@+id/paidEditText"
@@ -180,7 +183,8 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/priceEditText" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView15"
+                    android:textColor="@color/colorPrimary"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView

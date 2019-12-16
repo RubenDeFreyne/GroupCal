@@ -2,6 +2,7 @@ package com.example.groupcal.ui
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +11,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.groupcal.R
 import com.example.groupcal.viewmodels.AddEventViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback
+import kotlinx.android.synthetic.main.fragment_event.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,6 +43,11 @@ class AddEventFragment : Fragment() {
     private lateinit var startTimeTextView: TextView
     private lateinit var endTimeTextView: TextView
 
+    private lateinit var colorTextView: TextView
+
+    private lateinit var datePreviewText: TextView
+    private lateinit var timePreviewText: TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,11 +68,32 @@ class AddEventFragment : Fragment() {
         dateEditText = view.findViewById(R.id.dateTextView)
         startTimeTextView = view.findViewById(R.id.startTimeTextView)
         endTimeTextView = view.findViewById(R.id.endTimeTextView)
+        colorTextView = view.findViewById(R.id.colorTextView)
+        datePreviewText = view.findViewById(R.id.datePreviewText)
+        timePreviewText = view.findViewById(R.id.timePreviewText)
 
         val args = AddEventFragmentArgs.fromBundle(arguments)
         val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
         viewModel.time = sdf.parse(args.time)
         Log.i("test", viewModel.time.toString())
+
+        viewModel.startTime = viewModel.time
+        viewModel.endTime = viewModel.time
+
+        timePreviewText.setText(viewModel.getTimePreview())
+        var weekDay: String
+        val dayFormat = SimpleDateFormat("EEEE", Locale.US)
+        weekDay = dayFormat.format(viewModel.time)
+
+        var fmt = Formatter()
+        var call = Calendar.getInstance().apply {
+            set(Calendar.MONTH, viewModel.time.month)
+        }
+        fmt = Formatter()
+        fmt.format("%tB", viewModel.time)
+
+        datePreviewText.setText("" + weekDay + " - " + fmt.toString() + " " + viewModel.time.date.toString())
+
 
         //date edit text
         dateEditText.text = SimpleDateFormat("dd.MM.yyyy").format(viewModel.time)
@@ -74,8 +105,21 @@ class AddEventFragment : Fragment() {
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
             val myFormat = "dd.MM.yyyy" // mention the format you need
-            val sdf = SimpleDateFormat(myFormat, Locale.US)
+
             dateEditText.text = sdf.format(cal.time)
+
+            weekDay = dayFormat.format(cal.time)
+
+
+            call = Calendar.getInstance().apply {
+                set(Calendar.MONTH, cal.time.month)
+            }
+            fmt = Formatter()
+            fmt.format("%tB", cal)
+
+            datePreviewText.setText("" + weekDay + " - " + fmt.toString() + " " + cal.time.date.toString())
+
+
         }
         dateEditText.setOnClickListener {
             DatePickerDialog(
@@ -93,8 +137,12 @@ class AddEventFragment : Fragment() {
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
 
+
             val myFormat = "HH:mm" // mention the format you need
             startTimeTextView.text = SimpleDateFormat("HH:mm").format(cal.time)
+            viewModel.startTime = cal.time
+            timePreviewText.setText(viewModel.getTimePreview())
+
         }
         startTimeTextView.setOnClickListener {
             TimePickerDialog(
@@ -111,8 +159,11 @@ class AddEventFragment : Fragment() {
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
 
+
             val myFormat = "HH:mm" // mention the format you need
             endTimeTextView.text = SimpleDateFormat("HH:mm").format(cal.time)
+            viewModel.endTime = cal.time
+            timePreviewText.setText(viewModel.getTimePreview())
         }
         endTimeTextView.setOnClickListener {
             TimePickerDialog(
@@ -120,6 +171,24 @@ class AddEventFragment : Fragment() {
                 cal.get(Calendar.HOUR_OF_DAY),
                 cal.get(Calendar.MINUTE), true).show()
         }
+
+        //color edit
+
+        val cp = ColorPicker(this.activity, 255, 255, 255)
+        colorTextView.setOnClickListener{
+            cp.show()
+            cp.enableAutoClose()
+        }
+
+        cp.setCallback { color -> run {
+            colorTextView.setBackgroundColor(color)
+            colorTextView.setText("Picked color")
+            colorTextView.setTextColor(color)
+
+          }}
+
+
+
 
 
     }
