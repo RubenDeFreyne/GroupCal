@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.alamkanak.weekview.OnEventClickListener
 import com.alamkanak.weekview.WeekView
@@ -104,6 +105,8 @@ class PlannerFragment : Fragment() {
                 monthText.setText(fmt.toString())
             }
         }
+
+        weekView.setOnEmptyViewLongClickListener { time ->  view!!.findNavController().navigate(PlannerFragmentDirections.ActionPlannerFragmentToAddEventFragment(time.time.toString()))}
 
         dayButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 1

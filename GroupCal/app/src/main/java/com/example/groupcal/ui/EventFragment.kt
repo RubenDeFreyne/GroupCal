@@ -1,6 +1,5 @@
 package com.example.groupcal.ui
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +10,6 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.groupcal.R
-import com.example.groupcal.viewmodels.CalendarViewModel
 import com.example.groupcal.viewmodels.EventViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,10 +53,10 @@ class EventFragment : Fragment() {
 
 
         titleText = view.findViewById(R.id.titleText)
-        dateText = view.findViewById(R.id.dateText)
-        timeText = view.findViewById(R.id.timeText)
-        dateTextDetail = view.findViewById(R.id.dateTextDetail)
-        locationText = view.findViewById(R.id.locationText)
+        dateText = view.findViewById(R.id.datePreviewText)
+        timeText = view.findViewById(R.id.timePreviewText)
+        dateTextDetail = view.findViewById(R.id.dateTextView)
+        locationText = view.findViewById(R.id.locationTextView)
 
         titleText.setText(viewModel.title)
         dateText.setText(viewModel.date)

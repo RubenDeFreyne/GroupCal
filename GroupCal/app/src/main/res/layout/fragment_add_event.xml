@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
@@ -18,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/titleText"
+            <EditText
+                android:id="@+id/titleEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Breakfast"
@@ -40,7 +39,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/timePreviewText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleText" />
+                app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
 
             <TextView
                 android:id="@+id/timePreviewText"
@@ -75,9 +74,10 @@
                 android:text="General"
                 android:textSize="18sp" />
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="300dp">
 
                 <TextView
                     android:id="@+id/dateLabelText"
@@ -86,9 +86,31 @@
                     android:layout_marginStart="32dp"
                     android:text="Date:"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/locationLabelText"
+                    app:layout_constraintBottom_toTopOf="@+id/startTimeLabelText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/startTimeLabelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:text="Start time:"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/endTimeLabelText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dateLabelText" />
+
+                <TextView
+                android:id="@+id/endTimeLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="End Time"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/locationLabelText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/startTimeLabelText" />
 
                 <TextView
                     android:id="@+id/locationLabelText"
@@ -99,7 +121,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateLabelText" />
+                    app:layout_constraintTop_toBottomOf="@+id/endTimeLabelText" />
 
                 <TextView
                     android:id="@+id/dateTextView"
@@ -107,22 +129,47 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
                     android:text="21/11/2019"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/locationTextView"
+                    app:layout_constraintBottom_toTopOf="@+id/startTimeTextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/colorPrimary"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/locationTextView"
+                    android:id="@+id/startTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
+                    android:text="10:00"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/endTimeTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dateTextView"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:id="@+id/endTimeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:text="12:3O"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/locationEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/startTimeTextView"
+                    android:textColor="@color/colorPrimary"/>
+
+                <EditText
+                    android:id="@+id/locationEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:padding="0dp"
                     android:text="McDonalds"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/endTimeTextView"
                     android:textColor="@color/colorPrimary"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -138,7 +185,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="225dp">
 
                 <TextView
                     android:id="@+id/priceLabelText"
@@ -158,12 +205,23 @@
                     android:layout_marginStart="32dp"
                     android:text="Paid by:"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/colorLabelText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/priceLabelText" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/colorLabelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:text="Color:"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/paidLabelText" />
+
+                <EditText
+                    android:id="@+id/priceEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
@@ -172,19 +230,34 @@
                     app:layout_constraintBottom_toTopOf="@+id/paidEditText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary"
+                    android:padding="0dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/paidEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
                     android:text="Ruben De Freyne"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/colorTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/priceEditText"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="0dp"/>
+
+                <TextView
+                    android:id="@+id/colorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Pick a color"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView15"
-                    android:textColor="@color/colorPrimary"/>
+                    app:layout_constraintTop_toBottomOf="@+id/paidEditText" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -201,7 +274,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <EditText
                     android:id="@+id/descriptionEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -221,4 +294,3 @@
 
 
 </LinearLayout>
-
