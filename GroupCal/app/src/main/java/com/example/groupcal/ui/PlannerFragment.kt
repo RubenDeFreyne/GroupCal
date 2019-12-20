@@ -57,6 +57,7 @@ class PlannerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        DataBindingUtil.
         return inflater.inflate(R.layout.fragment_planner, container, false)
     }
 
