@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_plannerFragment_to_addEventFragment"
             app:destination="@id/addEventFragment" />
+        <argument
+            android:name="GroupId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"

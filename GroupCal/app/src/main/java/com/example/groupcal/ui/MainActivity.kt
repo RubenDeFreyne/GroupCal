@@ -25,6 +25,9 @@ import com.example.groupcal.R
 import com.google.android.material.navigation.NavigationView
 import java.util.*
 import androidx.databinding.DataBindingUtil
+import com.example.groupcal.injection.appComponent
+import org.koin.android.ext.android.startKoin
+
 
 
 class MainActivity :

@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.groupcal.data.GroupRepository
 import com.example.groupcal.models.Group
 
-class GroupViewModel : ViewModel() {
+class GroupViewModel(val repo : GroupRepository) : ViewModel() {
 
-    private val groupRepository = GroupRepository()
+
 
     private val _groups: MutableLiveData<MutableList<Group>> = getGroups()
     val groups: LiveData<MutableList<Group>> = _groups
@@ -18,8 +18,8 @@ class GroupViewModel : ViewModel() {
 
     fun getGroups() : MutableLiveData<MutableList<Group>>{
         val list : MutableLiveData<MutableList<Group>> = MutableLiveData()
-        groupRepository.initializeGroups()
-        list.value = groupRepository.groups
+        repo.initializeGroups()
+        list.value = repo.getGroupsFromDb()
         return list
     }
 

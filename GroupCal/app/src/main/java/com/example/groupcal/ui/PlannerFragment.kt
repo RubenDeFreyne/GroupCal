@@ -25,6 +25,7 @@ import com.alamkanak.weekview.WeekViewDisplayable
 import com.example.groupcal.R
 import com.example.groupcal.models.Event
 import com.example.groupcal.viewmodels.CalendarViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,7 +41,7 @@ import java.util.*
 class PlannerFragment : Fragment() {
 
 
-    private lateinit var viewModel: CalendarViewModel
+    private val viewModel by viewModel<CalendarViewModel>()
 
     private lateinit var weekView: WeekView<Event>
 
@@ -63,8 +64,9 @@ class PlannerFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        viewModel = ViewModelProviders.of(this) .get(CalendarViewModel::class.java)
+super.onViewCreated(view, savedInstanceState)
+        val args = PlannerFragmentArgs.fromBundle(arguments)
+        viewModel.groupId = args.groupId
 
         weekView = view.findViewById<WeekView<Event>>(R.id.weekView)
         monthText = view.findViewById<TextView>(R.id.textView4)

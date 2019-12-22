@@ -8,9 +8,9 @@ import com.example.groupcal.models.Event
 import java.time.LocalDate
 import java.util.*
 
-class CalendarViewModel : ViewModel() {
-    private val eventRepository: EventRepository = EventRepository()
+class CalendarViewModel(val repo : EventRepository) : ViewModel() {
 
+    var groupId = 0L
     val events = MutableLiveData<List<WeekViewDisplayable<Event>>>()
 
     val startDate : Calendar = Calendar.getInstance().apply {
@@ -31,6 +31,8 @@ class CalendarViewModel : ViewModel() {
     var currentlyViewing : Calendar = Calendar.getInstance()
 
     fun fetchEvents(start: Calendar, end: Calendar) {
-        events.value = eventRepository.getEventsInRange(start, end)
+        repo.groupId = groupId
+        repo.setEventsInRange(start, end)
+        events.value = repo.getEventsFromDb()
     }
 }

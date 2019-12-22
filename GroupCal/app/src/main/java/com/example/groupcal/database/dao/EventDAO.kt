@@ -12,7 +12,10 @@ import io.reactivex.Single
 interface EventDAO {
 
     @Insert
-    fun insert(event: Event)
+    fun insert(event: Event) : Long
+
+    @Insert
+    fun insertMany(items: MutableList<Event>)
 
     @Update
     fun update(event: Event)

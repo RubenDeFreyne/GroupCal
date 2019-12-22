@@ -15,12 +15,14 @@ import androidx.navigation.findNavController
 import com.example.groupcal.R
 import com.example.groupcal.databinding.FragmentGroupListBinding
 import com.example.groupcal.viewmodels.GroupViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class GroupListFragment : Fragment() {
 
     private lateinit var adapter: GroupListAdapter
     private lateinit var binding: FragmentGroupListBinding
+    private val viewModel by viewModel<GroupViewModel>()
 
 
     override fun onCreateView(
@@ -29,15 +31,15 @@ class GroupListFragment : Fragment() {
     ): View? {
         binding = FragmentGroupListBinding.inflate(inflater)
 
-        val groupViewModel = ViewModelProviders.of(this).get(GroupViewModel::class.java)
+
 
 
         binding.groupRecycler.let {
-            adapter = GroupListAdapter(GroupListener { view!!.findNavController().navigate(GroupListFragmentDirections.ActionGroupListFragmentToPlannerFragment())
+            adapter = GroupListAdapter(GroupListener { groupId ->  view!!.findNavController().navigate(GroupListFragmentDirections.ActionGroupListFragmentToPlannerFragment(groupId))
             })
             it.adapter = adapter
         }
-        groupViewModel.groups.observe(viewLifecycleOwner, Observer {
+       viewModel.groups.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }

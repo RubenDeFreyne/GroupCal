@@ -1,7 +1,7 @@
 package com.example.groupcal.util
 
 import androidx.room.TypeConverter
-import com.example.groupcal.database.databaseModels.User
+import com.example.groupcal.models.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

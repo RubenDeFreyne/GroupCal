@@ -21,6 +21,7 @@ import java.util.*
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback
 import kotlinx.android.synthetic.main.fragment_event.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +39,7 @@ class AddEventFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var viewModel: AddEventViewModel
+    private val viewModel by viewModel<AddEventViewModel>()
     private lateinit var dateEditText : TextView
     private lateinit var startTimeTextView: TextView
     private lateinit var endTimeTextView: TextView
@@ -64,7 +65,6 @@ class AddEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this) .get(AddEventViewModel::class.java)
         dateEditText = view.findViewById(R.id.dateTextView)
         startTimeTextView = view.findViewById(R.id.startTimeTextView)
         endTimeTextView = view.findViewById(R.id.endTimeTextView)

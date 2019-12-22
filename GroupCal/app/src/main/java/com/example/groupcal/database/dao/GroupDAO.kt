@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.example.groupcal.database.databaseModels.Event
 import com.example.groupcal.database.databaseModels.Group
 import io.reactivex.Single
 
@@ -12,6 +13,9 @@ import io.reactivex.Single
 interface GroupDAO {
     @Insert
     fun insert(group: Group)
+    @Insert()
+    fun insertMany(items: MutableList<Group>)
+
 
     @Update
     fun update(group: Group)

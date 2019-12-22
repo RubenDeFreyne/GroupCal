@@ -19,10 +19,10 @@ import com.example.groupcal.util.Converters
 @TypeConverters(Converters::class)
 abstract class CalDatabase : RoomDatabase() {
 
-    abstract val userDAO: UserDAO
-    abstract val groupDAO: GroupDAO
-    abstract val eventDAO: EventDAO
-    abstract val userGroupDAO: UserGroupDAO
+    abstract fun UserDAO(): UserDAO
+    abstract fun GroupDAO(): GroupDAO
+    abstract fun EventDAO(): EventDAO
+    abstract fun UserGroupDAO(): UserGroupDAO
 
     companion object {
 
@@ -30,21 +30,18 @@ abstract class CalDatabase : RoomDatabase() {
         private var INSTANCE: CalDatabase? = null
 
         fun getInstance(context: Context): CalDatabase {
-            synchronized(this) {
+
                 var instance = INSTANCE
 
                 if (instance == null) {
-                    instance = Room.databaseBuilder(
+                    INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         CalDatabase::class.java,
                         "group_cal_database"
                     )
-                        .fallbackToDestructiveMigration()
                         .build()
-                    INSTANCE = instance
                 }
-                return instance
+                return INSTANCE!!
             }
-        }
     }
 }
