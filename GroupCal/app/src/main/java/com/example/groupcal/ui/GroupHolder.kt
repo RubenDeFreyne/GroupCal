@@ -17,6 +17,13 @@ class GroupHolder private constructor (val binding: FragmentGroupListCardBinding
         }
     }
 
+    fun bind(clickListener: GroupListener, item: Group) {
+        binding.group = item
+        binding.clickListener = clickListener
+        binding.executePendingBindings()
+    }
+
+
     companion object {
         fun from(parent: ViewGroup): GroupHolder {
             val inflater = LayoutInflater.from(parent.context)

@@ -8,15 +8,19 @@ import com.example.groupcal.models.Group
 
 class GroupViewModel : ViewModel() {
 
-    private val _groups: MutableLiveData<MutableList<Group>> = MutableLiveData()
+    private val groupRepository = GroupRepository()
+
+    private val _groups: MutableLiveData<MutableList<Group>> = getGroups()
     val groups: LiveData<MutableList<Group>> = _groups
 
 
-    private val groupRepository = GroupRepository()
 
-    fun getGroups(){
+
+    fun getGroups() : MutableLiveData<MutableList<Group>>{
+        val list : MutableLiveData<MutableList<Group>> = MutableLiveData()
         groupRepository.initializeGroups()
-        _groups.value = groupRepository.groups
+        list.value = groupRepository.groups
+        return list
     }
 
 }

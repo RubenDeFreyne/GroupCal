@@ -43,6 +43,8 @@
         android:label="GroupListFragment" >
         <action
             android:id="@+id/action_groupListFragment_to_plannerFragment"
-            app:destination="@id/plannerFragment" />
+            app:destination="@id/plannerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@+id/groupListFragment" />
     </fragment>
 </navigation>

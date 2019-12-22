@@ -9,12 +9,14 @@ import com.example.groupcal.R
 import com.example.groupcal.models.Group
 import com.example.groupcal.ui.GroupHolder
 
-class GroupListAdapter : ListAdapter<Group, GroupHolder>(GroupDiffCallback()){
+class GroupListAdapter(val clickListener: GroupListener) : ListAdapter<Group, GroupHolder>(GroupDiffCallback()){
 
 
     override fun onBindViewHolder(holder: GroupHolder, position: Int) {
         holder.update(getItem(position))
+        holder.bind(clickListener,getItem(position)!!)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {
         return GroupHolder.from(parent)
@@ -29,5 +31,9 @@ class GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
     override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean {
         return oldItem == newItem
     }
+}
+
+class GroupListener(val clickListener: (groupId: Long) -> Unit) {
+    fun onClick(group: Group) = clickListener(group.id)
 }
 

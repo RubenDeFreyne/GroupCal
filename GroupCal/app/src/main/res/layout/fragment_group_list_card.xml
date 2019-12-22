@@ -6,13 +6,18 @@
         <variable
             type="com.example.groupcal.models.Group"
             name="group"/>
+        <variable
+            name="clickListener"
+            type="com.example.groupcal.ui.GroupListener"/>
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="2dp"
-        android:layout_margin="8dp">>
+        android:layout_margin="8dp"
+        android:background="#FFFFFF"
+        android:onClick="@{() -> clickListener.onClick(group)}"
+        app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
