@@ -24,6 +24,7 @@ import androidx.navigation.findNavController
 import com.example.groupcal.R
 import com.google.android.material.navigation.NavigationView
 import java.util.*
+import androidx.databinding.DataBindingUtil
 
 
 class MainActivity :
