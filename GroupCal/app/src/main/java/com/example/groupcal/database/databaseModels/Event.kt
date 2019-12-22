@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "activity_table", foreignKeys = arrayOf(
+@Entity(tableName = "event_table", foreignKeys = arrayOf(
     ForeignKey(
     entity = Group::class,
     parentColumns = arrayOf("id"),
