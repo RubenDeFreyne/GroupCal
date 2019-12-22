@@ -1,4 +1,4 @@
-package com.example.groupcal.database
+package com.example.groupcal.database.databaseModels
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

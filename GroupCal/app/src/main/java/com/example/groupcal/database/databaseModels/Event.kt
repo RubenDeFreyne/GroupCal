@@ -1,12 +1,9 @@
-package com.example.groupcal.database
+package com.example.groupcal.database.databaseModels
 
-import androidx.room.ColumnInfo
-import java.time.LocalDateTime
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import org.joda.time.DateTime
-import org.joda.time.LocalDate;
+
 @Entity(tableName = "activity_table", foreignKeys = arrayOf(
     ForeignKey(
     entity = Group::class,
@@ -14,7 +11,7 @@ import org.joda.time.LocalDate;
     childColumns = arrayOf("group_id"))
 )
 )
-data class Activity(
+data class Event(
 
     @PrimaryKey(autoGenerate = true)
     val id: Long,

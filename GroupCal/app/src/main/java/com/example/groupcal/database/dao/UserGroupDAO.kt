@@ -1,9 +1,11 @@
-package com.example.groupcal.database
+package com.example.groupcal.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
+import com.example.groupcal.database.databaseModels.Group
+import com.example.groupcal.database.databaseModels.User
+import com.example.groupcal.database.databaseModels.UserGroup
 
 @Dao
 interface UserGroupDAO {

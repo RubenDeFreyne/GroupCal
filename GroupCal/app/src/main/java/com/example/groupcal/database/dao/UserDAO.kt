@@ -1,11 +1,10 @@
-package com.example.groupcal.database
+package com.example.groupcal.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import java.time.LocalDateTime
+import com.example.groupcal.database.databaseModels.User
 
 @Dao
 interface UserDAO {

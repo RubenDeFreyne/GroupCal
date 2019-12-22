@@ -1,9 +1,10 @@
-package com.example.groupcal.database
+package com.example.groupcal.database.databaseModels
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import com.example.groupcal.database.databaseModels.Group
+import com.example.groupcal.database.databaseModels.User
 
 @Entity(tableName = "user_group_table",
     primaryKeys = arrayOf("groupId","userId"),

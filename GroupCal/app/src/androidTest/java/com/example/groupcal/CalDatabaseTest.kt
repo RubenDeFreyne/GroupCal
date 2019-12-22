@@ -6,10 +6,16 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
-
 import androidx.room.Room
 import com.example.groupcal.database.*
+import com.example.groupcal.database.dao.EventDAO
+import com.example.groupcal.database.dao.GroupDAO
+import com.example.groupcal.database.dao.UserDAO
+import com.example.groupcal.database.dao.UserGroupDAO
+import com.example.groupcal.database.databaseModels.Event
+import com.example.groupcal.database.databaseModels.Group
+import com.example.groupcal.database.databaseModels.User
+import com.example.groupcal.database.databaseModels.UserGroup
 
 import org.junit.Assert.assertEquals
 import org.junit.After
@@ -26,7 +32,7 @@ class CalDatabaseTest {
     private lateinit var db: CalDatabase
     private lateinit var userDao: UserDAO
     private lateinit var groupDao: GroupDAO
-    private lateinit var activityDao: ActivityDAO
+    private lateinit var eventDao: EventDAO
     private lateinit var userGroupDao: UserGroupDAO
 
 
@@ -41,7 +47,7 @@ class CalDatabaseTest {
             .build()
         userDao = db.userDAO
         groupDao = db.groupDAO
-        activityDao = db.activityDAO
+        eventDao = db.eventDAO
         userGroupDao = db.userGroupDAO
     }
 
@@ -81,24 +87,31 @@ class CalDatabaseTest {
         userDao.insert(user)
         val dbuser = userDao.getAllUsers().last()
         val dbgroup = groupDao.getAllGroups().last()
-        val usergroup = UserGroup(dbgroup.id, dbuser.id)
+        val usergroup = UserGroup(
+            dbgroup.id,
+            dbuser.id
+        )
         userGroupDao.insert(usergroup)
         val dbusergroup = userGroupDao.getGroupsFromUser(dbuser.id).last()
         assertEquals(dbgroup, dbusergroup)
     }
 
 
-    //ACTIVITY TESTS
+    //EVENT TESTS
     @Test
     @Throws(Exception::class)
-    fun insertAndGetActivity() {
+    fun insertAndGetEvent() {
         val group = Group()
         groupDao.insert(group)
         val dbGroup = groupDao.getAllGroups().last()
-        val activity= Activity(0L, dbGroup.id, "activity")
-        activityDao.insert(activity)
-        val dbActivity = activityDao.getAllActivities().last()
-        assertEquals(dbGroup.id, dbActivity.group_id)
+        val event= Event(
+            0L,
+            dbGroup.id,
+            "event"
+        )
+        eventDao.insert(event)
+        val dbEvent = eventDao.getAllEvents().last()
+        assertEquals(dbGroup.id, dbEvent.group_id)
     }
 }
 
