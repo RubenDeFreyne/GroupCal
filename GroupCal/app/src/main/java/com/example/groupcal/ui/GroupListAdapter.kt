@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groupcal.R
 import com.example.groupcal.models.Group
+import com.example.groupcal.ui.GroupHolder
 
 class GroupListAdapter : RecyclerView.Adapter<GroupHolder>(){
 
-    private var items: MutableList<Group> = mutableListOf()
+   var items: MutableList<Group> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()

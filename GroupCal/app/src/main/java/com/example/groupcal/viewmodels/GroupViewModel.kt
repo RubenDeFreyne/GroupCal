@@ -1,21 +1,22 @@
 package com.example.groupcal.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.groupcal.data.GroupRepository
 import com.example.groupcal.models.Group
 
 class GroupViewModel : ViewModel() {
-    /* After Merging Room
-    private val _categories: MutableLiveData<List<Category>> = MutableLiveData()
-    val categories: LiveData<List<Category>> = _categories
-     */
+
+    private val _groups: MutableLiveData<MutableList<Group>> = MutableLiveData()
+    val groups: LiveData<MutableList<Group>> = _groups
+
 
     private val groupRepository = GroupRepository()
-    var groups: List<Group> = ArrayList<Group>()
 
     fun getGroups(){
         groupRepository.initializeGroups()
-        groups = groupRepository.groups
+        _groups.value = groupRepository.groups
     }
 
 }
