@@ -16,7 +16,7 @@ class GroupHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.Vi
 
     fun update(group: Group) {
         nameTextView.text = group.name
-        membersTextView.text = group.members.size.toString()
+        membersTextView.text = "Members: " + group.members.size.toString()
         if (!(group.color?.isEmpty())!!) {
             groupColor.backgroundTintList = ColorStateList.valueOf(Color.parseColor(group.color))
         }

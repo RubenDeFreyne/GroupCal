@@ -12,15 +12,15 @@ class GroupRepository {
 
         groups += Group (
             id= 1,
-            name = "Group1",
-            color = "#OOOOOO",
+            name = "Italy 2019",
+            color = "#fc03f4",
             members = mutableListOf<User>()
         )
 
         groups += Group (
             id= 2,
-            name = "Group2",
-            color = "#OOOOOO",
+            name = "Teambuilding",
+            color = "#4afc03",
             members = mutableListOf<User>()
         )
     }

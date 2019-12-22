@@ -25,7 +25,6 @@ import com.example.groupcal.R
 import com.google.android.material.navigation.NavigationView
 import java.util.*
 import androidx.databinding.DataBindingUtil
-import com.example.groupcal.databinding.ActivityMainBinding
 
 
 class MainActivity :
@@ -42,8 +41,6 @@ class MainActivity :
 
 
 
-
-        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
