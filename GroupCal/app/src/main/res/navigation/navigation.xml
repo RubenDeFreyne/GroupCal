@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/groupListFragment">
+
+    <fragment
+        android:id="@+id/plannerFragment"
+        android:name="com.example.groupcal.ui.PlannerFragment"
+        android:label="PlannerFragment" >
+        <action
+            android:id="@+id/action_plannerFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_plannerFragment_pop"
+            app:popUpTo="@id/plannerFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_plannerFragment_to_addEventFragment"
+            app:destination="@id/addEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.example.groupcal.ui.EventFragment"
+        android:label="EventFragment" >
+        <action
+            android:id="@+id/action_eventFragment_pop"
+            app:popUpTo="@id/eventFragment"
+            app:popUpToInclusive="true" />
+        <argument android:name="id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="com.example.groupcal.ui.AddEventFragment"
+        android:label="AddEventFragment" >
+        <argument
+            android:name="time"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupListFragment"
+        android:name="com.example.groupcal.ui.GroupListFragment"
+        android:label="GroupListFragment" >
+        <action
+            android:id="@+id/action_groupListFragment_to_plannerFragment"
+            app:destination="@id/plannerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@+id/groupListFragment" />
+    </fragment>
+</navigation>
