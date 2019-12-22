@@ -9,6 +9,10 @@ import com.example.groupcal.models.Group
 class GroupListAdapter : RecyclerView.Adapter<GroupHolder>(){
 
     private var items: MutableList<Group> = mutableListOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItemCount(): Int {
         return items.size
