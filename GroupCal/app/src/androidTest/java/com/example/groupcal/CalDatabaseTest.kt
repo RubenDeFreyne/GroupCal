@@ -63,7 +63,7 @@ class CalDatabaseTest {
     fun insertAndGetUser() {
         val user = User()
         userDao.insert(user)
-        val dbuser = userDao.getAllUsers().last()
+        val dbuser = userDao.getAllUsers().blockingGet().last()
         assertEquals(user.username, dbuser.username)
     }
 
@@ -71,28 +71,41 @@ class CalDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetGroup() {
-        val group = Group()
+        val group = Group(users = mutableListOf())
         groupDao.insert(group)
-        val dbgroup = groupDao.getAllGroups().last()
+        val dbgroup = groupDao.getAllGroups().blockingGet().last()
         assertEquals(group.name, dbgroup.name)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun insertAndGetGroupWithUsers() {
+        val users: MutableList<User> = mutableListOf()
+        users += User()
+        users += User()
+        val group = Group(users = users)
+        groupDao.insert(group)
+        val dbgroup = groupDao.getAllGroups().blockingGet().last()
+        assertEquals(2, dbgroup.users.size)
+    }
+
 
     //USERGROUP TESTS
     @Test
     @Throws(Exception::class)
     fun insertAndGetUserGroup() {
-        val group = Group()
+        val group = Group(users = mutableListOf())
         groupDao.insert(group)
         val user = User()
         userDao.insert(user)
-        val dbuser = userDao.getAllUsers().last()
-        val dbgroup = groupDao.getAllGroups().last()
+        val dbuser = userDao.getAllUsers().blockingGet().last()
+        val dbgroup = groupDao.getAllGroups().blockingGet().last()
         val usergroup = UserGroup(
             dbgroup.id,
             dbuser.id
         )
         userGroupDao.insert(usergroup)
-        val dbusergroup = userGroupDao.getGroupsFromUser(dbuser.id).last()
+        val dbusergroup = userGroupDao.getGroupsFromUser(dbuser.id).blockingGet().last()
         assertEquals(dbgroup, dbusergroup)
     }
 
@@ -101,16 +114,12 @@ class CalDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetEvent() {
-        val group = Group()
+        val group = Group(users = mutableListOf())
         groupDao.insert(group)
-        val dbGroup = groupDao.getAllGroups().last()
-        val event= Event(
-            0L,
-            dbGroup.id,
-            "event"
-        )
+        val dbGroup = groupDao.getAllGroups().blockingGet().last()
+        val event= Event(group_id =  dbGroup.id)
         eventDao.insert(event)
-        val dbEvent = eventDao.getAllEvents().last()
+        val dbEvent = eventDao.getAllEvents().blockingGet().last()
         assertEquals(dbGroup.id, dbEvent.group_id)
     }
 }

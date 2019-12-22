@@ -1,5 +1,6 @@
 package com.example.groupcal.database.databaseModels
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -14,11 +15,15 @@ import androidx.room.PrimaryKey
 data class Event(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    val group_id: Long,
-    val name: String
-    /*val startDate: DateTime = DateTime.now(),
-    val endDate: DateTime = DateTime.now()*/
-
+    val id: Long = 0L,
+    val title: String = "",
+    val startTime: String = "",
+    val endTime: String = "",
+    val location: String = "",
+    val color: Int = 0,
+    val isAllDay: Boolean = false,
+    val isCanceled: Boolean = false,
+    @ColumnInfo(index = true)
+    val group_id: Long
 
 )
