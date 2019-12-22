@@ -36,7 +36,7 @@ class GroupListFragment : Fragment() {
         }
         groupViewModel.groups.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.items = it
+                adapter.submitList(it)
             }
         })
         return binding.root
@@ -44,6 +44,8 @@ class GroupListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
 
     }
