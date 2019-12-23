@@ -1,19 +1,15 @@
-package com.example.groupcal.ui
+package com.example.groupcal.ui.group
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 
-import com.example.groupcal.R
 import com.example.groupcal.databinding.FragmentGroupListBinding
+import com.example.groupcal.ui.group.GroupListFragmentDirections
 import com.example.groupcal.viewmodels.GroupViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -35,8 +31,14 @@ class GroupListFragment : Fragment() {
 
 
         binding.groupRecycler.let {
-            adapter = GroupListAdapter(GroupListener { groupId ->  view!!.findNavController().navigate(GroupListFragmentDirections.ActionGroupListFragmentToPlannerFragment(groupId))
-            })
+            adapter =
+                GroupListAdapter(GroupListener { groupId ->
+                    view!!.findNavController().navigate(
+                        GroupListFragmentDirections.ActionGroupListFragmentToPlannerFragment(
+                            groupId
+                        )
+                    )
+                })
             it.adapter = adapter
         }
        viewModel.groups.observe(viewLifecycleOwner, Observer {

@@ -1,8 +1,7 @@
-package com.example.groupcal.ui
+package com.example.groupcal.ui.event
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,16 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.ColorInt
-import androidx.lifecycle.ViewModelProviders
 
 import com.example.groupcal.R
+import com.example.groupcal.ui.event.AddEventFragmentArgs
 import com.example.groupcal.viewmodels.AddEventViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
-import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback
-import kotlinx.android.synthetic.main.fragment_event.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -72,7 +68,8 @@ class AddEventFragment : Fragment() {
         datePreviewText = view.findViewById(R.id.datePreviewText)
         timePreviewText = view.findViewById(R.id.timePreviewText)
 
-        val args = AddEventFragmentArgs.fromBundle(arguments)
+        val args =
+            AddEventFragmentArgs.fromBundle(arguments)
         val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
         viewModel.time = sdf.parse(args.time)
         Log.i("test", viewModel.time.toString())

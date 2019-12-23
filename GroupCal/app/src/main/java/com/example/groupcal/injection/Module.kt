@@ -8,10 +8,7 @@ import com.example.groupcal.data.GroupRepository
 import com.example.groupcal.database.CalDatabase
 import com.example.groupcal.database.dao.EventDAO
 import com.example.groupcal.database.dao.GroupDAO
-import com.example.groupcal.viewmodels.AddEventViewModel
-import com.example.groupcal.viewmodels.CalendarViewModel
-import com.example.groupcal.viewmodels.EventViewModel
-import com.example.groupcal.viewmodels.GroupViewModel
+import com.example.groupcal.viewmodels.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.experimental.builder.viewModel
 import org.koin.android.viewmodel.ext.koin.viewModel
@@ -23,6 +20,7 @@ val viewModelModule = module {
     viewModel { AddEventViewModel(get()) }
     viewModel { CalendarViewModel(get()) }
     viewModel { EventViewModel(get()) }
+    viewModel { AddGroupViewModel(get()) }
 
 }
 

@@ -1,43 +1,27 @@
-package com.example.groupcal.ui
+package com.example.groupcal.ui.planner
 
 import android.graphics.Color
-import android.graphics.RectF
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.alamkanak.weekview.OnEventClickListener
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewDisplayable
 
 import com.example.groupcal.R
 import com.example.groupcal.models.Event
+import com.example.groupcal.ui.planner.PlannerFragmentArgs
+import com.example.groupcal.ui.planner.PlannerFragmentDirections
 import com.example.groupcal.viewmodels.CalendarViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [PlannerFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [PlannerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PlannerFragment : Fragment() {
 
 
@@ -65,7 +49,8 @@ class PlannerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 super.onViewCreated(view, savedInstanceState)
-        val args = PlannerFragmentArgs.fromBundle(arguments)
+        val args =
+            PlannerFragmentArgs.fromBundle(arguments)
         viewModel.groupId = args.groupId
 
         weekView = view.findViewById<WeekView<Event>>(R.id.weekView)
@@ -109,7 +94,11 @@ super.onViewCreated(view, savedInstanceState)
             }
         }
 
-        weekView.setOnEmptyViewLongClickListener { time ->  view!!.findNavController().navigate(PlannerFragmentDirections.ActionPlannerFragmentToAddEventFragment(time.time.toString()))}
+        weekView.setOnEmptyViewLongClickListener { time ->  view!!.findNavController().navigate(
+            PlannerFragmentDirections.ActionPlannerFragmentToAddEventFragment(
+                time.time.toString()
+            )
+        )}
 
         dayButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 1
@@ -126,16 +115,11 @@ super.onViewCreated(view, savedInstanceState)
         })
 
 
-        weekView.setOnEventClickListener { data, rect ->  this.findNavController().navigate(PlannerFragmentDirections.actionPlannerFragmentToEventFragment(data.id))}
-
-
-
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+        weekView.setOnEventClickListener { data, rect ->  this.findNavController().navigate(
+            PlannerFragmentDirections.actionPlannerFragmentToEventFragment(
+                data.id
+            )
+        )}
     }
 
     companion object {

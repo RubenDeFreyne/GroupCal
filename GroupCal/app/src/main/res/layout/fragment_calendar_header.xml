@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutMode="opticalBounds"
-    tools:context=".ui.CalendarHeaderFragment">
+    tools:context=".ui.planner.CalendarHeaderFragment">
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggle_button_group"

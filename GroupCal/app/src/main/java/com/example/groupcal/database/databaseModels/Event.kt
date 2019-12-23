@@ -18,7 +18,7 @@ import java.util.*
 )
 data class Event(
 
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     val id: Long,
     val title: String = "",
     val startTime: String = "",

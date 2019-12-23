@@ -1,4 +1,4 @@
-package com.example.groupcal.ui
+package com.example.groupcal.ui.group
 
 import android.content.res.ColorStateList
 import android.graphics.Color
