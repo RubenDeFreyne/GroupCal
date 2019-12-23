@@ -48,8 +48,24 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:context=".ui.GroupListFragment"
+                tools:context=".ui.group.GroupListFragment"
                 tools:listitem="@layout/fragment_group_list_card" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addGroupButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:tint="@android:color/white"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_add_black"
+                tools:elevation="2dp" />
 
         </RelativeLayout>
     </LinearLayout>

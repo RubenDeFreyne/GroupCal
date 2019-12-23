@@ -9,8 +9,7 @@ import com.example.groupcal.models.Event
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EventViewModel : ViewModel() {
-    private val eventRepository: EventRepository = EventRepository()
+class EventViewModel(val repo: EventRepository) : ViewModel() {
     val event = MutableLiveData<WeekViewDisplayable<Event>>()
     var title : String = ""
     var date : String = ""
@@ -20,21 +19,10 @@ class EventViewModel : ViewModel() {
 
 
     fun getEvent (id : Long) {
-        eventRepository.getEventsInRange(Calendar.getInstance().apply {
-            var cal = Calendar.getInstance()
-            set(Calendar.MONTH, cal.time.month - 1)
-            set(Calendar.DAY_OF_MONTH, 1)
-            set(Calendar.HOUR_OF_DAY, 0)}, Calendar.getInstance().apply {
-            val daysInMonth = getActualMaximum(Calendar.DAY_OF_MONTH)
-            var cal = Calendar.getInstance()
-            set(Calendar.MONTH, cal.time.month + 2)
-            set(Calendar.DAY_OF_MONTH, daysInMonth)
-            set(Calendar.HOUR_OF_DAY, 23)
-        })
+
         Log.i("test", id.toString())
 
-        event.value = eventRepository.getEvent(id)
-        Log.i("test", eventRepository.getEvent(id).toString())
+        event.value = repo.getById(id)
 
 
         //set title

@@ -1,7 +1,8 @@
-package com.example.groupcal.ui
+package com.example.groupcal.ui.group
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.groupcal.databinding.FragmentGroupListCardBinding
@@ -13,7 +14,8 @@ class GroupHolder private constructor (val binding: FragmentGroupListCardBinding
         binding.groupNameText.text = group.name
         binding.groupMembersText.text = "Members: " + group.members.size.toString()
         if (!(group.color?.isEmpty())!!) {
-            binding.groupColor.backgroundTintList = ColorStateList.valueOf(Color.parseColor(group.color))
+            Log.i("test", group.color)
+            binding.groupColor.backgroundTintList = ColorStateList.valueOf(Integer.parseInt(group.color))
         }
     }
 

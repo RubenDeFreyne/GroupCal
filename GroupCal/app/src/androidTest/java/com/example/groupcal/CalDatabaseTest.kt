@@ -6,10 +6,16 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
-
 import androidx.room.Room
 import com.example.groupcal.database.*
+import com.example.groupcal.database.dao.EventDAO
+import com.example.groupcal.database.dao.GroupDAO
+import com.example.groupcal.database.dao.UserDAO
+import com.example.groupcal.database.dao.UserGroupDAO
+import com.example.groupcal.database.databaseModels.Event
+import com.example.groupcal.database.databaseModels.Group
+import com.example.groupcal.database.databaseModels.User
+import com.example.groupcal.database.databaseModels.UserGroup
 
 import org.junit.Assert.assertEquals
 import org.junit.After
@@ -26,7 +32,7 @@ class CalDatabaseTest {
     private lateinit var db: CalDatabase
     private lateinit var userDao: UserDAO
     private lateinit var groupDao: GroupDAO
-    private lateinit var activityDao: ActivityDAO
+    private lateinit var eventDao: EventDAO
     private lateinit var userGroupDao: UserGroupDAO
 
 
@@ -41,7 +47,7 @@ class CalDatabaseTest {
             .build()
         userDao = db.userDAO
         groupDao = db.groupDAO
-        activityDao = db.activityDAO
+        eventDao = db.eventDAO
         userGroupDao = db.userGroupDAO
     }
 
@@ -57,7 +63,7 @@ class CalDatabaseTest {
     fun insertAndGetUser() {
         val user = User()
         userDao.insert(user)
-        val dbuser = userDao.getAllUsers().last()
+        val dbuser = userDao.getAllUsers().blockingGet().last()
         assertEquals(user.username, dbuser.username)
     }
 
@@ -65,40 +71,56 @@ class CalDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetGroup() {
-        val group = Group()
+        val group = Group(users = mutableListOf())
         groupDao.insert(group)
-        val dbgroup = groupDao.getAllGroups().last()
+        val dbgroup = groupDao.getAllGroups().blockingGet().last()
         assertEquals(group.name, dbgroup.name)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun insertAndGetGroupWithUsers() {
+        val users: MutableList<User> = mutableListOf()
+        users += User()
+        users += User()
+        val group = Group(users = users)
+        groupDao.insert(group)
+        val dbgroup = groupDao.getAllGroups().blockingGet().last()
+        assertEquals(2, dbgroup.users.size)
+    }
+
 
     //USERGROUP TESTS
     @Test
     @Throws(Exception::class)
     fun insertAndGetUserGroup() {
-        val group = Group()
+        val group = Group(users = mutableListOf())
         groupDao.insert(group)
         val user = User()
         userDao.insert(user)
-        val dbuser = userDao.getAllUsers().last()
-        val dbgroup = groupDao.getAllGroups().last()
-        val usergroup = UserGroup(dbgroup.id, dbuser.id)
+        val dbuser = userDao.getAllUsers().blockingGet().last()
+        val dbgroup = groupDao.getAllGroups().blockingGet().last()
+        val usergroup = UserGroup(
+            dbgroup.id,
+            dbuser.id
+        )
         userGroupDao.insert(usergroup)
-        val dbusergroup = userGroupDao.getGroupsFromUser(dbuser.id).last()
+        val dbusergroup = userGroupDao.getGroupsFromUser(dbuser.id).blockingGet().last()
         assertEquals(dbgroup, dbusergroup)
     }
 
 
-    //ACTIVITY TESTS
+    //EVENT TESTS
     @Test
     @Throws(Exception::class)
-    fun insertAndGetActivity() {
-        val group = Group()
+    fun insertAndGetEvent() {
+        val group = Group(users = mutableListOf())
         groupDao.insert(group)
-        val dbGroup = groupDao.getAllGroups().last()
-        val activity= Activity(0L, dbGroup.id, "activity")
-        activityDao.insert(activity)
-        val dbActivity = activityDao.getAllActivities().last()
-        assertEquals(dbGroup.id, dbActivity.group_id)
+        val dbGroup = groupDao.getAllGroups().blockingGet().last()
+        val event= Event(group_id =  dbGroup.id)
+        eventDao.insert(event)
+        val dbEvent = eventDao.getAllEvents().blockingGet().last()
+        assertEquals(dbGroup.id, dbEvent.group_id)
     }
 }
 

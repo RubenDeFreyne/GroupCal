@@ -1,4 +1,4 @@
-package com.example.groupcal.ui
+package com.example.groupcal.ui.event
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProviders
 
 import com.example.groupcal.R
+import com.example.groupcal.ui.event.EventFragmentArgs
 import com.example.groupcal.viewmodels.EventViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +35,7 @@ class EventFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var viewModel: EventViewModel
+    private val viewModel by viewModel<EventViewModel>()
 
 
     override fun onCreateView(
@@ -47,8 +48,9 @@ class EventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this) .get(EventViewModel::class.java)
-        val args = EventFragmentArgs.fromBundle(arguments)
+
+        val args =
+            EventFragmentArgs.fromBundle(arguments)
         viewModel.getEvent(args.id)
 
 

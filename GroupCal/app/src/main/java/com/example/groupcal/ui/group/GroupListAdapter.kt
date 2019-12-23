@@ -1,15 +1,13 @@
-package com.example.groupcal.ui
+package com.example.groupcal.ui.group
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.example.groupcal.R
 import com.example.groupcal.models.Group
-import com.example.groupcal.ui.GroupHolder
 
-class GroupListAdapter(val clickListener: GroupListener) : ListAdapter<Group, GroupHolder>(GroupDiffCallback()){
+class GroupListAdapter(val clickListener: GroupListener) : ListAdapter<Group, GroupHolder>(
+    GroupDiffCallback()
+){
 
 
     override fun onBindViewHolder(holder: GroupHolder, position: Int) {

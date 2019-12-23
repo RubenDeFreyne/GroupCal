@@ -3,30 +3,35 @@ package com.example.groupcal.data
 import android.graphics.Color
 import android.util.Log
 import com.alamkanak.weekview.WeekViewDisplayable
+import com.example.groupcal.database.dao.EventDAO
+import com.example.groupcal.database.dao.GroupDAO
 import com.example.groupcal.models.Event
+import io.reactivex.Single
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EventRepository {
+class EventRepository (val dao: EventDAO) {
 
+    var groupId = 0L
     val events = mutableListOf<WeekViewDisplayable<Event>>()
+    val dbevents = mutableListOf<com.example.groupcal.database.databaseModels.Event>()
 
     fun getEvent(id : Long): WeekViewDisplayable<Event>? {
         Log.i("test", events.toString())
         return events.first { event -> event.toWeekViewEvent().id == id }
     }
 
-    fun getEventsInRange(
+    fun setEventsInRange(
         startDate: Calendar,
         endDate: Calendar
-    ): List<WeekViewDisplayable<Event>> {
+    ){
         val year = startDate.get(Calendar.YEAR)
         val month = startDate.get(Calendar.MONTH) + 1
 
         val idOffset = year + 10L * month
 
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 1,
             year = year,
             month = month,
@@ -37,10 +42,10 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Swimming",
             location = "Beach"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
         // Add multi-day event
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 2,
             year = year,
             month = month,
@@ -51,23 +56,9 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Dinner",
             location = "mcDonalds"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
-        events += newEvent(
-            id = idOffset + 3,
-            year = year,
-            month = month,
-            dayOfMonth = 28,
-            hour = 9,
-            minute = 30,
-            duration = 60,
-            color = Color.parseColor("#808000"),
-            isCanceled = true,
-            title = "Breakfast",
-            location = "Duncan Donuts"
-        ).toWeekViewEvent()
-
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 3,
             year = year,
             month = month,
@@ -78,9 +69,9 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Breakfast",
             location = "Hotel"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 4,
             year = year,
             month = month,
@@ -91,9 +82,9 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Breakfast",
             location = "mcDonalds"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 5,
             year = year,
             month = month,
@@ -104,9 +95,9 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Lunch",
             location = "Pizza Hut"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 6,
             year = year,
             month = month,
@@ -117,9 +108,9 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Hiking",
             location = "Dunes"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 7,
             year = year,
             month = month,
@@ -131,9 +122,9 @@ class EventRepository {
             isCanceled = true,
             title = "Party",
             location = "Beach Bar"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 8,
             year = year,
             month = month,
@@ -144,9 +135,9 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Brunch",
             location = "Hotel"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 9,
             year = year,
             month = month,
@@ -157,10 +148,10 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Tanning",
             location = "Beach"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
         // All-day event
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 11,
             year = year,
             month = month,
@@ -172,10 +163,10 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Day Off",
             location = "Hotel"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
 
         // All-day event until 00:00 next day
-        events += newEvent(
+        dbevents += newEvent(
             id = idOffset + 12,
             year = year,
             month = month,
@@ -187,9 +178,22 @@ class EventRepository {
             color = Color.parseColor("#808000"),
             title = "Day Off",
             location = "Hotel"
-        ).toWeekViewEvent()
+        ).toDatabaseEvent(groupId = groupId)
+
+        dao.insertMany(dbevents)
+    }
+
+    fun getEventsFromDb(groupId : Long) : MutableList<WeekViewDisplayable<Event>> {
+
+        val databaseevents =  dao.getEventsByGroup(groupId).blockingGet()
+        val events = mutableListOf<WeekViewDisplayable<Event>>()
+        databaseevents.forEach { e ->  run {
+            val event = e.toEvent()
+            events += event
+        }}
 
         return events
+
     }
 
     private fun newEvent(
@@ -217,6 +221,7 @@ class EventRepository {
         }
         val endTime = startTime.clone() as Calendar
         endTime.add(Calendar.MINUTE, duration)
+        Log.i("test", id.toString())
         return Event(id, title, startTime, endTime, location, color, isAllDay, isCanceled)
     }
 
@@ -226,6 +231,14 @@ class EventRepository {
         val hour = time.get(Calendar.HOUR_OF_DAY)
         val minute = time.get(Calendar.MINUTE)
         return String.format("🦄 Event of %02d:%02d %s", hour, minute, formattedDate)
+    }
+
+    fun getById(id : Long) : Event {
+        return dao.get(id).blockingGet()?.toEvent()?.data!!
+    }
+
+    fun addEvent (event : Event, id: Long) {
+        dao.insert(event.toDatabaseEvent(id))
     }
 
 

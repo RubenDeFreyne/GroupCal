@@ -19,7 +19,7 @@
 
             <fragment
                 android:id="@+id/fragment"
-                android:name="com.example.groupcal.ui.CalendarHeaderFragment"
+                android:name="com.example.groupcal.ui.planner.CalendarHeaderFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -28,7 +28,7 @@
 
         <fragment
             android:id="@+id/fragment2"
-            android:name="com.example.groupcal.ui.CalendarFragment"
+            android:name="com.example.groupcal.ui.planner.CalendarFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

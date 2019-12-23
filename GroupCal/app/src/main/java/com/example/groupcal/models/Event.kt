@@ -2,6 +2,7 @@ package com.example.groupcal.models
 
 import com.alamkanak.weekview.WeekViewDisplayable
 import com.alamkanak.weekview.WeekViewEvent
+import java.text.SimpleDateFormat
 import java.util.*
 
 data class Event(
@@ -33,5 +34,20 @@ data class Event(
             .setStyle(style)
             .build()
     }
+        fun toDatabaseEvent(groupId: Long): com.example.groupcal.database.databaseModels.Event {
+            val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH)
+            return com.example.groupcal.database.databaseModels.Event(
+                id = this.id,
+                title = this.title,
+                startTime = this.startTime.time.toString(),
+                endTime = this.endTime.time.toString(),
+                location = this.location,
+                color = this.color,
+                isAllDay = this.isAllDay,
+                isCanceled = this.isCanceled,
+                group_id = groupId
+            )
+        }
+    }
 
-}
+

@@ -8,7 +8,7 @@
             name="group"/>
         <variable
             name="clickListener"
-            type="com.example.groupcal.ui.GroupListener"/>
+            type="com.example.groupcal.ui.group.GroupListener"/>
     </data>
 
     <androidx.cardview.widget.CardView
