@@ -86,4 +86,8 @@ class GroupRepository (val dao : GroupDAO) {
 
         return groups
     }
+
+    fun addGroup(group : Group) {
+        dao.insert(group.toDatabaseGroup())
+    }
 }

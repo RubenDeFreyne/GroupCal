@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
-    app:startDestination="@id/groupListFragment">
+    app:startDestination="@id/addGroupFragment">
 
     <fragment
         android:id="@+id/plannerFragment"
@@ -49,5 +49,12 @@
             app:destination="@id/plannerFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:popUpTo="@+id/groupListFragment" />
+        <action
+            android:id="@+id/action_groupListFragment_to_addGroupFragment"
+            app:destination="@id/addGroupFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addGroupFragment"
+        android:name="com.example.groupcal.ui.group.AddGroupFragment"
+        android:label="AddGroupFragment" />
 </navigation>
