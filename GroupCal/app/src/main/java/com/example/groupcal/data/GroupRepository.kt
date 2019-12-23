@@ -4,6 +4,9 @@ import com.example.groupcal.database.dao.GroupDAO
 import com.example.groupcal.models.Event
 import com.example.groupcal.models.Group
 import com.example.groupcal.models.User
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class GroupRepository (val dao : GroupDAO) {
     val groups = getGroupsFromDb()
@@ -12,7 +15,7 @@ class GroupRepository (val dao : GroupDAO) {
 
     //TODO: Get groups from DAO
 
-    fun initializeGroups(){
+    /*fun initializeGroups(){
 
         mem.plusAssign(User(id = 1))
 
@@ -74,17 +77,11 @@ class GroupRepository (val dao : GroupDAO) {
         ).toDatabaseGroup()
 
         dao.insertMany(dbgroups)
-    }
+    }*/
 
-    fun getGroupsFromDb(): MutableList<Group>{
-        val databasegroups =  dao.getAllGroups().blockingGet()
-        val groups = mutableListOf<Group>()
-        databasegroups.forEach { g ->  run {
-            val group = g.toGroup()
-            groups += group
-        }}
+    fun getGroupsFromDb(): Single<List<com.example.groupcal.database.databaseModels.Group>> {
+        return dao.getAllGroups()
 
-        return groups
     }
 
     fun addGroup(group : Group) {

@@ -32,7 +32,6 @@ class CalendarViewModel(val repo : EventRepository) : ViewModel() {
 
     fun fetchEvents(start: Calendar, end: Calendar) {
         repo.groupId = groupId
-        repo.setEventsInRange(start, end)
         events.value = repo.getEventsFromDb()
     }
 }

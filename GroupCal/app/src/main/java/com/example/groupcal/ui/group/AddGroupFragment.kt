@@ -1,5 +1,6 @@
 package com.example.groupcal.ui.group
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.findNavController
 
 import com.example.groupcal.R
 import com.example.groupcal.databinding.FragmentAddGroupBinding
@@ -50,9 +52,7 @@ class AddGroupFragment : Fragment() {
             cp.enableAutoClose()
         }
         cp.setCallback { color -> run {
-            colorTextView.setBackgroundColor(color)
-            colorTextView.setText("Picked color")
-            colorTextView.setTextColor(color)
+            colorTextView.setText(color.toString())
         }}
 
 
@@ -64,7 +64,10 @@ class AddGroupFragment : Fragment() {
             var result = viewModel.addGroup()
 
             if(result){
-                Toast.makeText(context, "Added new Group}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Added new Group", Toast.LENGTH_LONG).show()
+                view!!.findNavController().navigate(
+                    AddGroupFragmentDirections.ActionAddGroupFragmentToGroupListFragment()
+                )
             } else {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG).show()
             }

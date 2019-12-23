@@ -27,9 +27,6 @@ class GroupListFragment : Fragment() {
     ): View? {
         binding = FragmentGroupListBinding.inflate(inflater)
 
-
-
-
         binding.groupRecycler.let {
             adapter =
                 GroupListAdapter(GroupListener { groupId ->
@@ -41,7 +38,8 @@ class GroupListFragment : Fragment() {
                 })
             it.adapter = adapter
         }
-       viewModel.groups.observe(viewLifecycleOwner, Observer {
+        viewModel.getGroups()
+        viewModel.groups.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
@@ -49,8 +47,24 @@ class GroupListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.getGroups()
+        viewModel.groups.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.addGroupButton.setOnClickListener {
+            view!!.findNavController().navigate(
+                GroupListFragmentDirections.ActionGroupListFragmentToAddGroupFragment()
+            )
+        }
 
 
 

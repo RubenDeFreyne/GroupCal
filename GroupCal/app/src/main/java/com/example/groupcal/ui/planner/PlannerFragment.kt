@@ -59,9 +59,6 @@ super.onViewCreated(view, savedInstanceState)
         dayButton = view.findViewById<Button>(R.id.dayButton)
         weekButton = view.findViewById<Button>(R.id.weekButton)
 
-        val events: MutableLiveData<List<WeekViewDisplayable<Event>>> = loadEvents()
-        events.observe(this, androidx.lifecycle.Observer { a -> weekView.submit(a) })
-
         weekView.minDate = viewModel.startDate
         weekView.maxDate = viewModel.endDate
     }
@@ -77,6 +74,11 @@ super.onViewCreated(view, savedInstanceState)
 
     override fun onStart() {
         super.onStart()
+
+        val events: MutableLiveData<List<WeekViewDisplayable<Event>>> = loadEvents()
+
+        if(events.value!!.size != 0)
+            events.observe(this, androidx.lifecycle.Observer { a -> weekView.submit(a) })
 
         weekView.setOnRangeChangeListener { firstVisibleDate, lastVisibleDate ->
             run {

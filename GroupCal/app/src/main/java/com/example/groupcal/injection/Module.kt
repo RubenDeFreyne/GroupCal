@@ -34,8 +34,7 @@ val databaseModule = module {
             // Allowing main thread queries, just for testing.
             .allowMainThreadQueries()
             .build()
-
-        db.clearAllTables()
+        
         return db
 
     }
