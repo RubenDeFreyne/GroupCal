@@ -98,7 +98,8 @@ super.onViewCreated(view, savedInstanceState)
 
         weekView.setOnEmptyViewLongClickListener { time ->  view!!.findNavController().navigate(
             PlannerFragmentDirections.ActionPlannerFragmentToAddEventFragment(
-                time.time.toString()
+                time.time.toString(),
+                viewModel.groupId
             )
         )}
 

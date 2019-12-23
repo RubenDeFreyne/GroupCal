@@ -19,7 +19,7 @@ import java.util.*
 data class Event(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0L,
     val title: String = "",
     val startTime: String = "",
     val endTime: String = "",

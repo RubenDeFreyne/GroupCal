@@ -10,13 +10,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.findNavController
 
 import com.example.groupcal.R
+import com.example.groupcal.databinding.FragmentAddEventBinding
 import com.example.groupcal.ui.event.AddEventFragmentArgs
+import com.example.groupcal.ui.group.AddGroupFragmentDirections
 import com.example.groupcal.viewmodels.AddEventViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import kotlinx.android.synthetic.main.fragment_add_event.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +38,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AddEventFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
+    private lateinit var binding: FragmentAddEventBinding
     private var listener: OnFragmentInteractionListener? = null
 
     private val viewModel by viewModel<AddEventViewModel>()
@@ -51,7 +57,8 @@ class AddEventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_event, container, false)
+        binding = FragmentAddEventBinding.inflate(inflater)
+        return binding.root
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -61,17 +68,18 @@ class AddEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dateEditText = view.findViewById(R.id.dateTextView)
-        startTimeTextView = view.findViewById(R.id.startTimeTextView)
-        endTimeTextView = view.findViewById(R.id.endTimeTextView)
-        colorTextView = view.findViewById(R.id.colorTextView)
-        datePreviewText = view.findViewById(R.id.datePreviewText)
-        timePreviewText = view.findViewById(R.id.timePreviewText)
+        dateEditText = binding.dateTextView
+        startTimeTextView = binding.startTimeTextView
+        endTimeTextView = binding.endTimeTextView
+        colorTextView = binding.colorTextView
+        datePreviewText = binding.datePreviewText
+        timePreviewText = binding.timePreviewText
 
         val args =
             AddEventFragmentArgs.fromBundle(arguments)
         val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
         viewModel.time = sdf.parse(args.time)
+        viewModel.groupId = args.groupId
         Log.i("test", viewModel.time.toString())
 
         viewModel.startTime = viewModel.time
@@ -179,10 +187,30 @@ class AddEventFragment : Fragment() {
 
         cp.setCallback { color -> run {
             colorTextView.setBackgroundColor(color)
-            colorTextView.setText("Picked color")
+            colorTextView.setText(color.toString())
             colorTextView.setTextColor(color)
 
           }}
+
+        //save event
+
+        binding.saveEventButton.setOnClickListener {
+            viewModel.title = titleEditText.text.toString()
+            viewModel.color = colorTextView.text.toString()
+            viewModel.location = locationEditText.text.toString()
+            val result = viewModel.addEvent()
+            if(result){
+                Toast.makeText(context, "Added new Event", Toast.LENGTH_LONG).show()
+                if(viewModel.checkTime()){
+                view!!.findNavController().navigate(
+                    AddEventFragmentDirections.ActionAddEventFragmentToPlannerFragment(viewModel.groupId)
+                )} else {
+                    Toast.makeText(context, "End Time cannot be before Start Time", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG).show()
+            }
+        }
 
 
 

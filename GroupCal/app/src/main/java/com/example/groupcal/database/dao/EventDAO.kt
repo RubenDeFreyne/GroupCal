@@ -28,6 +28,9 @@ interface EventDAO {
 
     @Query("SELECT * FROM event_table ORDER BY title DESC")
     fun getAllEvents(): Single<List<Event>>
+
+    @Query("SELECT * FROM event_table WHERE group_id =:id ORDER BY title DESC")
+    fun getEventsByGroup(id: Long): Single<List<Event>>
     /*@Query("SELECT * FROM activity_table WHERE startDate = :date")
     fun getByDay(date: LocalDateTime): Activity?*/
 

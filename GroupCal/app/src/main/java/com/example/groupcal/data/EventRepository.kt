@@ -183,9 +183,9 @@ class EventRepository (val dao: EventDAO) {
         dao.insertMany(dbevents)
     }
 
-    fun getEventsFromDb() : MutableList<WeekViewDisplayable<Event>> {
+    fun getEventsFromDb(groupId : Long) : MutableList<WeekViewDisplayable<Event>> {
 
-        val databaseevents =  dao.getAllEvents().blockingGet()
+        val databaseevents =  dao.getEventsByGroup(groupId).blockingGet()
         val events = mutableListOf<WeekViewDisplayable<Event>>()
         databaseevents.forEach { e ->  run {
             val event = e.toEvent()
@@ -235,6 +235,10 @@ class EventRepository (val dao: EventDAO) {
 
     fun getById(id : Long) : Event {
         return dao.get(id).blockingGet()?.toEvent()?.data!!
+    }
+
+    fun addEvent (event : Event, id: Long) {
+        dao.insert(event.toDatabaseEvent(id))
     }
 
 

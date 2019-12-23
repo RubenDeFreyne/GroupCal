@@ -39,6 +39,13 @@
         <argument
             android:name="time"
             app:argType="string" />
+        <action
+            android:id="@+id/action_addEventFragment_to_plannerFragment"
+            app:destination="@id/plannerFragment"
+            app:popUpTo="@+id/groupListFragment" />
+        <argument
+            android:name="groupId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/groupListFragment"
