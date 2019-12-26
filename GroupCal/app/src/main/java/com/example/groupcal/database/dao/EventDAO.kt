@@ -1,5 +1,6 @@
 package com.example.groupcal.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -21,13 +22,13 @@ interface EventDAO {
     fun update(event: Event)
 
     @Query("SELECT * from event_table WHERE id = :key")
-    fun get(key: Long): Single<Event?>
+    fun get(key: Long): LiveData<Event?>
 
     @Query("DELETE FROM event_table")
     fun clear()
 
     @Query("SELECT * FROM event_table ORDER BY title DESC")
-    fun getAllEvents(): Single<List<Event>>
+    fun getAllEvents(): LiveData<List<Event>>
 
     @Query("SELECT * FROM event_table WHERE group_id =:id ORDER BY title DESC")
     fun getEventsByGroup(id: Long): Single<List<Event>>
