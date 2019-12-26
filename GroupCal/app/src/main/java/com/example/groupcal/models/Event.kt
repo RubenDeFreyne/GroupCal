@@ -34,9 +34,9 @@ data class Event(
             .setStyle(style)
             .build()
     }
-        fun toDatabaseEvent(groupId: Long): com.example.groupcal.database.databaseModels.Event {
+        fun toDatabaseEvent(groupId: Long): com.example.groupcal.data.database.databaseModels.Event {
             val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH)
-            return com.example.groupcal.database.databaseModels.Event(
+            return com.example.groupcal.data.database.databaseModels.Event(
                 id = this.id,
                 title = this.title,
                 startTime = this.startTime.time.toString(),

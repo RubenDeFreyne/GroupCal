@@ -5,10 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.alamkanak.weekview.WeekViewDisplayable
-import com.example.groupcal.database.dao.EventDAO
-import com.example.groupcal.database.dao.GroupDAO
+import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.models.Event
-import io.reactivex.Single
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,7 +15,7 @@ class EventRepository (val dao: EventDAO) {
 
     var groupId = 0L
     val events = mutableListOf<WeekViewDisplayable<Event>>()
-    val dbevents = mutableListOf<com.example.groupcal.database.databaseModels.Event>()
+    val dbevents = mutableListOf<com.example.groupcal.data.database.databaseModels.Event>()
 
     fun setEventsInRange(
         startDate: Calendar,

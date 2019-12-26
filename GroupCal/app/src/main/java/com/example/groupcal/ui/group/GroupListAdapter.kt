@@ -23,7 +23,7 @@ class GroupListAdapter(val clickListener: GroupListener) : ListAdapter<Group, Gr
 
 class GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
     override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.databaseId == newItem.databaseId
     }
 
     override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean {
@@ -32,6 +32,6 @@ class GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
 }
 
 class GroupListener(val clickListener: (groupId: Long) -> Unit) {
-    fun onClick(group: Group) = clickListener(group.id)
+    fun onClick(group: Group) = clickListener(group.databaseId)
 }
 

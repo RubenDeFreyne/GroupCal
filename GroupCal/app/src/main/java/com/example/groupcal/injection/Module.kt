@@ -5,15 +5,23 @@ import android.app.Application
 import androidx.room.Room
 import com.example.groupcal.data.EventRepository
 import com.example.groupcal.data.GroupRepository
-import com.example.groupcal.database.CalDatabase
-import com.example.groupcal.database.dao.EventDAO
-import com.example.groupcal.database.dao.GroupDAO
+import com.example.groupcal.data.database.CalDatabase
+import com.example.groupcal.data.database.dao.EventDAO
+import com.example.groupcal.data.database.dao.GroupDAO
+import com.example.groupcal.data.network.GroupApi
+import com.example.groupcal.util.Constants
 import com.example.groupcal.viewmodels.*
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.Moshi
+import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
-import org.koin.android.viewmodel.experimental.builder.viewModel
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
-import org.koin.android.ext.koin.androidContext
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 val viewModelModule = module {
     viewModel { GroupViewModel(get()) }
@@ -24,6 +32,42 @@ val viewModelModule = module {
 
 }
 
+val networkModule = module {
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        // Used for Retrofit/OkHttp debugging.
+        return HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder().apply {
+            this.addInterceptor(interceptor)
+        }.build()
+    }
+
+    fun provideRetrofitInterface(okHttpClient: OkHttpClient): Retrofit {
+        val moshi = Moshi.Builder()
+            .build()
+
+        return Retrofit.Builder()
+            .baseUrl(Constants.HEROKU_URL)
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .build()
+    }
+
+    fun provideGroupApi(retrofit: Retrofit): GroupApi {
+        return retrofit.create(GroupApi::class.java)
+    }
+
+
+    factory { provideHttpLoggingInterceptor() }
+    factory { provideOkHttpClient(get()) }
+    factory { provideGroupApi(get()) }
+    single { provideRetrofitInterface(get()) }
+}
 
 
 val databaseModule = module {
@@ -57,10 +101,10 @@ val repositoryModule = module {
     fun provideEventRepository(dao: EventDAO): EventRepository {
         return EventRepository(dao)
     }
-    fun provideGroupRepository(dao: GroupDAO): GroupRepository {
-        return GroupRepository(dao)
+    fun provideGroupRepository(dao: GroupDAO, api: GroupApi): GroupRepository {
+        return GroupRepository(dao, api)
     }
 
     factory { provideEventRepository(get()) }
-    factory { provideGroupRepository(get()) }
+    factory { provideGroupRepository(get(), get()) }
 }

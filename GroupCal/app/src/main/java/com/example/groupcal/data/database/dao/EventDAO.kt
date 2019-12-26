@@ -1,12 +1,11 @@
-package com.example.groupcal.database.dao
+package com.example.groupcal.data.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.groupcal.database.databaseModels.Event
+import com.example.groupcal.data.database.databaseModels.Event
 import io.reactivex.Single
 
 @Dao
@@ -21,7 +20,7 @@ interface EventDAO {
     @Update
     fun update(event: Event)
 
-    @Query("SELECT * from event_table WHERE id = :key")
+    @Query("SELECT * from event_table WHERE id =:key")
     fun get(key: Long): LiveData<Event?>
 
     @Query("DELETE FROM event_table")

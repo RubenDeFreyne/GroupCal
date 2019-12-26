@@ -1,4 +1,4 @@
-package com.example.groupcal.database.databaseModels
+package com.example.groupcal.data.database.databaseModels
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,7 +12,7 @@ import java.util.*
 @Entity(tableName = "event_table", foreignKeys = arrayOf(
     ForeignKey(
     entity = Group::class,
-    parentColumns = arrayOf("id"),
+    parentColumns = arrayOf("databaseId"),
     childColumns = arrayOf("group_id"))
 )
 )

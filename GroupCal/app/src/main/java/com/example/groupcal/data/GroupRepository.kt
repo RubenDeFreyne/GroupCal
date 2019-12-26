@@ -1,16 +1,16 @@
 package com.example.groupcal.data
 
-import com.example.groupcal.database.dao.GroupDAO
-import com.example.groupcal.models.Event
+import com.example.groupcal.data.database.dao.GroupDAO
+import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.models.Group
 import com.example.groupcal.models.User
+import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Deferred
 
-class GroupRepository (val dao : GroupDAO) {
+class GroupRepository (val dao : GroupDAO, val api : GroupApi) {
     val groups = getGroupsFromDb()
-    val dbgroups= mutableListOf<com.example.groupcal.database.databaseModels.Group>()
+    val dbgroups= mutableListOf<com.example.groupcal.data.database.databaseModels.Group>()
     var mem = mutableListOf<User>()
 
     //TODO: Get groups from DAO
@@ -79,12 +79,16 @@ class GroupRepository (val dao : GroupDAO) {
         dao.insertMany(dbgroups)
     }*/
 
-    fun getGroupsFromDb(): Single<List<com.example.groupcal.database.databaseModels.Group>> {
+    fun getGroupsFromDb(): Single<List<com.example.groupcal.data.database.databaseModels.Group>> {
         return dao.getAllGroups()
 
     }
 
     fun addGroup(group : Group) {
         dao.insert(group.toDatabaseGroup())
+    }
+
+    fun getGroupsfromApi() : Deferred<List<Group>> {
+        return api.getGroups()
     }
 }
