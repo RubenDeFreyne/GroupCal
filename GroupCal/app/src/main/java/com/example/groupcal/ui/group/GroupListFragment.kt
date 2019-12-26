@@ -38,7 +38,7 @@ class GroupListFragment : Fragment() {
                 })
             it.adapter = adapter
         }
-        viewModel.getGroups()
+
         viewModel.groups.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
@@ -49,7 +49,6 @@ class GroupListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getGroups()
         viewModel.groups.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)

@@ -27,4 +27,7 @@ interface GroupDAO {
     @Query("SELECT * FROM group_table ORDER BY name DESC")
     fun getAllGroups(): Single<List<Group>>
 
+    @Query("select count(*) from group_table")
+    fun getRowCount(): Int
+
 }

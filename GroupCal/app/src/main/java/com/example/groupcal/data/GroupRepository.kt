@@ -1,17 +1,25 @@
 package com.example.groupcal.data
 
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.groupcal.data.database.dao.GroupDAO
 import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.models.Group
 import com.example.groupcal.models.User
 import io.reactivex.Observable
 import io.reactivex.Single
-import kotlinx.coroutines.Deferred
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
 
-class GroupRepository (val dao : GroupDAO, val api : GroupApi) {
+class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Context) {
     val groups = getGroupsFromDb()
     val dbgroups= mutableListOf<com.example.groupcal.data.database.databaseModels.Group>()
     var mem = mutableListOf<User>()
+
+    private var repoJob = Job()
+    private val coroutineScope = CoroutineScope(repoJob + Dispatchers.Main )
 
     //TODO: Get groups from DAO
 
@@ -90,5 +98,33 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi) {
 
     fun getGroupsfromApi() : Deferred<List<Group>> {
         return api.getGroups()
+    }
+
+    fun getGroups() : LiveData<List<Group>> {
+        var _groups: MutableLiveData<List<Group>> = MutableLiveData()
+        val groups: LiveData<List<Group>> = _groups
+        val groupList : List<Group>
+        if( dao.getRowCount() <= 0 && isConnected()){
+            coroutineScope.launch {
+                var getGroups = getGroupsfromApi()
+                try {
+                    var listResult = getGroups.await()
+                    _groups.value = listResult
+                    listResult.forEach { r -> addGroup(r) }
+                }catch (t : Throwable){
+
+                }
+            }
+        } else {
+            _groups.value = getGroupsFromDb().blockingGet().map { g -> g.toGroup() }
+        }
+        return groups
+    }
+
+    protected fun isConnected(): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+
+        return networkInfo != null && networkInfo.isConnected
     }
 }

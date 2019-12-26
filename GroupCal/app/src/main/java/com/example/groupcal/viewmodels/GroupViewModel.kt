@@ -22,24 +22,15 @@ class GroupViewModel(val repo : GroupRepository) : ViewModel() {
     private var onError = ""
 
     private var _groups: MutableLiveData<List<Group>> = MutableLiveData()
-    val groups: LiveData<List<Group>> = _groups
+    var groups: LiveData<List<Group>> = getGroupsFromRepo()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
 
 
-    fun getGroups() {
-
-        coroutineScope.launch {
-            var getGroups = repo.getGroupsfromApi()
-            try {
-                var listResult = getGroups.await()
-                _groups.value = listResult
-            }catch (t : Throwable){
-
-            }
-        }
+    fun getGroupsFromRepo() : LiveData<List<Group>>{
+        return repo.getGroups()
 
 
     }

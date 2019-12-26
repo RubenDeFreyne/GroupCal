@@ -2,6 +2,7 @@ package com.example.groupcal.injection
 
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.example.groupcal.data.EventRepository
 import com.example.groupcal.data.GroupRepository
@@ -17,6 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
@@ -101,10 +103,10 @@ val repositoryModule = module {
     fun provideEventRepository(dao: EventDAO): EventRepository {
         return EventRepository(dao)
     }
-    fun provideGroupRepository(dao: GroupDAO, api: GroupApi): GroupRepository {
-        return GroupRepository(dao, api)
+    fun provideGroupRepository(dao: GroupDAO, api: GroupApi, context: Context): GroupRepository {
+        return GroupRepository(dao, api, context)
     }
 
     factory { provideEventRepository(get()) }
-    factory { provideGroupRepository(get(), get()) }
+    factory { provideGroupRepository(get(), get(), androidContext()) }
 }
