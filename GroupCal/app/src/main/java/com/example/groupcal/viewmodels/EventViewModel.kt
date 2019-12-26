@@ -1,28 +1,50 @@
 package com.example.groupcal.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alamkanak.weekview.WeekViewDisplayable
 import com.example.groupcal.data.EventRepository
 import com.example.groupcal.models.Event
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import java.text.SimpleDateFormat
 import java.util.*
 
 class EventViewModel(val repo: EventRepository) : ViewModel() {
-    val event = MutableLiveData<WeekViewDisplayable<Event>>()
+
+    //Displayed events
+    lateinit var event : LiveData<WeekViewDisplayable<Event>>
+
+    //Event fields
     var title : String = ""
     var date : String = ""
     var time : String = ""
     var dateDetail : String = ""
     var location : String = ""
 
+    //Coroutines
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
+    suspend fun getEventFromDb(id: Long) : LiveData<WeekViewDisplayable<Event>> {
+        return withContext(Dispatchers.IO){
+            repo.getById(id)
+        }
+
+    }
 
     fun getEvent (id : Long) {
 
-        Log.i("test", id.toString())
-
-        event.value = repo.getById(id)
+        uiScope.launch {
+            event = getEventFromDb(id)
+        }
 
 
         //set title

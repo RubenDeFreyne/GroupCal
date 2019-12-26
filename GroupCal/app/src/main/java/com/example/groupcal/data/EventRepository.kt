@@ -2,6 +2,8 @@ package com.example.groupcal.data
 
 import android.graphics.Color
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.alamkanak.weekview.WeekViewDisplayable
 import com.example.groupcal.database.dao.EventDAO
 import com.example.groupcal.database.dao.GroupDAO
@@ -16,11 +18,6 @@ class EventRepository (val dao: EventDAO) {
     var groupId = 0L
     val events = mutableListOf<WeekViewDisplayable<Event>>()
     val dbevents = mutableListOf<com.example.groupcal.database.databaseModels.Event>()
-
-    fun getEvent(id : Long): WeekViewDisplayable<Event>? {
-        Log.i("test", events.toString())
-        return events.first { event -> event.toWeekViewEvent().id == id }
-    }
 
     fun setEventsInRange(
         startDate: Calendar,
@@ -191,7 +188,6 @@ class EventRepository (val dao: EventDAO) {
             val event = e.toEvent()
             events += event
         }}
-
         return events
 
     }
@@ -233,8 +229,9 @@ class EventRepository (val dao: EventDAO) {
         return String.format("🦄 Event of %02d:%02d %s", hour, minute, formattedDate)
     }
 
-    fun getById(id : Long) : Event {
-        return dao.get(id).blockingGet()?.toEvent()?.data!!
+    fun getById(id : Long) : LiveData<WeekViewDisplayable<Event>> {
+        val event : LiveData<WeekViewDisplayable<Event>> = Transformations.map(dao.get(id), {e -> e!!.toEvent()})
+        return event
     }
 
     fun addEvent (event : Event, id: Long) {
