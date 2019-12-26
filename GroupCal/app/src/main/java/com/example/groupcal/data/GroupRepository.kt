@@ -93,7 +93,15 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
     }
 
     fun addGroup(group : Group) {
-        dao.insert(group.toDatabaseGroup())
+        coroutineScope.launch {
+            var getGroup = api.addGroup(group)
+            try {
+                dao.insert(getGroup.await().toDatabaseGroup())
+
+            }catch (t : Throwable){
+
+            }
+        }
     }
 
     fun getGroupsfromApi() : Deferred<List<Group>> {
