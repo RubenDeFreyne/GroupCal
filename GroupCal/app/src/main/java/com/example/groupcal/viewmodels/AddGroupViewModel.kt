@@ -1,7 +1,7 @@
 package com.example.groupcal.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.example.groupcal.data.GroupRepository
+import com.example.groupcal.data.repositories.GroupRepository
 import com.example.groupcal.models.Group
 
 class AddGroupViewModel(val repo : GroupRepository) : ViewModel() {

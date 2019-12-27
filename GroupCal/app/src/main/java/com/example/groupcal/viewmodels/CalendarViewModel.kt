@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alamkanak.weekview.WeekViewDisplayable
-import com.example.groupcal.data.EventRepository
+import com.example.groupcal.data.repositories.EventRepository
 import com.example.groupcal.models.Event
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.util.*
 
 class CalendarViewModel(val repo : EventRepository) : ViewModel() {

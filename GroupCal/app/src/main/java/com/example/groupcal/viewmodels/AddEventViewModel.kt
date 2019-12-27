@@ -2,7 +2,7 @@ package com.example.groupcal.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.groupcal.data.EventRepository
+import com.example.groupcal.data.repositories.EventRepository
 import com.example.groupcal.models.Event
 import java.text.SimpleDateFormat
 import java.util.*

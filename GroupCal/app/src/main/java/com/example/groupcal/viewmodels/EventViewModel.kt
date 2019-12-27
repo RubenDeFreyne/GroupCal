@@ -1,14 +1,9 @@
 package com.example.groupcal.viewmodels
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alamkanak.weekview.WeekViewDisplayable
-import com.example.groupcal.data.EventRepository
+import com.example.groupcal.data.repositories.EventRepository
 import com.example.groupcal.models.Event
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import java.text.SimpleDateFormat
 import java.util.*
 

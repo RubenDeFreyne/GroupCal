@@ -1,8 +1,7 @@
-package com.example.groupcal.data
+package com.example.groupcal.data.repositories
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -10,9 +9,6 @@ import com.example.groupcal.data.database.dao.GroupDAO
 import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.models.Group
 import com.example.groupcal.models.User
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
 
 class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Context) {

@@ -1,9 +1,7 @@
-package com.example.groupcal.data
+package com.example.groupcal.data.repositories
 
 import android.content.Context
-import android.graphics.Color
 import android.net.ConnectivityManager
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -12,9 +10,6 @@ import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.network.EventApi
 import com.example.groupcal.models.Event
 import kotlinx.coroutines.*
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class EventRepository (val dao: EventDAO, val api: EventApi, val context: Context, val groupRepo: GroupRepository) {
 
