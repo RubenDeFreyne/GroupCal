@@ -25,6 +25,21 @@ class AddEventViewModel(val repo : EventRepository) : ViewModel() {
         return "" + timeFormat.format(startTime.time) +  " - " + timeFormat.format(endTime.time)
     }
 
+    fun getDatePreview() : String {
+        var weekDay: String
+        val dayFormat = SimpleDateFormat("EEEE", Locale.US)
+        weekDay = dayFormat.format(time)
+
+        var fmt = Formatter()
+        var call = Calendar.getInstance().apply {
+            set(Calendar.MONTH, time.month)
+        }
+        fmt = Formatter()
+        fmt.format("%tB", time)
+
+        return "" + weekDay + " - " + fmt.toString() + " " + time.date.toString()
+    }
+
     fun addEvent(groupId : String) : Boolean {
 
         if(title == "Event Title" || location == "Event Location" || color == "Pick a Color") {
