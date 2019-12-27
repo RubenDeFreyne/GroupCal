@@ -38,8 +38,6 @@ class CalendarViewModel(val repo : EventRepository) : ViewModel() {
     var currentlyViewing : Calendar = Calendar.getInstance()
 
     fun fetchEvents(groupId : String){
-
-        repo.groupId = groupId
         events = repo.getEvents(groupId)
     }
 }

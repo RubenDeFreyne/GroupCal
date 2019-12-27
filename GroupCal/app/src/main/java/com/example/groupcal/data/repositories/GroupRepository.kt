@@ -1,95 +1,51 @@
 package com.example.groupcal.data.repositories
 
 import android.content.Context
-import android.net.ConnectivityManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.groupcal.data.database.dao.GroupDAO
 import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.models.Group
-import com.example.groupcal.models.User
 import kotlinx.coroutines.*
 
-class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Context) {
-    val groups = getGroupsFromDb()
-    val dbgroups= mutableListOf<com.example.groupcal.data.database.databaseModels.Group>()
-    var mem = mutableListOf<User>()
+/**
+ * Repository used for managing all operations related to [Group]
+ * This class implements [BaseRepo]
+ *
+ * @param dao class used to communicate with [CalDatabase]
+ * @param api class used to communicate with backend
+ * @param context used to check internet connectivity
+ */
+class GroupRepository (val dao : GroupDAO, val api : GroupApi, context: Context) : BaseRepo(context){
 
+    /**
+     * Defines the Coroutine Job used by the repo
+     */
     private var repoJob = Job()
+
+    /**
+     * Defines the Coroutine Scope used by the repo
+     */
     private val coroutineScope = CoroutineScope(repoJob + Dispatchers.Main )
 
-    //TODO: Get groups from DAO
-
-    /*fun initializeGroups(){
-
-        mem.plusAssign(User(id = 1))
-
-        dbgroups += Group (
-            id= 1,
-            name = "Italy 2019",
-            color = "#fc03f4",
-            members = mem
-        ).toDatabaseGroup()
-
-        dbgroups += Group (
-            id= 2,
-            name = "Teambuilding",
-            color = "#4afc03",
-            members = mem
-
-        ).toDatabaseGroup()
-
-        dbgroups += Group (
-            id= 3,
-            name = "Paris 2019",
-            color = "#fcd303",
-            members = mem
-        ).toDatabaseGroup()
-
-        dbgroups += Group (
-            id= 4,
-            name = "Spain 2019",
-            color = "#fc0303",
-            members = mem
-        ).toDatabaseGroup()
-
-        dbgroups += Group (
-            id= 5,
-            name = "Germany 2018",
-            color = "#03fce7",
-            members = mem
-        ).toDatabaseGroup()
-
-        dbgroups += Group (
-            id= 6,
-            name = "Italy 2018",
-            color = "#0345fc",
-            members = mem
-        ).toDatabaseGroup()
-
-        dbgroups += Group (
-            id= 7,
-            name = "Barcelona 2018",
-            color = "#f0fc03",
-            members = mem
-        ).toDatabaseGroup()
-
-        dbgroups += Group (
-            id= 8,
-            name = "Peru 2018",
-            color = "#8c03fc",
-            members = mem
-        ).toDatabaseGroup()
-
-        dao.insertMany(dbgroups)
-    }*/
-
-    fun getGroupsFromDb(): LiveData<List<com.example.groupcal.data.database.databaseModels.Group>> {
-        return dao.getAllGroups()
-
+    /**
+     * get a specific [Group] object in the [CalDatabase]
+     *
+     * @param id The id of the group
+     *
+     * @return group from database
+     */
+    fun getById(id: String): Group{
+        return dao.get(id).blockingGet()!!.toGroup()
     }
 
+    /**
+     * Create a new [Group] in the backend through [GroupApi] and save it in the database through [GroupDAO].
+     * This also converts the response from the backend to an [Group] object
+     *
+     * @param group The group that has to be created
+     */
     fun addGroup(group : Group) {
         coroutineScope.launch {
             var getGroup = api.addGroup(group)
@@ -102,17 +58,18 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
         }
     }
 
-    fun getGroupsfromApi() : Deferred<List<Group>> {
-        return api.getGroups()
-    }
-
+    /**
+     * Get the [Group] objects from [GroupApi] if there is an internet connection, otherwise from [GroupDAO]
+     * the groups are requested from the backend stored in the database.
+     *
+     * @return observable list of [Group] objects
+     */
     fun getAllGroups() : LiveData<List<Group>> {
         var _groups: MutableLiveData<List<Group>> = MutableLiveData()
         var groups: LiveData<List<Group>> = _groups
-        val groupList : List<Group>
         if( dao.getRowCount() <= 0 && isConnected()){
             coroutineScope.launch {
-                var getGroups = getGroupsfromApi()
+                var getGroups = api.getGroups()
                 try {
                     var listResult = getGroups.await()
                     _groups.value = listResult
@@ -127,16 +84,6 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
         return groups
     }
 
-    protected fun isConnected(): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-
-        return networkInfo != null && networkInfo.isConnected
-    }
-
-    fun getById(id: String): Group{
-        return dao.get(id).blockingGet()!!.toGroup()
-    }
 
 
 }
