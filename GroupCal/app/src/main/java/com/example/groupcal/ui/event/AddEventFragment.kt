@@ -198,7 +198,7 @@ class AddEventFragment : Fragment() {
             viewModel.title = titleEditText.text.toString()
             viewModel.color = colorTextView.text.toString()
             viewModel.location = locationEditText.text.toString()
-            val result = viewModel.addEvent()
+            val result = viewModel.addEvent(args.groupId)
             if(result){
                 Toast.makeText(context, "Added new Event", Toast.LENGTH_LONG).show()
                 if(viewModel.checkTime()){

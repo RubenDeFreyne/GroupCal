@@ -1,6 +1,5 @@
 package com.example.groupcal.viewmodels
 
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.example.groupcal.data.GroupRepository
 import com.example.groupcal.models.Group
@@ -16,7 +15,6 @@ class AddGroupViewModel(val repo : GroupRepository) : ViewModel() {
             return false
         }else {
             val group = Group(
-                id = 0L,
                 name = name,
                 color = color,
                 members = mutableListOf()

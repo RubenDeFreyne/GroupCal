@@ -1,17 +1,27 @@
 package com.example.groupcal.data
 
-import com.example.groupcal.database.dao.GroupDAO
-import com.example.groupcal.models.Event
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import com.example.groupcal.data.database.dao.GroupDAO
+import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.models.Group
 import com.example.groupcal.models.User
+import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
 
-class GroupRepository (val dao : GroupDAO) {
+class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Context) {
     val groups = getGroupsFromDb()
-    val dbgroups= mutableListOf<com.example.groupcal.database.databaseModels.Group>()
+    val dbgroups= mutableListOf<com.example.groupcal.data.database.databaseModels.Group>()
     var mem = mutableListOf<User>()
+
+    private var repoJob = Job()
+    private val coroutineScope = CoroutineScope(repoJob + Dispatchers.Main )
 
     //TODO: Get groups from DAO
 
@@ -79,12 +89,58 @@ class GroupRepository (val dao : GroupDAO) {
         dao.insertMany(dbgroups)
     }*/
 
-    fun getGroupsFromDb(): Single<List<com.example.groupcal.database.databaseModels.Group>> {
+    fun getGroupsFromDb(): LiveData<List<com.example.groupcal.data.database.databaseModels.Group>> {
         return dao.getAllGroups()
 
     }
 
     fun addGroup(group : Group) {
-        dao.insert(group.toDatabaseGroup())
+        coroutineScope.launch {
+            var getGroup = api.addGroup(group)
+            try {
+                var listResult = getGroup.await()
+                dao.insert(group.toDatabaseGroup())
+            }catch (t : Throwable){
+
+            }
+        }
     }
+
+    fun getGroupsfromApi() : Deferred<List<Group>> {
+        return api.getGroups()
+    }
+
+    fun getAllGroups() : LiveData<List<Group>> {
+        var _groups: MutableLiveData<List<Group>> = MutableLiveData()
+        var groups: LiveData<List<Group>> = _groups
+        val groupList : List<Group>
+        if( dao.getRowCount() <= 0 && isConnected()){
+            coroutineScope.launch {
+                var getGroups = getGroupsfromApi()
+                try {
+                    var listResult = getGroups.await()
+                    _groups.value = listResult
+                    listResult.forEach { r -> dao.insert(r.toDatabaseGroup()) }
+                }catch (t : Throwable){
+
+                }
+            }
+        } else {
+            return Transformations.map(dao.getAllGroups(), {l -> l.map { g -> g.toGroup() }})
+        }
+        return groups
+    }
+
+    protected fun isConnected(): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+    fun getById(id: String): Group{
+        return dao.get(id).blockingGet()!!.toGroup()
+    }
+
+
 }

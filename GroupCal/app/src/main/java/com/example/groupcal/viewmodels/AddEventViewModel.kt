@@ -10,7 +10,7 @@ import java.util.*
 
 class AddEventViewModel(val repo : EventRepository) : ViewModel() {
 
-    var groupId = 0L
+    var groupId = ""
     lateinit var time: Date
 
     var title: String = ""
@@ -25,13 +25,13 @@ class AddEventViewModel(val repo : EventRepository) : ViewModel() {
         return "" + timeFormat.format(startTime.time) +  " - " + timeFormat.format(endTime.time)
     }
 
-    fun addEvent() : Boolean {
+    fun addEvent(groupId : String) : Boolean {
 
         if(title == "Event Title" || location == "Event Location" || color == "Pick a Color") {
             return false
         } else {
             val event = Event(
-                id = 0L,
+                id = "",
                 title = title,
                 location = location,
                 color = Integer.parseInt(color),

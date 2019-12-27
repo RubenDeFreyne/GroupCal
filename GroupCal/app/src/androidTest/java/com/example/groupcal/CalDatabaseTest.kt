@@ -7,15 +7,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import androidx.room.Room
-import com.example.groupcal.database.*
-import com.example.groupcal.database.dao.EventDAO
-import com.example.groupcal.database.dao.GroupDAO
-import com.example.groupcal.database.dao.UserDAO
-import com.example.groupcal.database.dao.UserGroupDAO
-import com.example.groupcal.database.databaseModels.Event
-import com.example.groupcal.database.databaseModels.Group
-import com.example.groupcal.database.databaseModels.User
-import com.example.groupcal.database.databaseModels.UserGroup
+import com.example.groupcal.data.database.*
+import com.example.groupcal.data.database.dao.EventDAO
+import com.example.groupcal.data.database.dao.GroupDAO
+import com.example.groupcal.data.database.dao.UserDAO
+import com.example.groupcal.data.database.databaseModels.Event
+import com.example.groupcal.data.database.databaseModels.Group
+import com.example.groupcal.data.database.databaseModels.User
+import com.example.groupcal.data.database.databaseModels.UserGroup
 
 import org.junit.Assert.assertEquals
 import org.junit.After

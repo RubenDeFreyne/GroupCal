@@ -1,4 +1,4 @@
-package com.example.groupcal.database.databaseModels
+package com.example.groupcal.data.database.databaseModels
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey
 data class User (
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
+    val databaseId: Long = 0L,
+    val backendId: String = "",
     val username: String = "test",
     val email: String = "test",
     val phone: String = "test"
