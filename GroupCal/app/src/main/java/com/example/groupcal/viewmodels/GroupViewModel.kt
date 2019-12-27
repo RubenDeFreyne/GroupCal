@@ -30,7 +30,7 @@ class GroupViewModel(val repo : GroupRepository) : ViewModel() {
 
 
     fun getGroupsFromRepo() : LiveData<List<Group>>{
-        return repo.getGroups()
+        return repo.getAllGroups()
 
 
     }

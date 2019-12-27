@@ -8,21 +8,18 @@ import androidx.room.TypeConverters
 import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.database.dao.GroupDAO
 import com.example.groupcal.data.database.dao.UserDAO
-import com.example.groupcal.data.database.dao.UserGroupDAO
 import com.example.groupcal.data.database.databaseModels.Event
 import com.example.groupcal.data.database.databaseModels.Group
 import com.example.groupcal.data.database.databaseModels.User
-import com.example.groupcal.data.database.databaseModels.UserGroup
 import com.example.groupcal.util.Converters
 
-@Database(entities = [User::class, Group::class, UserGroup::class, Event::class], version = 1,  exportSchema = false)
+@Database(entities = [User::class, Group::class, Event::class], version = 1,  exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class CalDatabase : RoomDatabase() {
 
     abstract fun UserDAO(): UserDAO
     abstract fun GroupDAO(): GroupDAO
     abstract fun EventDAO(): EventDAO
-    abstract fun UserGroupDAO(): UserGroupDAO
 
     companion object {
 

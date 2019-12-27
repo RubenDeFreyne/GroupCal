@@ -2,8 +2,10 @@ package com.example.groupcal.data
 
 import android.content.Context
 import android.net.ConnectivityManager
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.example.groupcal.data.database.dao.GroupDAO
 import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.models.Group
@@ -87,7 +89,7 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
         dao.insertMany(dbgroups)
     }*/
 
-    fun getGroupsFromDb(): Single<List<com.example.groupcal.data.database.databaseModels.Group>> {
+    fun getGroupsFromDb(): LiveData<List<com.example.groupcal.data.database.databaseModels.Group>> {
         return dao.getAllGroups()
 
     }
@@ -96,8 +98,8 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
         coroutineScope.launch {
             var getGroup = api.addGroup(group)
             try {
-                dao.insert(getGroup.await().toDatabaseGroup())
-
+                var listResult = getGroup.await()
+                dao.insert(group.toDatabaseGroup())
             }catch (t : Throwable){
 
             }
@@ -108,9 +110,9 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
         return api.getGroups()
     }
 
-    fun getGroups() : LiveData<List<Group>> {
+    fun getAllGroups() : LiveData<List<Group>> {
         var _groups: MutableLiveData<List<Group>> = MutableLiveData()
-        val groups: LiveData<List<Group>> = _groups
+        var groups: LiveData<List<Group>> = _groups
         val groupList : List<Group>
         if( dao.getRowCount() <= 0 && isConnected()){
             coroutineScope.launch {
@@ -118,13 +120,13 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
                 try {
                     var listResult = getGroups.await()
                     _groups.value = listResult
-                    listResult.forEach { r -> addGroup(r) }
+                    listResult.forEach { r -> dao.insert(r.toDatabaseGroup()) }
                 }catch (t : Throwable){
 
                 }
             }
         } else {
-            _groups.value = getGroupsFromDb().blockingGet().map { g -> g.toGroup() }
+            return Transformations.map(dao.getAllGroups(), {l -> l.map { g -> g.toGroup() }})
         }
         return groups
     }
@@ -135,4 +137,10 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, val context: Cont
 
         return networkInfo != null && networkInfo.isConnected
     }
+
+    fun getById(id: String): Group{
+        return dao.get(id).blockingGet()!!.toGroup()
+    }
+
+
 }

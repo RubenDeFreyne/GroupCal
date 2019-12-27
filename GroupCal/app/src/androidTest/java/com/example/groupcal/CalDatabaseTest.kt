@@ -11,7 +11,6 @@ import com.example.groupcal.data.database.*
 import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.database.dao.GroupDAO
 import com.example.groupcal.data.database.dao.UserDAO
-import com.example.groupcal.data.database.dao.UserGroupDAO
 import com.example.groupcal.data.database.databaseModels.Event
 import com.example.groupcal.data.database.databaseModels.Group
 import com.example.groupcal.data.database.databaseModels.User

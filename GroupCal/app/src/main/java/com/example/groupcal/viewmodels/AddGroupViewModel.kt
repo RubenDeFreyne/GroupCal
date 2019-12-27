@@ -15,8 +15,6 @@ class AddGroupViewModel(val repo : GroupRepository) : ViewModel() {
             return false
         }else {
             val group = Group(
-                databaseId = 0L,
-                backendId = "",
                 name = name,
                 color = color,
                 members = mutableListOf()

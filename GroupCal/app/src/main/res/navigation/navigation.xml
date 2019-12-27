@@ -19,7 +19,7 @@
             app:destination="@id/addEventFragment" />
         <argument
             android:name="GroupId"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
@@ -45,7 +45,7 @@
             app:popUpTo="@+id/groupListFragment" />
         <argument
             android:name="groupId"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/groupListFragment"

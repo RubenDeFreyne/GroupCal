@@ -9,7 +9,9 @@ import com.example.groupcal.data.GroupRepository
 import com.example.groupcal.data.database.CalDatabase
 import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.database.dao.GroupDAO
+import com.example.groupcal.data.network.EventApi
 import com.example.groupcal.data.network.GroupApi
+import com.example.groupcal.util.CalAdapter
 import com.example.groupcal.util.Constants
 import com.example.groupcal.viewmodels.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -50,6 +52,7 @@ val networkModule = module {
 
     fun provideRetrofitInterface(okHttpClient: OkHttpClient): Retrofit {
         val moshi = Moshi.Builder()
+            .add(CalAdapter())
             .build()
 
         return Retrofit.Builder()
@@ -64,10 +67,15 @@ val networkModule = module {
         return retrofit.create(GroupApi::class.java)
     }
 
+    fun provideEventApi(retrofit: Retrofit): EventApi {
+        return retrofit.create(EventApi::class.java)
+    }
+
 
     factory { provideHttpLoggingInterceptor() }
     factory { provideOkHttpClient(get()) }
     factory { provideGroupApi(get()) }
+    factory { provideEventApi(get()) }
     single { provideRetrofitInterface(get()) }
 }
 
@@ -100,13 +108,15 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    fun provideEventRepository(dao: EventDAO): EventRepository {
-        return EventRepository(dao)
-    }
+
     fun provideGroupRepository(dao: GroupDAO, api: GroupApi, context: Context): GroupRepository {
         return GroupRepository(dao, api, context)
     }
+    fun provideEventRepository(dao: EventDAO, api: EventApi, context: Context, groupRepo: GroupRepository): EventRepository {
+        return EventRepository(dao, api, context, groupRepo)
+    }
 
-    factory { provideEventRepository(get()) }
     factory { provideGroupRepository(get(), get(), androidContext()) }
+    factory { provideEventRepository(get(), get(), androidContext(), get()) }
+
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.example.groupcal.ui.planner.PlannerFragmentDirections
 import com.example.groupcal.viewmodels.CalendarViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
+import androidx.lifecycle.Observer
 
 class PlannerFragment : Fragment() {
 
@@ -52,6 +54,13 @@ super.onViewCreated(view, savedInstanceState)
         val args =
             PlannerFragmentArgs.fromBundle(arguments)
         viewModel.groupId = args.groupId
+        viewModel.fetchEvents(args.groupId)
+        viewModel.events.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                weekView.submit(it)
+            }
+        })
+
 
         weekView = view.findViewById<WeekView<Event>>(R.id.weekView)
         monthText = view.findViewById<TextView>(R.id.textView4)
@@ -64,21 +73,9 @@ super.onViewCreated(view, savedInstanceState)
     }
 
     //TODO: In ViewModel?
-    fun loadEvents(): MutableLiveData<List<WeekViewDisplayable<Event>>> {
-        this.viewModel.fetchEvents(
-            viewModel.startDate,
-            viewModel.endDate
-        )
-        return viewModel.events
-    }
 
     override fun onStart() {
         super.onStart()
-
-        val events: MutableLiveData<List<WeekViewDisplayable<Event>>> = loadEvents()
-
-        if(events.value!!.size != 0)
-            events.observe(this, androidx.lifecycle.Observer { a -> weekView.submit(a) })
 
         weekView.setOnRangeChangeListener { firstVisibleDate, lastVisibleDate ->
             run {
@@ -120,7 +117,7 @@ super.onViewCreated(view, savedInstanceState)
 
         weekView.setOnEventClickListener { data, rect ->  this.findNavController().navigate(
             PlannerFragmentDirections.actionPlannerFragmentToEventFragment(
-                data.id
+                data.databaseId
             )
         )}
     }
