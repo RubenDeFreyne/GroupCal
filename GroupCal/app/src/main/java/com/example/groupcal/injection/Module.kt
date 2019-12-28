@@ -4,8 +4,8 @@ package com.example.groupcal.injection
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.example.groupcal.data.EventRepository
-import com.example.groupcal.data.GroupRepository
+import com.example.groupcal.data.repositories.EventRepository
+import com.example.groupcal.data.repositories.GroupRepository
 import com.example.groupcal.data.database.CalDatabase
 import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.database.dao.GroupDAO
@@ -16,7 +16,6 @@ import com.example.groupcal.util.Constants
 import com.example.groupcal.viewmodels.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
-import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -24,7 +23,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 val viewModelModule = module {
@@ -110,10 +108,19 @@ val databaseModule = module {
 val repositoryModule = module {
 
     fun provideGroupRepository(dao: GroupDAO, api: GroupApi, context: Context): GroupRepository {
-        return GroupRepository(dao, api, context)
+        return GroupRepository(
+            dao,
+            api,
+            context
+        )
     }
     fun provideEventRepository(dao: EventDAO, api: EventApi, context: Context, groupRepo: GroupRepository): EventRepository {
-        return EventRepository(dao, api, context, groupRepo)
+        return EventRepository(
+            dao,
+            api,
+            context,
+            groupRepo
+        )
     }
 
     factory { provideGroupRepository(get(), get(), androidContext()) }

@@ -7,52 +7,48 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="navigation_selectDay">Datum kiezen</string>
-    <string name="navigation_selectUser">Cliënt kiezen</string>
-    <string name="menu_calendar">Agenda</string>
-    <string name="menu_busses">Bussen</string>
+    <string name="menu_calendar">Groups</string>
 
-    <string name="action_cancel">Annuleren</string>
-    <string name="action_save">Opslaan</string>
-    <string name="action_new">Nieuw</string>
-    <string name="action_send">Versturen</string>
+    <string name="menu_logout">Log out</string>
 
-    <string name="menu_logout">Afmelden</string>
+    <string name="event_title">Event Title</string>
+    <string name="general">General</string>
+    <string name="date">Date:</string>
+    <string name="start_time">Start time:</string>
+    <string name="end_time">End Time</string>
+    <string name="location">Location:</string>
+    <string name="_21_11_2019">21/11/2019</string>
+    <string name="_10_00">10:00</string>
+    <string name="_12_3o">12:3O</string>
+    <string name="event_location">Event Location</string>
+    <string name="details">Details</string>
+    <string name="price">Price</string>
+    <string name="paid_by">Paid by:</string>
+    <string name="color">Color:</string>
+    <string name="_15">€ 15</string>
+    <string name="ruben_de_freyne">Ruben De Freyne</string>
+    <string name="pick_a_color">Pick a Color</string>
+    <string name="description">Description</string>
+    <string name="enter_description_here">Enter description here</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_new_group">Create new Group</string>
+    <string name="name">Name:</string>
+    <string name="group_name">Group Name</string>
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="november">November</string>
+    <string name="_21">21</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="monday_november_21">Monday - November 21</string>
+    <string name="_8_30_am_10_30_pm">8:30 AM - 10:30 PM</string>
+    <string name="mcdonalds">McDonalds</string>
+    <string name="descriptions_coming_soon">Descriptions coming soon!</string>
     <string name="account">Account</string>
-
-    <string name="welcome">Welkom</string>
-    <string name="welcomeback">Welkom terug</string>
-    <string name="logout">Afmelden succesvol</string>
-    <string name="prompt_fullName">Naam</string>
-    <string name="prompt_username">Gebruikersnaam</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Wachtwoord</string>
-    <string name="action_sign_in">Aanmelden</string>
-    <string name="action_register">Registreren</string>
-    <string name="invalid_username">Geen geldige gebruikersnaam</string>
-    <string name="invalid_email">Geen geldig emailadres</string>
-    <string name="username_taken">Gebruikersnaam al in gebruik</string>
-    <string name="email_taken">Emailadres al in gebruik</string>
-    <string name="invalid_password">Wachtwoord is niet sterk genoeg</string>
-    <string name="incorrect_username">Ongeldige gebruikersnaam</string>
-    <string name="incorrect_email">Ongeldig emailadres</string>
-    <string name="incorrect_password">Ongeldig wachtwoord</string>
-    <string name="required">Verplicht</string>
-
-    <string name="comment_hint">Voeg een opmerking toe</string>
-
-    <string name="holiday">Vrijaf</string>
-    <string name="empty_day">Nog geen planning</string>
-
-    <string name="icon_content_description">Icoon</string>
-    <string name="activity_icon_content_description">Icoon activiteit</string>
-    <string name="mentor_image_content_description">Afbeelding mentor</string>
-    <string name="lunch_icon_content_description">Icoon lunch</string>
-    <string name="day_icon_content_description">Icoon dag</string>
-
-    <string name="dates_interval">%1$s tot %2$s</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_a_group">Choose a Group</string>
+    <string name="itali_2019">Italië 2019</string>
+    <string name="members_7">Members: 7</string>
+    <string name="ruben_defreyne_gmail_com">ruben.defreyne@gmail.com</string>
 
 </resources>

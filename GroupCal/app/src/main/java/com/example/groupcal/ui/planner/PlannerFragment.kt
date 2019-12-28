@@ -8,49 +8,50 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.alamkanak.weekview.WeekView
-import com.alamkanak.weekview.WeekViewDisplayable
-
 import com.example.groupcal.R
 import com.example.groupcal.models.Event
-import com.example.groupcal.ui.planner.PlannerFragmentArgs
-import com.example.groupcal.ui.planner.PlannerFragmentDirections
 import com.example.groupcal.viewmodels.CalendarViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.*
 import androidx.lifecycle.Observer
+import com.example.groupcal.databinding.FragmentPlannerBinding
 
+/**
+ * A simple [Fragment] subclass.
+ *
+ * @property viewModel The view model corresponding to the fragment, initialised in [onViewCreated]
+ */
 class PlannerFragment : Fragment() {
 
 
     private val viewModel by viewModel<CalendarViewModel>()
-
+    private lateinit var binding: FragmentPlannerBinding
     private lateinit var weekView: WeekView<Event>
 
-
     private lateinit var dayText: TextView
-
     private lateinit var dayButton: Button
-
     private lateinit var monthText: TextView
-
     private lateinit var weekButton: Button
 
+
+    /**
+     * Inflate view with data binding
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_planner, container, false)
+        binding = FragmentPlannerBinding.inflate(inflater)
+        return binding.root
     }
 
-
+    /**
+     * Instantiate the properties
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         val args =
             PlannerFragmentArgs.fromBundle(arguments)
         viewModel.groupId = args.groupId
@@ -60,11 +61,9 @@ super.onViewCreated(view, savedInstanceState)
                 weekView.submit(it)
             }
         })
-
-
         weekView = view.findViewById<WeekView<Event>>(R.id.weekView)
-        monthText = view.findViewById<TextView>(R.id.textView4)
-        dayText = view.findViewById<TextView>(R.id.textView3)
+        monthText = view.findViewById<TextView>(R.id.monthText)
+        dayText = view.findViewById<TextView>(R.id.dayText)
         dayButton = view.findViewById<Button>(R.id.dayButton)
         weekButton = view.findViewById<Button>(R.id.weekButton)
 
@@ -72,27 +71,21 @@ super.onViewCreated(view, savedInstanceState)
         weekView.maxDate = viewModel.endDate
     }
 
-    //TODO: In ViewModel?
-
     override fun onStart() {
         super.onStart()
 
+        //Set onRangeChangeListener for swiping
         weekView.setOnRangeChangeListener { firstVisibleDate, lastVisibleDate ->
             run {
                 viewModel.currentlyViewing = firstVisibleDate
                 dayText.setText(
                     firstVisibleDate.time.date.toString()
                 )
-                var fmt = Formatter()
-                val cal = Calendar.getInstance().apply {
-                    set(Calendar.MONTH, firstVisibleDate.time.month)
-                }
-                fmt = Formatter()
-                fmt.format("%tB", cal)
-                monthText.setText(fmt.toString())
+                monthText.setText(viewModel.getMonthText())
             }
         }
 
+        //Set onEmptyViewLongClickListener for adding new events
         weekView.setOnEmptyViewLongClickListener { time ->  view!!.findNavController().navigate(
             PlannerFragmentDirections.ActionPlannerFragmentToAddEventFragment(
                 time.time.toString(),
@@ -100,6 +93,7 @@ super.onViewCreated(view, savedInstanceState)
             )
         )}
 
+        //Set onClickListener for changing to dayview
         dayButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 1
             dayButton.setTextColor(getResources().getColor(R.color.colorPrimary))
@@ -107,6 +101,7 @@ super.onViewCreated(view, savedInstanceState)
             weekView.goToDate(viewModel.currentlyViewing)
         })
 
+        //Set onClickListener for changing to weekview
         weekButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 7
             weekButton.setTextColor(getResources().getColor(R.color.colorPrimary))
@@ -114,16 +109,11 @@ super.onViewCreated(view, savedInstanceState)
             weekView.goToDate(viewModel.currentlyViewing)
         })
 
-
+        //Set onEventClickListener for getting event details
         weekView.setOnEventClickListener { data, rect ->  this.findNavController().navigate(
             PlannerFragmentDirections.actionPlannerFragmentToEventFragment(
                 data.databaseId
             )
         )}
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = PlannerFragment()
     }
 }
