@@ -5,16 +5,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.groupcal.models.Group
 
+/**
+ * RecyclerView Adapter for showing groups in [GroupListFragment]
+ *
+ * @param clickListener The GroupHolder clickListener
+ */
 class GroupListAdapter(val clickListener: GroupListener) : ListAdapter<Group, GroupHolder>(
     GroupDiffCallback()
 ){
-
 
     override fun onBindViewHolder(holder: GroupHolder, position: Int) {
         holder.update(getItem(position))
         holder.bind(clickListener,getItem(position)!!)
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {
         return GroupHolder.from(parent)

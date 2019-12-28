@@ -18,9 +18,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [AddEventFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  *
  * @property viewModel The view model corresponding to the fragment, initialised in [onViewCreated]
  * @property binding The binding linked with the fragment, initialised in [onCreateView]

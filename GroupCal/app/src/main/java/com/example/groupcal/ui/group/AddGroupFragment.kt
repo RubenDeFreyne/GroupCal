@@ -1,35 +1,31 @@
 package com.example.groupcal.ui.group
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
-
-import com.example.groupcal.R
 import com.example.groupcal.databinding.FragmentAddGroupBinding
-import com.example.groupcal.databinding.FragmentGroupListBinding
 import com.example.groupcal.viewmodels.AddGroupViewModel
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.koin.android.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
-
+/**
+ * A simple [Fragment] subclass.
+ *
+ * @property viewModel The view model corresponding to the fragment, initialised in [onViewCreated]
+ * @property binding The binding linked with the fragment, initialised in [onCreateView]
+ */
 class AddGroupFragment : Fragment() {
 
     private val viewModel by viewModel<AddGroupViewModel>()
     private lateinit var binding: FragmentAddGroupBinding
 
-
-
+    /**
+     * Inflate view with data binding
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,30 +35,33 @@ class AddGroupFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Instantiate the properties
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        //COLOR PICKER
-
-        val colorTextView = binding.groupColorTextView
+        //Set start color
         val cp = ColorPicker(this.activity, 255, 255, 255)
-        colorTextView.setOnClickListener{
+
+        //Set click listener for ColorTextView
+        binding.groupColorTextView.setOnClickListener{
             cp.show()
             cp.enableAutoClose()
         }
+
+        //Set listener for ColorPicker
         cp.setCallback { color -> run {
-            colorTextView.setText(color.toString())
+            binding.groupColorTextView.setText(color.toString())
         }}
 
-
-        //SAVE BUTTON
-
+        //Set click listener for SaveButton
         binding.saveGroupButton.setOnClickListener{
             viewModel.name = binding.groupNameTextView.text.toString()
             viewModel.color = binding.groupColorTextView.text.toString()
-            var result = viewModel.addGroup()
 
+            //Show toast depending on fields
+            var result = viewModel.addGroup()
             if(result){
                 Toast.makeText(context, "Added new Group", Toast.LENGTH_LONG).show()
                 view!!.findNavController().navigate(
@@ -72,12 +71,5 @@ class AddGroupFragment : Fragment() {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG).show()
             }
         }
-
-
     }
-
-
-
-
-
 }
