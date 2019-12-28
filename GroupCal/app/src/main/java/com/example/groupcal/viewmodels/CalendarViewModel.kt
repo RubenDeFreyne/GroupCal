@@ -40,4 +40,15 @@ class CalendarViewModel(val repo : EventRepository) : ViewModel() {
     fun fetchEvents(groupId : String){
         events = repo.getEvents(groupId)
     }
+
+    fun getMonthText() : String {
+        var fmt = Formatter()
+        val cal = Calendar.getInstance().apply {
+            set(Calendar.MONTH, currentlyViewing.time.month)
+        }
+        fmt = Formatter()
+        fmt.format("%tB", cal)
+
+        return fmt.toString()
+    }
 }

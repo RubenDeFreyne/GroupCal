@@ -18,7 +18,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
  * @property viewModel The view model corresponding to the fragment, initialised in [onViewCreated]
  * @property binding The binding linked with the fragment, initialised in [onCreateView]
  * @property adapter The adapter for the RecyclerView, initialised in [onViewCreated]
-
  */
 class GroupListFragment : Fragment() {
 

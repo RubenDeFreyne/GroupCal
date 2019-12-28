@@ -1,93 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layoutMode="opticalBounds"
-    tools:context=".ui.planner.CalendarHeaderFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggle_button_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/Widget.MaterialComponents.FloatingActionButton">
+    <data>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/dayButton"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutMode="opticalBounds"
+        tools:context=".ui.planner.CalendarHeaderFragment">
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggle_button_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Day"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/monthText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.MaterialComponents.FloatingActionButton">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dayButton"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                app:backgroundTint="@color/colorWhite"
+                app:elevation="0dp"
+                app:strokeColor="#33000000"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/weekButton"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorWhite"
+                android:text="Week"
+                android:textSize="12sp"
+                app:strokeColor="#33000000"
+                app:strokeWidth="1dp"
+                android:textColor="#33000000"
+                app:elevation="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorWhite"
+                android:text="Month"
+                android:textSize="12sp"
+                app:strokeColor="#33000000"
+                app:strokeWidth="1dp"
+                android:textColor="#33000000"
+                app:elevation="0dp" />
+
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <TextView
+            android:id="@+id/monthText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="November"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
-            app:backgroundTint="@color/colorWhite"
-            app:elevation="0dp"
-            app:strokeColor="#33000000"
-            app:strokeWidth="1dp" />
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/toggle_button_group"
+            app:layout_constraintTop_toBottomOf="@+id/toggle_button_group" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/weekButton"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
+        <TextView
+            android:id="@+id/dayText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorWhite"
-            android:text="Week"
-            android:textSize="12sp"
-            app:strokeColor="#33000000"
-            app:strokeWidth="1dp"
-            android:textColor="#33000000"
-            app:elevation="0dp"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="21"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/monthText"
+            app:layout_constraintTop_toBottomOf="@+id/toggle_button_group" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorWhite"
-            android:text="Month"
-            android:textSize="12sp"
-            app:strokeColor="#33000000"
-            app:strokeWidth="1dp"
-            android:textColor="#33000000"
-            app:elevation="0dp"/>
-
-
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="November"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/toggle_button_group"
-        app:layout_constraintTop_toBottomOf="@+id/toggle_button_group" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="21"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/toggle_button_group" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
