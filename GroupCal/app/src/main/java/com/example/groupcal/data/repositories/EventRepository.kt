@@ -71,7 +71,8 @@ class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, v
             coroutineScope.launch {
                 var getGroups = api.getEvents()
                 val listResult = getGroups.await()
-                listResult.forEach { r -> dao.insert(r.toDatabaseEvent(id)) }
+                var events = listResult.filter { l -> l.group.backendId == id }
+                events.forEach { r -> dao.insert(r.toDatabaseEvent(id)) }
             }
         }
         return Transformations.map(dao.getEventsByGroup(id), {l -> l.map { g -> g.toEvent() }})
