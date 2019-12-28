@@ -14,20 +14,38 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
-    <style name="LoginTheme" parent="ThemeOverlay.MaterialComponents.Dark">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AddLabel">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
-
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:buttonBarButtonStyle">@style/NegativeButtonStyle</item>
-    </style>
-
-    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+    <style name="AddEditText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textAlignment">textEnd</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="AddTextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <style name="AddHeader">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:paddingStart">30dp</item>
+        <item name="android:background">@color/header</item>
     </style>
 
 </resources>

@@ -27,7 +27,8 @@
                     android:id="@+id/titleEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Event Title"
+                    android:hint="@string/event_title"
+                    android:singleLine="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -40,7 +41,7 @@
                     android:id="@+id/datePreviewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Monday - November 21"
+                    android:text="@string/monday_november_21"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/timePreviewText"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +52,7 @@
                     android:id="@+id/timePreviewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8:30 AM - 10:30 PM"
+                    android:text="@string/_8_30_am_10_30_pm"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -73,13 +74,9 @@
 
                 <TextView
                     android:id="@+id/textView7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/colorButtonNormal"
-                    android:padding="5dp"
-                    android:paddingStart="30dp"
-                    android:text="General"
-                    android:textSize="18sp" />
+                    style="@style/AddHeader"
+                    android:text="@string/general"
+                     />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,93 +85,64 @@
 
                     <TextView
                         android:id="@+id/dateLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="Date:"
-                        android:textSize="16sp"
+                        style="@style/AddLabel"
+                        android:text="@string/date"
                         app:layout_constraintBottom_toTopOf="@+id/startTimeLabelText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/startTimeLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="Start time:"
-                        android:textSize="16sp"
+                        style="@style/AddLabel"
+                        android:text="@string/start_time"
                         app:layout_constraintBottom_toTopOf="@+id/endTimeLabelText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/dateLabelText" />
 
                     <TextView
                         android:id="@+id/endTimeLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="End Time"
-                        android:textSize="16sp"
+                        style="@style/AddLabel"
+                        android:text="@string/end_time"
                         app:layout_constraintBottom_toTopOf="@+id/locationLabelText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/startTimeLabelText" />
 
                     <TextView
                         android:id="@+id/locationLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="Location:"
-                        android:textSize="16sp"
+                        style="@style/AddLabel"
+                        android:text="@string/location"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/endTimeLabelText" />
 
                     <TextView
                         android:id="@+id/dateTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:text="21/11/2019"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        style="@style/AddTextView"
+                        android:text="@string/_21_11_2019"
                         app:layout_constraintBottom_toTopOf="@+id/startTimeTextView"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/startTimeTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:text="10:00"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        style="@style/AddTextView"
+                        android:text="@string/_10_00"
                         app:layout_constraintBottom_toTopOf="@+id/endTimeTextView"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
                     <TextView
                         android:id="@+id/endTimeTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:text="12:3O"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        style="@style/AddTextView"
+                        android:text="@string/_12_3o"
                         app:layout_constraintBottom_toTopOf="@+id/locationEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/startTimeTextView" />
 
                     <EditText
                         android:id="@+id/locationEditText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:padding="0dp"
-                        android:text="Event Location"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        style="@style/AddEditText"
+                        android:hint="@string/event_location"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/endTimeTextView" />
@@ -182,13 +150,8 @@
 
                 <TextView
                     android:id="@+id/textView12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/colorButtonNormal"
-                    android:padding="5dp"
-                    android:paddingStart="30dp"
-                    android:text="Details:"
-                    android:textSize="18sp" />
+                    style="@style/AddHeader"
+                    android:text="@string/details" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -196,72 +159,49 @@
 
                     <TextView
                         android:id="@+id/priceLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="Price"
-                        android:textSize="16sp"
+                        style="@style/AddLabel"
+                        android:text="@string/price"
                         app:layout_constraintBottom_toTopOf="@+id/paidLabelText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/paidLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="Paid by:"
-                        android:textSize="16sp"
+                        style="@style/AddLabel"
+                        android:text="@string/paid_by"
                         app:layout_constraintBottom_toTopOf="@+id/colorLabelText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/priceLabelText" />
 
                     <TextView
                         android:id="@+id/colorLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="Color:"
-                        android:textSize="16sp"
+                        style="@style/AddLabel"
+                        android:text="@string/color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/paidLabelText" />
 
                     <EditText
                         android:id="@+id/priceEditText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:padding="0dp"
-                        android:text="€ 15"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        style="@style/AddEditText"
+                        android:text="@string/_15"
                         app:layout_constraintBottom_toTopOf="@+id/paidEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
                         android:id="@+id/paidEditText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:padding="0dp"
-                        android:text="Ruben De Freyne"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        style="@style/AddEditText"
+                        android:text="@string/ruben_de_freyne"
                         app:layout_constraintBottom_toTopOf="@+id/colorTextView"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/priceEditText" />
 
                     <TextView
                         android:id="@+id/colorTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
+                        style="@style/AddTextView"
                         android:layout_marginBottom="4dp"
-                        android:text="Pick a Color"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:text="@string/pick_a_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/paidEditText" />
@@ -269,13 +209,8 @@
 
                 <TextView
                     android:id="@+id/textView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/colorButtonNormal"
-                    android:padding="5dp"
-                    android:paddingStart="30dp"
-                    android:text="Description:"
-                    android:textSize="18sp" />
+                    style="@style/AddHeader"
+                    android:text="@string/description"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -289,7 +224,7 @@
                         android:layout_marginTop="32dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="32dp"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        android:hint="@string/enter_description_here"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.6"
@@ -305,7 +240,7 @@
                         android:id="@+id/saveEventButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Save"
+                        android:text="@string/save"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -317,7 +252,7 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cancel"
+                        android:text="@string/cancel"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/saveEventButton"
                         app:layout_constraintHorizontal_bias="0.5"

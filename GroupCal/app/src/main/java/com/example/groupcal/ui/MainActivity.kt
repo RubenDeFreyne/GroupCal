@@ -26,6 +26,7 @@ import com.google.android.material.navigation.NavigationView
 import java.util.*
 import androidx.databinding.DataBindingUtil
 import com.example.groupcal.injection.appComponent
+import com.example.groupcal.ui.group.GroupListFragment
 import org.koin.android.ext.android.startKoin
 
 
@@ -106,7 +107,7 @@ class MainActivity :
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
         when (item.itemId) {
-            R.id.nav_calendar -> this.findNavController(R.id.myNavHostFragment).navigateUp()
+            R.id.nav_calendar -> this.findNavController(R.id.myNavHostFragment).popBackStack(R.id.groupListFragment, false)
             R.id.nav_logout -> {
                 // Logout
                 val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
