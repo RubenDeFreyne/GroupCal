@@ -7,24 +7,32 @@ import com.example.groupcal.models.Event
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+ * ViewModel for [AddEventFragment]
+ *
+ * @param repo The Repository for Events
+ */
 class AddEventViewModel(val repo : EventRepository) : ViewModel() {
 
     var groupId = ""
     lateinit var time: Date
-
     var title: String = ""
     var location: String = ""
     var color: String = ""
-
     lateinit var startTime : Date
     lateinit var endTime : Date
 
+    /**
+     * Get Text for timePreview textview
+     */
     fun getTimePreview() : String {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.US)
         return "" + timeFormat.format(startTime.time) +  " - " + timeFormat.format(endTime.time)
     }
 
+    /**
+     * Get Text for datePreview textview
+     */
     fun getDatePreview() : String {
         var weekDay: String
         val dayFormat = SimpleDateFormat("EEEE", Locale.US)
@@ -40,6 +48,9 @@ class AddEventViewModel(val repo : EventRepository) : ViewModel() {
         return "" + weekDay + " - " + fmt.toString() + " " + time.date.toString()
     }
 
+    /**
+     * Add new event with properties filled in by user
+     */
     fun addEvent(groupId : String) : Boolean {
 
         if(title == "Event Title" || location == "Event Location" || color == "Pick a Color") {
@@ -61,12 +72,18 @@ class AddEventViewModel(val repo : EventRepository) : ViewModel() {
         }
     }
 
+    /**
+     * Date object to Calendar object
+     */
     fun toCalendar(date: Date): Calendar {
         val cal = Calendar.getInstance()
         cal.time = date
         return cal
     }
 
+    /**
+     * Check if startTime is before endTime
+     */
     fun checkTime(): Boolean {
         if (endTime.before(startTime))
             return false

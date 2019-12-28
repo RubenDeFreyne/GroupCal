@@ -7,9 +7,14 @@ import com.example.groupcal.models.Event
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * ViewModel for [EventFragment]
+ *
+ * @param repo The Repository for Events
+ */
 class EventViewModel(val repo: EventRepository) : ViewModel() {
 
-    //Displayed events
+    //Displayed event
     lateinit var event : WeekViewDisplayable<Event>
 
     //Event fields
@@ -19,13 +24,9 @@ class EventViewModel(val repo: EventRepository) : ViewModel() {
     var dateDetail : String = ""
     var location : String = ""
 
-    //Coroutines
-
-
-
-
-
-
+    /**
+     * Get event from repo
+     */
     fun getEvent (id : Long) {
 
         event = repo.getById(id)
@@ -58,7 +59,5 @@ class EventViewModel(val repo: EventRepository) : ViewModel() {
 
         //set location
         location = event.toWeekViewEvent().location.toString()
-
-
     }
 }
