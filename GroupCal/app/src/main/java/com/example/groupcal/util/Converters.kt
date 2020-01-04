@@ -7,7 +7,8 @@ import com.google.gson.reflect.TypeToken
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class Converters {
 
@@ -24,8 +25,6 @@ class Converters {
         val type = object : TypeToken<List<User>>() {}.type
         return gson.fromJson(value, type)
     }
-
-
 }
 
 class CalAdapter {
@@ -42,5 +41,4 @@ class CalAdapter {
         time.setTime(sdf.parse(value))
         return time
     }
-
 }

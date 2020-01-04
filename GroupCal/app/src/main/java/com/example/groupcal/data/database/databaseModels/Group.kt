@@ -23,15 +23,13 @@ data class Group(
     val name: String = "",
     val color: String = "",
     val users: MutableList<User>
-
-
-){
+) {
     /**
      * Converts a [Group] object from the database to a [Group] object and is used in the UI
      *
      * @return the [Group] used in the UI
      */
-    fun toGroup() : Group {
+    fun toGroup(): Group {
         return com.example.groupcal.models.Group(
             backendId = this.group_id,
             name = this.name,

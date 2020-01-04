@@ -1,6 +1,4 @@
 package com.example.groupcal.injection
-
-
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
@@ -13,7 +11,11 @@ import com.example.groupcal.data.network.EventApi
 import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.util.CalAdapter
 import com.example.groupcal.util.Constants
-import com.example.groupcal.viewmodels.*
+import com.example.groupcal.viewmodels.AddEventViewModel
+import com.example.groupcal.viewmodels.CalendarViewModel
+import com.example.groupcal.viewmodels.EventViewModel
+import com.example.groupcal.viewmodels.GroupViewModel
+import com.example.groupcal.viewmodels.AddGroupViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -31,7 +33,6 @@ val viewModelModule = module {
     viewModel { CalendarViewModel(get()) }
     viewModel { EventViewModel(get()) }
     viewModel { AddGroupViewModel(get()) }
-
 }
 
 val networkModule = module {
@@ -68,8 +69,6 @@ val networkModule = module {
     fun provideEventApi(retrofit: Retrofit): EventApi {
         return retrofit.create(EventApi::class.java)
     }
-
-
     factory { provideHttpLoggingInterceptor() }
     factory { provideOkHttpClient(get()) }
     factory { provideGroupApi(get()) }
@@ -77,18 +76,13 @@ val networkModule = module {
     single { provideRetrofitInterface(get()) }
 }
 
-
 val databaseModule = module {
-
     fun provideDatabase(application: Application): CalDatabase {
-
-        val db =  Room.databaseBuilder(application, CalDatabase::class.java, "group_cal_database")
+        val db = Room.databaseBuilder(application, CalDatabase::class.java, "group_cal_database")
             // Allowing main thread queries, just for testing.
             .allowMainThreadQueries()
             .build()
-        
         return db
-
     }
 
     fun provideEventDao(database: CalDatabase): EventDAO {
@@ -102,7 +96,6 @@ val databaseModule = module {
     single { provideDatabase(androidApplication()) }
     single { provideEventDao(get()) }
     single { provideGroupDao(get()) }
-
 }
 
 val repositoryModule = module {
@@ -125,5 +118,4 @@ val repositoryModule = module {
 
     factory { provideGroupRepository(get(), get(), androidContext()) }
     factory { provideEventRepository(get(), get(), androidContext(), get()) }
-
 }

@@ -2,7 +2,9 @@ package com.example.groupcal.data.network
 
 import com.example.groupcal.models.Group
 import kotlinx.coroutines.Deferred
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Body
 
 /**
  * Interface for sending requests related to [Group] to backend. This done by Retrofit.
@@ -17,7 +19,7 @@ interface GroupApi {
      * @return Deferred list of groups in the backend
      */
     @GET("groups")
-    fun getGroups() : Deferred<List<Group>>
+    fun getGroups(): Deferred<List<Group>>
 
     /**
      * Create a new group in the backend
@@ -28,6 +30,4 @@ interface GroupApi {
      */
     @POST("groups")
     fun addGroup(@Body group: Group): Deferred<Group>
-
-
 }

@@ -12,8 +12,9 @@ import androidx.navigation.findNavController
 import com.example.groupcal.databinding.FragmentAddEventBinding
 import com.example.groupcal.viewmodels.AddEventViewModel
 import java.text.SimpleDateFormat
-import java.util.*
-import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import java.util.Calendar
+import java.util.Locale
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -31,7 +32,8 @@ class AddEventFragment : Fragment() {
      * Inflate view with data binding
      */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddEventBinding.inflate(inflater)
@@ -44,30 +46,30 @@ class AddEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Get navigation arguments
+        // Get navigation arguments
         val args = AddEventFragmentArgs.fromBundle(arguments)
 
-        //Create date format for time argument
-        val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
+        // Create date format for time argument
+        val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US)
 
-        //Set ViewModel properties from arguments
+        // Set ViewModel properties from arguments
         viewModel.time = sdf.parse(args.time)
         viewModel.groupId = args.groupId
 
-        //Set ViewModel startTime and endTime to clicked time
+        // Set ViewModel startTime and endTime to clicked time
         viewModel.startTime = viewModel.time
         viewModel.endTime = viewModel.time
 
-        //Set timePreview and datePreview text to clicked time
+        // Set timePreview and datePreview text to clicked time
         binding.timePreviewText.setText(viewModel.getTimePreview())
         binding.datePreviewText.setText(viewModel.getDatePreview())
 
-        //Set dateTextView to cliecked time
+        // Set dateTextView to cliecked time
         binding.dateTextView.text = SimpleDateFormat("dd.MM.yyyy").format(viewModel.time)
         var cal = Calendar.getInstance()
         cal.time = viewModel.time
 
-        //Set Listener for DatePicker
+        // Set Listener for DatePicker
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
@@ -76,7 +78,7 @@ class AddEventFragment : Fragment() {
             binding.datePreviewText.setText(viewModel.getDatePreview())
         }
 
-        //set DateTextView click listener
+        // Set DateTextView click listener
         binding.dateTextView.setOnClickListener {
             DatePickerDialog(
                 this.context!!, dateSetListener,
@@ -85,10 +87,10 @@ class AddEventFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        //Set startTime to clicked time
+        // Set startTime to clicked time
         binding.startTimeTextView.text = SimpleDateFormat("HH:mm").format(viewModel.time)
 
-        //Set listener for TimePicker for startTime
+        // Set listener for TimePicker for startTime
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
@@ -97,7 +99,7 @@ class AddEventFragment : Fragment() {
             binding.timePreviewText.setText(viewModel.getTimePreview())
         }
 
-        //Set StartTimeTextView click listener
+        // Set StartTimeTextView click listener
         binding.startTimeTextView.setOnClickListener {
             TimePickerDialog(
                 this.context!!, timeSetListener,
@@ -105,10 +107,10 @@ class AddEventFragment : Fragment() {
                 cal.get(Calendar.MINUTE), true).show()
         }
 
-        //Set endTime to clicked time
+        // Set endTime to clicked time
         binding.endTimeTextView.text = SimpleDateFormat("HH:mm").format(viewModel.time)
 
-        //Set listener for TimePicker for endTime
+        // Set listener for TimePicker for endTime
         val endTimeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
@@ -117,7 +119,7 @@ class AddEventFragment : Fragment() {
             binding.timePreviewText.setText(viewModel.getTimePreview())
         }
 
-        //Set EndTimeTextView click listener
+        // Set EndTimeTextView click listener
         binding.endTimeTextView.setOnClickListener {
             TimePickerDialog(
                 this.context!!, endTimeSetListener,
@@ -125,36 +127,36 @@ class AddEventFragment : Fragment() {
                 cal.get(Calendar.MINUTE), true).show()
         }
 
-        //Set ColorPicker start color
+        // Set ColorPicker start color
         val cp = ColorPicker(this.activity, 255, 255, 255)
 
-        //Set ColorTextView click listener
-        binding.colorTextView.setOnClickListener{
+        // Set ColorTextView click listener
+        binding.colorTextView.setOnClickListener {
             cp.show()
             cp.enableAutoClose()
         }
 
-        //Set listener for ColorPicker
+        // Set listener for ColorPicker
         cp.setCallback { color -> run {
             viewModel.color = color.toString()
             binding.colorTextView.setBackgroundColor(color)
             binding.colorTextView.setText(color.toString())
-            binding.colorTextView.setTextColor(color)
-          }}
+            binding.colorTextView.setTextColor(color) }
+        }
 
-        //Save the event
+        // Save the event
         binding.saveEventButton.setOnClickListener {
             viewModel.title = binding.titleEditText.text.toString()
             viewModel.location = binding.locationEditText.text.toString()
             val result = viewModel.addEvent(args.groupId)
 
-            //Show Toast depending on fields
-            if(result){
+            // Show Toast depending on fields
+            if (result) {
                 Toast.makeText(context, "Added new Event", Toast.LENGTH_LONG).show()
-                if(viewModel.checkTime()){
+                if (viewModel.checkTime()) {
                 view!!.findNavController().navigate(
                     AddEventFragmentDirections.ActionAddEventFragmentToPlannerFragment(viewModel.groupId)
-                )} else {
+                ) } else {
                     Toast.makeText(context, "End Time cannot be before Start Time", Toast.LENGTH_LONG).show()
                 }
             } else {

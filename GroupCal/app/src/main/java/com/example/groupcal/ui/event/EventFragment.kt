@@ -24,7 +24,8 @@ class EventFragment : Fragment() {
      * Inflate view with data binding
      */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEventBinding.inflate(inflater)
@@ -37,7 +38,7 @@ class EventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Get navigation arguments
+        // Get navigation arguments
         val args = EventFragmentArgs.fromBundle(arguments)
         viewModel.getEvent(args.id)
 

@@ -1,9 +1,13 @@
 package com.example.groupcal.data.database.databaseModels
-
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import androidx.room.ColumnInfo
 import com.example.groupcal.models.Event
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 /**
  * This class is used for converting an [Event] to an [Event] that can be stored in the [CalDatabase].
@@ -43,14 +47,14 @@ data class Event(
     val group_id: String,
     val backendId: String = ""
 
-){
+) {
     /**
      * Converts an [Event] object from the database to an [Event] object and is used in the UI
      *
      * @return the [Event] used in the UI
      */
 
-    fun toEvent(): Event{
+    fun toEvent(): Event {
         val startTime: Calendar = Calendar.getInstance()
         val endTime: Calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH)

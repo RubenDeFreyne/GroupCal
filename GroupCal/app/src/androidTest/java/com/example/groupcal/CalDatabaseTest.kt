@@ -1,4 +1,4 @@
-package com.example.groupcal
+/*package com.example.groupcal
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -34,7 +34,6 @@ class CalDatabaseTest {
     private lateinit var eventDao: EventDAO
     private lateinit var userGroupDao: UserGroupDAO
 
-
     @Before
     fun createDb() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -56,7 +55,7 @@ class CalDatabaseTest {
         db.close()
     }
 
-    //USER TESTS
+    // USER TESTS
     @Test
     @Throws(Exception::class)
     fun insertAndGetUser() {
@@ -66,7 +65,7 @@ class CalDatabaseTest {
         assertEquals(user.username, dbuser.username)
     }
 
-    //GROUP TESTS
+    // GROUP TESTS
     @Test
     @Throws(Exception::class)
     fun insertAndGetGroup() {
@@ -88,8 +87,7 @@ class CalDatabaseTest {
         assertEquals(2, dbgroup.users.size)
     }
 
-
-    //USERGROUP TESTS
+    // USERGROUP TESTS
     @Test
     @Throws(Exception::class)
     fun insertAndGetUserGroup() {
@@ -108,18 +106,16 @@ class CalDatabaseTest {
         assertEquals(dbgroup, dbusergroup)
     }
 
-
-    //EVENT TESTS
+    // EVENT TESTS
     @Test
     @Throws(Exception::class)
     fun insertAndGetEvent() {
         val group = Group(users = mutableListOf())
         groupDao.insert(group)
         val dbGroup = groupDao.getAllGroups().blockingGet().last()
-        val event= Event(group_id =  dbGroup.id)
+        val event = Event(group_id = dbGroup.id)
         eventDao.insert(event)
         val dbEvent = eventDao.getAllEvents().blockingGet().last()
         assertEquals(dbGroup.id, dbEvent.group_id)
     }
-}
-
+}*/

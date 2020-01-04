@@ -25,22 +25,20 @@ import com.example.groupcal.databinding.FragmentPlannerBinding
  */
 class PlannerFragment : Fragment() {
 
-
     private val viewModel by viewModel<CalendarViewModel>()
     private lateinit var binding: FragmentPlannerBinding
     private lateinit var weekView: WeekView<Event>
-
     private lateinit var dayText: TextView
     private lateinit var dayButton: Button
     private lateinit var monthText: TextView
     private lateinit var weekButton: Button
 
-
     /**
      * Inflate view with data binding
      */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlannerBinding.inflate(inflater)
@@ -74,7 +72,7 @@ class PlannerFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        //Set onRangeChangeListener for swiping
+        // Set onRangeChangeListener for swiping
         weekView.setOnRangeChangeListener { firstVisibleDate, lastVisibleDate ->
             run {
                 viewModel.currentlyViewing = firstVisibleDate
@@ -85,15 +83,15 @@ class PlannerFragment : Fragment() {
             }
         }
 
-        //Set onEmptyViewLongClickListener for adding new events
-        weekView.setOnEmptyViewLongClickListener { time ->  view!!.findNavController().navigate(
+        // Set onEmptyViewLongClickListener for adding new events
+        weekView.setOnEmptyViewLongClickListener { time -> view!!.findNavController().navigate(
             PlannerFragmentDirections.ActionPlannerFragmentToAddEventFragment(
                 time.time.toString(),
                 viewModel.groupId
             )
-        )}
+        ) }
 
-        //Set onClickListener for changing to dayview
+        // Set onClickListener for changing to dayview
         dayButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 1
             dayButton.setTextColor(getResources().getColor(R.color.colorPrimary))
@@ -101,7 +99,7 @@ class PlannerFragment : Fragment() {
             weekView.goToDate(viewModel.currentlyViewing)
         })
 
-        //Set onClickListener for changing to weekview
+        // Set onClickListener for changing to weekview
         weekButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 7
             weekButton.setTextColor(getResources().getColor(R.color.colorPrimary))
@@ -109,11 +107,11 @@ class PlannerFragment : Fragment() {
             weekView.goToDate(viewModel.currentlyViewing)
         })
 
-        //Set onEventClickListener for getting event details
-        weekView.setOnEventClickListener { data, rect ->  this.findNavController().navigate(
+        // Set onEventClickListener for getting event details
+        weekView.setOnEventClickListener { data, rect -> this.findNavController().navigate(
             PlannerFragmentDirections.actionPlannerFragmentToEventFragment(
                 data.databaseId
             )
-        )}
+        ) }
     }
 }

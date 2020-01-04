@@ -7,7 +7,10 @@ import androidx.lifecycle.Transformations
 import com.example.groupcal.data.database.dao.GroupDAO
 import com.example.groupcal.data.network.GroupApi
 import com.example.groupcal.models.Group
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Repository used for managing all operations related to [Group]
@@ -17,7 +20,7 @@ import kotlinx.coroutines.*
  * @param api class used to communicate with backend
  * @param context used to check internet connectivity
  */
-class GroupRepository (val dao : GroupDAO, val api : GroupApi, context: Context) : BaseRepo(context){
+class GroupRepository(val dao: GroupDAO, val api: GroupApi, context: Context) : BaseRepo(context) {
 
     /**
      * Defines the Coroutine Job used by the repo
@@ -27,7 +30,7 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, context: Context)
     /**
      * Defines the Coroutine Scope used by the repo
      */
-    private val coroutineScope = CoroutineScope(repoJob + Dispatchers.Main )
+    private val coroutineScope = CoroutineScope(repoJob + Dispatchers.Main)
 
     /**
      * get a specific [Group] object in the [CalDatabase]
@@ -36,7 +39,7 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, context: Context)
      *
      * @return group from database
      */
-    fun getById(id: String): Group{
+    fun getById(id: String): Group {
         return dao.get(id).blockingGet()!!.toGroup()
     }
 
@@ -46,14 +49,13 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, context: Context)
      *
      * @param group The group that has to be created
      */
-    fun addGroup(group : Group) {
+    fun addGroup(group: Group) {
         coroutineScope.launch {
             var getGroup = api.addGroup(group)
             try {
                 var listResult = getGroup.await()
                 dao.insert(group.toDatabaseGroup())
-            }catch (t : Throwable){
-
+            } catch (t: Throwable) {
             }
         }
     }
@@ -64,26 +66,22 @@ class GroupRepository (val dao : GroupDAO, val api : GroupApi, context: Context)
      *
      * @return observable list of [Group] objects
      */
-    fun getAllGroups() : LiveData<List<Group>> {
+    fun getAllGroups(): LiveData<List<Group>> {
         var _groups: MutableLiveData<List<Group>> = MutableLiveData()
         var groups: LiveData<List<Group>> = _groups
-        if( dao.getRowCount() <= 0 && isConnected()){
+        if (dao.getRowCount() <= 0 && isConnected()) {
             coroutineScope.launch {
                 var getGroups = api.getGroups()
                 try {
                     var listResult = getGroups.await()
                     _groups.value = listResult
                     listResult.forEach { r -> dao.insert(r.toDatabaseGroup()) }
-                }catch (t : Throwable){
-
+                } catch (t: Throwable) {
                 }
             }
         } else {
-            return Transformations.map(dao.getAllGroups(), {l -> l.map { g -> g.toGroup() }})
+            return Transformations.map(dao.getAllGroups(), { l -> l.map { g -> g.toGroup() } })
         }
         return groups
     }
-
-
-
 }

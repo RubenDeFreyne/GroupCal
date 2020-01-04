@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
  * @constructor Creates a new event with the given parameters
  */
 @Entity(tableName = "user_table")
-data class User (
+data class User(
 
     @PrimaryKey(autoGenerate = true)
     val databaseId: Long = 0L,

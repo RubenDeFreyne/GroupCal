@@ -1,7 +1,8 @@
 package com.example.groupcal.data.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
 import com.example.groupcal.data.database.databaseModels.Event
 import com.example.groupcal.data.database.databaseModels.Group
 import io.reactivex.Single
@@ -46,5 +47,4 @@ interface EventDAO : BaseDAO<Event> {
      */
     @Query("select count(*) from event_table")
     fun getRowCount(): Int
-
 }
