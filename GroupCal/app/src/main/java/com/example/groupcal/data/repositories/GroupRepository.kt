@@ -54,7 +54,7 @@ class GroupRepository(val dao: GroupDAO, val api: GroupApi, context: Context) : 
             var getGroup = api.addGroup(group)
             try {
                 var listResult = getGroup.await()
-                dao.insert(group.toDatabaseGroup())
+                dao.insert(listResult.toDatabaseGroup())
             } catch (t: Throwable) {
             }
         }

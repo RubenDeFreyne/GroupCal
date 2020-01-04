@@ -35,12 +35,12 @@
                 app:strokeWidth="1dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/weekButton"
+                android:id="@+id/threeDayButton"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/colorWhite"
-                android:text="@string/week"
+                android:text="@string/_3_days"
                 android:textSize="12sp"
                 app:strokeColor="#33000000"
                 app:strokeWidth="1dp"
@@ -48,11 +48,12 @@
                 app:elevation="0dp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/weekButton"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/colorWhite"
-                android:text="@string/month"
+                android:text="@string/week"
                 android:textSize="12sp"
                 app:strokeColor="#33000000"
                 app:strokeWidth="1dp"

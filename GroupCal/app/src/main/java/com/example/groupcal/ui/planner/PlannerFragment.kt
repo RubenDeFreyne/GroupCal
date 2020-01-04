@@ -31,6 +31,7 @@ class PlannerFragment : Fragment() {
     private lateinit var dayText: TextView
     private lateinit var dayButton: Button
     private lateinit var monthText: TextView
+    private lateinit var threeDayButton: Button
     private lateinit var weekButton: Button
 
     /**
@@ -64,6 +65,7 @@ class PlannerFragment : Fragment() {
         dayText = view.findViewById<TextView>(R.id.dayText)
         dayButton = view.findViewById<Button>(R.id.dayButton)
         weekButton = view.findViewById<Button>(R.id.weekButton)
+        threeDayButton = view.findViewById<Button>(R.id.threeDayButton)
 
         weekView.minDate = viewModel.startDate
         weekView.maxDate = viewModel.endDate
@@ -76,9 +78,16 @@ class PlannerFragment : Fragment() {
         weekView.setOnRangeChangeListener { firstVisibleDate, lastVisibleDate ->
             run {
                 viewModel.currentlyViewing = firstVisibleDate
-                dayText.setText(
-                    firstVisibleDate.time.date.toString()
-                )
+
+                if (firstVisibleDate == lastVisibleDate) {
+                    dayText.setText(
+                        firstVisibleDate.time.date.toString()
+                    )
+                } else {
+                    dayText.setText(
+                        "" + firstVisibleDate.time.date.toString() + " - " + lastVisibleDate.time.date.toString()
+                    )
+                }
                 monthText.setText(viewModel.getMonthText())
             }
         }
@@ -94,7 +103,21 @@ class PlannerFragment : Fragment() {
         // Set onClickListener for changing to dayview
         dayButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 1
+            weekView.headerRowTextSize = 0
+            weekView.headerRowPadding = 0
             dayButton.setTextColor(getResources().getColor(R.color.colorPrimary))
+            weekButton.setTextColor(Color.parseColor("#33000000"))
+            threeDayButton.setTextColor(Color.parseColor("#33000000"))
+            weekView.goToDate(viewModel.currentlyViewing)
+        })
+
+        // Set onClickListener for changing to threedayview
+        threeDayButton.setOnClickListener(View.OnClickListener {
+            weekView.numberOfVisibleDays = 3
+            weekView.headerRowTextSize = 20
+            weekView.headerRowPadding = 40
+            threeDayButton.setTextColor(getResources().getColor(R.color.colorPrimary))
+            dayButton.setTextColor(Color.parseColor("#33000000"))
             weekButton.setTextColor(Color.parseColor("#33000000"))
             weekView.goToDate(viewModel.currentlyViewing)
         })
@@ -102,8 +125,11 @@ class PlannerFragment : Fragment() {
         // Set onClickListener for changing to weekview
         weekButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 7
+            weekView.headerRowTextSize = 20
+            weekView.headerRowPadding = 40
             weekButton.setTextColor(getResources().getColor(R.color.colorPrimary))
             dayButton.setTextColor(Color.parseColor("#33000000"))
+            threeDayButton.setTextColor(Color.parseColor("#33000000"))
             weekView.goToDate(viewModel.currentlyViewing)
         })
 

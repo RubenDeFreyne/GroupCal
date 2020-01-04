@@ -53,7 +53,9 @@ class AddGroupFragment : Fragment() {
 
         // Set listener for ColorPicker
         cp.setCallback { color -> run {
+            binding.groupColorTextView.setBackgroundColor(color)
             binding.groupColorTextView.setText(color.toString())
+            binding.groupColorTextView.setTextColor(color)
         } }
 
         // Set click listener for SaveButton
