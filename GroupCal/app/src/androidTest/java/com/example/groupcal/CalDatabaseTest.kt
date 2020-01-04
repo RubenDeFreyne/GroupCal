@@ -1,12 +1,12 @@
-/*package com.example.groupcal
+package com.example.groupcal
 
+import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
-
 import org.junit.Test
 import org.junit.runner.RunWith
-
 import androidx.room.Room
+import androidx.test.runner.AndroidJUnit4
 import com.example.groupcal.data.database.*
 import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.database.dao.GroupDAO
@@ -14,8 +14,7 @@ import com.example.groupcal.data.database.dao.UserDAO
 import com.example.groupcal.data.database.databaseModels.Event
 import com.example.groupcal.data.database.databaseModels.Group
 import com.example.groupcal.data.database.databaseModels.User
-import com.example.groupcal.data.database.databaseModels.UserGroup
-
+import kotlinx.coroutines.*
 import org.junit.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
@@ -32,7 +31,7 @@ class CalDatabaseTest {
     private lateinit var userDao: UserDAO
     private lateinit var groupDao: GroupDAO
     private lateinit var eventDao: EventDAO
-    private lateinit var userGroupDao: UserGroupDAO
+
 
     @Before
     fun createDb() {
@@ -43,16 +42,16 @@ class CalDatabaseTest {
             // Allowing main thread queries, just for testing.
             .allowMainThreadQueries()
             .build()
-        userDao = db.userDAO
-        groupDao = db.groupDAO
-        eventDao = db.eventDAO
-        userGroupDao = db.userGroupDAO
+        userDao = db.UserDAO()
+        groupDao = db.GroupDAO()
+        eventDao = db.EventDAO()
+        db.clearAllTables()
     }
 
     @After
     @Throws(IOException::class)
     fun closeDb() {
-        db.close()
+        db.clearAllTables()
     }
 
     // USER TESTS
@@ -69,53 +68,53 @@ class CalDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetGroup() {
-        val group = Group(users = mutableListOf())
+        val group = Group(users = mutableListOf(), group_id = "group")
         groupDao.insert(group)
-        val dbgroup = groupDao.getAllGroups().blockingGet().last()
-        assertEquals(group.name, dbgroup.name)
+        assertEquals(groupDao.getRowCount(), 1)
     }
 
     @Test
     @Throws(Exception::class)
     fun insertAndGetGroupWithUsers() {
-        val users: MutableList<User> = mutableListOf()
-        users += User()
-        users += User()
-        val group = Group(users = users)
-        groupDao.insert(group)
-        val dbgroup = groupDao.getAllGroups().blockingGet().last()
-        assertEquals(2, dbgroup.users.size)
-    }
 
-    // USERGROUP TESTS
-    @Test
-    @Throws(Exception::class)
-    fun insertAndGetUserGroup() {
-        val group = Group(users = mutableListOf())
+        val users: MutableList<com.example.groupcal.models.User> = mutableListOf()
+        users += com.example.groupcal.models.User("user1")
+        users += com.example.groupcal.models.User("user2")
+        val group = Group(users = users, group_id = "usersgroup")
         groupDao.insert(group)
-        val user = User()
-        userDao.insert(user)
-        val dbuser = userDao.getAllUsers().blockingGet().last()
-        val dbgroup = groupDao.getAllGroups().blockingGet().last()
-        val usergroup = UserGroup(
-            dbgroup.id,
-            dbuser.id
-        )
-        userGroupDao.insert(usergroup)
-        val dbusergroup = userGroupDao.getGroupsFromUser(dbuser.id).blockingGet().last()
-        assertEquals(dbgroup, dbusergroup)
+        val dbgroup = groupDao.get("usersgroup").blockingGet()
+        assertEquals(2, dbgroup!!.users.size)
     }
 
     // EVENT TESTS
     @Test
     @Throws(Exception::class)
     fun insertAndGetEvent() {
-        val group = Group(users = mutableListOf())
-        groupDao.insert(group)
-        val dbGroup = groupDao.getAllGroups().blockingGet().last()
-        val event = Event(group_id = dbGroup.id)
-        eventDao.insert(event)
-        val dbEvent = eventDao.getAllEvents().blockingGet().last()
-        assertEquals(dbGroup.id, dbEvent.group_id)
+        GlobalScope.launch(Dispatchers.Main) {
+            val group = Group(users = mutableListOf(), group_id= "testid")
+            groupDao.insert(group)
+            val event = Event(group_id = "testid")
+            eventDao.insert(event)
+            eventDao.getAllEvents().observeOnce { assertEquals("testid", it.first().group_id) }
+        }
     }
-}*/
+}
+
+class OneTimeObserver<T>(private val handler: (T) -> Unit) : Observer<T>, LifecycleOwner {
+    private val lifecycle = LifecycleRegistry(this)
+    init {
+        lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    }
+
+    override fun getLifecycle(): Lifecycle = lifecycle
+
+    override fun onChanged(t: T) {
+        handler(t)
+        lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    }
+}
+
+fun <T> LiveData<T>.observeOnce(onChangeHandler: (T) -> Unit) {
+    val observer = OneTimeObserver(handler = onChangeHandler)
+    observe(observer, observer)
+}

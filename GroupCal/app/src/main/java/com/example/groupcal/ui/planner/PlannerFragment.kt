@@ -88,7 +88,7 @@ class PlannerFragment : Fragment() {
                         "" + firstVisibleDate.time.date.toString() + " - " + lastVisibleDate.time.date.toString()
                     )
                 }
-                monthText.setText(viewModel.getMonthText())
+                monthText.setText(viewModel.getMonthText().capitalize())
             }
         }
 
@@ -105,6 +105,8 @@ class PlannerFragment : Fragment() {
             weekView.numberOfVisibleDays = 1
             weekView.headerRowTextSize = 0
             weekView.headerRowPadding = 0
+            weekView.headerRowBottomLineWidth= 0
+            weekView.isShowHeaderRowBottomLine= false
             dayButton.setTextColor(getResources().getColor(R.color.colorPrimary))
             weekButton.setTextColor(Color.parseColor("#33000000"))
             threeDayButton.setTextColor(Color.parseColor("#33000000"))
@@ -115,7 +117,8 @@ class PlannerFragment : Fragment() {
         threeDayButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 3
             weekView.headerRowTextSize = 20
-            weekView.headerRowPadding = 40
+            weekView.headerRowPadding = 20
+            weekView.isShowHeaderRowBottomLine = true
             threeDayButton.setTextColor(getResources().getColor(R.color.colorPrimary))
             dayButton.setTextColor(Color.parseColor("#33000000"))
             weekButton.setTextColor(Color.parseColor("#33000000"))
@@ -126,7 +129,8 @@ class PlannerFragment : Fragment() {
         weekButton.setOnClickListener(View.OnClickListener {
             weekView.numberOfVisibleDays = 7
             weekView.headerRowTextSize = 20
-            weekView.headerRowPadding = 40
+            weekView.headerRowPadding = 20
+            weekView.isShowHeaderRowBottomLine = true
             weekButton.setTextColor(getResources().getColor(R.color.colorPrimary))
             dayButton.setTextColor(Color.parseColor("#33000000"))
             threeDayButton.setTextColor(Color.parseColor("#33000000"))

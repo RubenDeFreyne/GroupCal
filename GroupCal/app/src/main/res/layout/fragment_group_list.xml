@@ -12,8 +12,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp">
+        app:cardElevation="6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,11 +33,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
+        <ImageView
+            style="@style/Divider"
+            app:srcCompat="@drawable/border" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF">
+            android:background="#f5f5f5">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/group_recycler"
