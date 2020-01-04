@@ -1,9 +1,7 @@
 package com.example.groupcal.data.database
 
-import android.content.Context
 import androidx.room.RoomDatabase
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.TypeConverters
 import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.database.dao.GroupDAO
@@ -17,7 +15,7 @@ import com.example.groupcal.util.Converters
  * The database used to store [User], [Group] end [Event] coming from the backend
  * This database uses [RoomDatabase]
  */
-@Database(entities = [User::class, Group::class, Event::class], version = 1,  exportSchema = false)
+@Database(entities = [User::class, Group::class, Event::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class CalDatabase : RoomDatabase() {
 

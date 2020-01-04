@@ -20,12 +20,15 @@
             app:headerRowPadding="0dp"
             app:singleDayHorizontalMargin="8dp"
             app:numberOfVisibleDays="1"
-            app:headerRowBackgroundColor="@color/colorWhite"
+            app:headerRowBackgroundColor="#dedede"
             app:dayBackgroundColor="@color/colorWhite"
             app:todayBackgroundColor="@color/colorWhite"
             app:headerRowTextSize="0dp"
+            app:headerRowBottomLineWidth="0.5dp"
+            app:headerRowBottomLineColor="#000000"
             app:eventCornerRadius="8dp"
-            app:eventPadding="8dp" />
+            app:eventPadding="8dp"
+            app:singleLineHeader="false"/>
 
     </LinearLayout>
 </layout>

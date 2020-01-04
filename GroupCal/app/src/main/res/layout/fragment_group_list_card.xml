@@ -11,17 +11,20 @@
             type="com.example.groupcal.ui.group.GroupListener"/>
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="#FFFFFF"
         android:onClick="@{() -> clickListener.onClick(group)}"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"
+        app:strokeColor="#000000"
+        app:strokeWidth="0.2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/group_color"
@@ -68,5 +71,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/groupNameText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

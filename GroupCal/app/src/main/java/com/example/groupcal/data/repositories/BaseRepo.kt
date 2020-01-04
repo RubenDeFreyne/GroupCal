@@ -5,8 +5,6 @@ import android.net.ConnectivityManager
 
 abstract class BaseRepo(val context: Context) {
 
-
-
     /**
      * Check whether the phone has internet connectivity
      */

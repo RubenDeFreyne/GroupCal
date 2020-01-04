@@ -24,7 +24,7 @@ data class Group(
     @field:Json(name = "members")
     val members: MutableList<User> = mutableListOf()
 
-){
+) {
     /**
      * Converts an [Group] object used in the UI to an [Group] object used in the database
      *

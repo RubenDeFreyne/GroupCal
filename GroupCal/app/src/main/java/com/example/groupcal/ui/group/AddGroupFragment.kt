@@ -27,7 +27,8 @@ class AddGroupFragment : Fragment() {
      * Inflate view with data binding
      */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -41,28 +42,30 @@ class AddGroupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Set start color
+        // Set start color
         val cp = ColorPicker(this.activity, 255, 255, 255)
 
-        //Set click listener for ColorTextView
-        binding.groupColorTextView.setOnClickListener{
+        // Set click listener for ColorTextView
+        binding.groupColorTextView.setOnClickListener {
             cp.show()
             cp.enableAutoClose()
         }
 
-        //Set listener for ColorPicker
+        // Set listener for ColorPicker
         cp.setCallback { color -> run {
+            binding.groupColorTextView.setBackgroundColor(color)
             binding.groupColorTextView.setText(color.toString())
-        }}
+            binding.groupColorTextView.setTextColor(color)
+        } }
 
-        //Set click listener for SaveButton
-        binding.saveGroupButton.setOnClickListener{
+        // Set click listener for SaveButton
+        binding.saveGroupButton.setOnClickListener {
             viewModel.name = binding.groupNameTextView.text.toString()
             viewModel.color = binding.groupColorTextView.text.toString()
 
-            //Show toast depending on fields
+            // Show toast depending on fields
             var result = viewModel.addGroup()
-            if(result){
+            if (result) {
                 Toast.makeText(context, "Added new Group", Toast.LENGTH_LONG).show()
                 view!!.findNavController().navigate(
                     AddGroupFragmentDirections.ActionAddGroupFragmentToGroupListFragment()

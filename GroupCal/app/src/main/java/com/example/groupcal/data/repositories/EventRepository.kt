@@ -7,7 +7,10 @@ import com.alamkanak.weekview.WeekViewDisplayable
 import com.example.groupcal.data.database.dao.EventDAO
 import com.example.groupcal.data.network.EventApi
 import com.example.groupcal.models.Event
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Repository used for managing all operations related to [Event]
@@ -18,7 +21,7 @@ import kotlinx.coroutines.*
  * @param context used to check internet connectivity
  * @param repo used for attaching the group when creating new event
  */
-class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, val groupRepo: GroupRepository) : BaseRepo(context) {
+class EventRepository(val dao: EventDAO, val api: EventApi, context: Context, val groupRepo: GroupRepository) : BaseRepo(context) {
 
     /**
      * Defines the Coroutine Job used by the repo
@@ -28,7 +31,7 @@ class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, v
     /**
      * Defines the Coroutine Scope used by the repo
      */
-    private val coroutineScope = CoroutineScope(repoJob + Dispatchers.Main )
+    private val coroutineScope = CoroutineScope(repoJob + Dispatchers.Main)
 
     /**
      * get a specific [Event] object in the [CalDatabase]
@@ -37,7 +40,7 @@ class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, v
      *
      * @return WeekViewDisplayable event from database
      */
-    fun getById(id : Long) : WeekViewDisplayable<Event> {
+    fun getById(id: Long): WeekViewDisplayable<Event> {
         return dao.get(id).blockingGet()!!.toEvent().toWeekViewEvent()
     }
 
@@ -47,7 +50,7 @@ class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, v
      *
      * @param event The event that has to be created
      */
-    fun addEvent (event : Event, id: String) {
+    fun addEvent(event: Event, id: String) {
         event.group = groupRepo.getById(id)
         coroutineScope.launch {
             var getEvent = api.addEvent(event)
@@ -55,7 +58,6 @@ class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, v
                 var apiEvent = getEvent.await()
                 dao.insert(apiEvent.toDatabaseEvent(id))
             } catch (t: Throwable) {
-              //TODO: maybe error message in toast
             }
         }
     }
@@ -66,8 +68,8 @@ class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, v
      *
      * @return observable list of [Event] objects
      */
-    fun getEvents(id: String): LiveData<List<WeekViewDisplayable<Event>>>{
-        if(isConnected()){
+    fun getEvents(id: String): LiveData<List<WeekViewDisplayable<Event>>> {
+        if (isConnected()) {
             coroutineScope.launch {
                 var getGroups = api.getEvents()
                 val listResult = getGroups.await()
@@ -75,6 +77,6 @@ class EventRepository (val dao: EventDAO, val api: EventApi, context: Context, v
                 events.forEach { r -> dao.insert(r.toDatabaseEvent(id)) }
             }
         }
-        return Transformations.map(dao.getEventsByGroup(id), {l -> l.map { g -> g.toEvent() }})
+        return Transformations.map(dao.getEventsByGroup(id), { l -> l.map { g -> g.toEvent() } })
     }
 }

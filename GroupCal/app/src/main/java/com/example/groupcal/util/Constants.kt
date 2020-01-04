@@ -6,6 +6,5 @@ class Constants {
          * Backend urls
          */
         const val HEROKU_URL = "https://groupcalapp.herokuapp.com/"
-
     }
 }

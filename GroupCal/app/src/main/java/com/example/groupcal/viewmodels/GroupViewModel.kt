@@ -10,15 +10,14 @@ import com.example.groupcal.models.Group
  *
  * @param repo The Repository for Events
  */
-class GroupViewModel(val repo : GroupRepository) : ViewModel() {
+class GroupViewModel(val repo: GroupRepository) : ViewModel() {
 
     var groups: LiveData<List<Group>> = getGroupsFromRepo()
 
     /**
      * Get groups from repo
      */
-    fun getGroupsFromRepo() : LiveData<List<Group>>{
+    fun getGroupsFromRepo(): LiveData<List<Group>> {
         return repo.getAllGroups()
     }
-
 }

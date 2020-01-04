@@ -20,11 +20,11 @@ class CalendarHeaderFragment : Fragment() {
      * Inflate view with data binding
      */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCalendarHeaderBinding.inflate(inflater)
         return binding.root
     }
-
 }

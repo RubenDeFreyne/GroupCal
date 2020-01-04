@@ -2,7 +2,6 @@ package com.example.groupcal.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.example.groupcal.data.database.databaseModels.Group
 import com.example.groupcal.data.database.databaseModels.User
 import io.reactivex.Single
 
@@ -11,7 +10,7 @@ import io.reactivex.Single
  * commonly used operations
  */
 @Dao
-interface UserDAO : BaseDAO<User>{
+interface UserDAO : BaseDAO<User> {
 
     /**
      * Get specific [User] object saved in the database by its Id

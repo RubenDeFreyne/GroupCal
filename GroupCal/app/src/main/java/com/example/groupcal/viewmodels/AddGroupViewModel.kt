@@ -9,18 +9,18 @@ import com.example.groupcal.models.Group
  *
  * @param repo The Repository for Groups
  */
-class AddGroupViewModel(val repo : GroupRepository) : ViewModel() {
+class AddGroupViewModel(val repo: GroupRepository) : ViewModel() {
 
-    var name : String = ""
-    var color : String = ""
+    var name: String = ""
+    var color: String = ""
 
     /**
      * Add new group with properties filled in by user
      */
-    fun addGroup() : Boolean{
-        if(name == "Group Name" || color == "Pick a Color"){
+    fun addGroup(): Boolean {
+        if (name == "Group Name" || color == "Pick a Color") {
             return false
-        }else {
+        } else {
             val group = Group(
                 name = name,
                 color = color,

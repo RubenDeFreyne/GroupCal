@@ -29,7 +29,8 @@ class GroupListFragment : Fragment() {
      * Inflate view with data binding
      */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGroupListBinding.inflate(inflater)
@@ -42,7 +43,7 @@ class GroupListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Create adapter for the RecyclerView
+        // Create adapter for the RecyclerView
         binding.groupRecycler.let {
             adapter =
                 GroupListAdapter(GroupListener { groupId ->
@@ -56,14 +57,14 @@ class GroupListFragment : Fragment() {
             it.adapter = adapter
         }
 
-        //Observe groups
+        // Observe groups
         viewModel.groups.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
 
-        //Set clickListener for addGroupButton
+        // Set clickListener for addGroupButton
         binding.addGroupButton.setOnClickListener {
             view!!.findNavController().navigate(
                 GroupListFragmentDirections.ActionGroupListFragmentToAddGroupFragment()

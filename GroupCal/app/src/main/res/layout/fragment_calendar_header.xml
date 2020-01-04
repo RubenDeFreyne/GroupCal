@@ -11,6 +11,7 @@
 
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/toggle_button_group"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -18,8 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/Widget.MaterialComponents.FloatingActionButton">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dayButton"
@@ -35,29 +35,30 @@
                 app:strokeWidth="1dp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/threeDayButton"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_3_days"
+                android:textColor="#33000000"
+                android:textSize="12sp"
+                app:backgroundTint="@color/colorWhite"
+                app:elevation="0dp"
+                app:strokeColor="#33000000"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/weekButton"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorWhite"
                 android:text="@string/week"
-                android:textSize="12sp"
-                app:strokeColor="#33000000"
-                app:strokeWidth="1dp"
                 android:textColor="#33000000"
-                app:elevation="0dp" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.FloatingActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="12sp"
                 app:backgroundTint="@color/colorWhite"
-                android:text="@string/month"
-                android:textSize="12sp"
+                app:elevation="0dp"
                 app:strokeColor="#33000000"
-                app:strokeWidth="1dp"
-                android:textColor="#33000000"
-                app:elevation="0dp" />
+                app:strokeWidth="1dp" />
 
 
         </com.google.android.material.button.MaterialButtonToggleGroup>

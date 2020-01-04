@@ -19,7 +19,7 @@ interface EventApi {
      * @return Deferred list of events in the backend
      */
     @GET("events")
-    fun getEvents() : Deferred<List<Event>>
+    fun getEvents(): Deferred<List<Event>>
 
     /**
      * Create a new event in the backend
@@ -31,6 +31,4 @@ interface EventApi {
 
     @POST("events")
     fun addEvent(@Body event: Event): Deferred<Event>
-
-
 }

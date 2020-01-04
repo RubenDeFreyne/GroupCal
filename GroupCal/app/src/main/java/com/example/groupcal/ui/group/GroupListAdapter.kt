@@ -12,11 +12,11 @@ import com.example.groupcal.models.Group
  */
 class GroupListAdapter(val clickListener: GroupListener) : ListAdapter<Group, GroupHolder>(
     GroupDiffCallback()
-){
+) {
 
     override fun onBindViewHolder(holder: GroupHolder, position: Int) {
         holder.update(getItem(position))
-        holder.bind(clickListener,getItem(position)!!)
+        holder.bind(clickListener, getItem(position)!!)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {
@@ -37,4 +37,3 @@ class GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
 class GroupListener(val clickListener: (groupId: String) -> Unit) {
     fun onClick(group: Group) = clickListener(group.backendId)
 }
-

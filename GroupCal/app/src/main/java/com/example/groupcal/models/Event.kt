@@ -5,7 +5,8 @@ import com.alamkanak.weekview.WeekViewEvent
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 /**
  * This class is used to convert JSON data from the backend to [Event] objects
@@ -92,5 +93,3 @@ data class Event(
         )
     }
 }
-
-
