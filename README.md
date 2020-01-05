@@ -9,7 +9,7 @@ Android application for traveling in a group.
 ## Screenshots
 
 <p align="center">
-<img src="./Screenshots/groups.jpg?raw=true" width="256px" style="margin: 20px;">
+<img align="left" src="./Screenshots/groups.jpg?raw=true" width="256px">
 <img src="./Screenshots/add-group.jpg?raw=true" width="256px">
 <img src="./Screenshots/drawer.jpg?raw=true" width="256px">
 <img src="./Screenshots/dayview.jpg?raw=true" width="256px">
