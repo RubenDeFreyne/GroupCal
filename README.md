@@ -8,27 +8,31 @@ Android application for traveling in a group.
 
 ## Screenshots
 
-<p align="center">
-<img align="left" src="./Screenshots/groups.jpg?raw=true" width="256px">
-<img src="./Screenshots/add-group.jpg?raw=true" width="256px">
-<img align="right" src="./Screenshots/drawer.jpg?raw=true" width="256px">
-<img align="left" src="./Screenshots/dayview.jpg?raw=true" width="256px">
-<img src="./Screenshots/threedayview.jpg?raw=true" width="256px">
-<img align="right" src="./Screenshots/weekview.jpg?raw=true" width="256px">
-<img src="./Screenshots/event-details.jpg?raw=true" width="256px">
-<img src="./Screenshots/add-event.jpg?raw=true" width="256px">
-</p>
-
 <table>
+  <tr>
+    <td>Group View</td>
+    <td>Add Groups</td>
+    <td>Navigation</td>
+  </tr>
   <tr>
     <td><img src="./Screenshots/groups.jpg?raw=true" width="256px"></td>
     <td><img src="./Screenshots/add-group.jpg?raw=true" width="256px"></td>
     <td><img src="./Screenshots/drawer.jpg?raw=true" width="256px"></td>
   </tr>
   <tr>
+    <td>Calendar Day View</td>
+    <td>Calendar Three Day View</td>
+    <td>Calendar Week View</td>
+  </tr>
+  <tr>
     <td><img src="./Screenshots/dayview.jpg?raw=true" width="256px"></td>
     <td><img src="./Screenshots/threedayview.jpg?raw=true" width="256px"></td>
     <td><img src="./Screenshots/weekview.jpg?raw=true" width="256px"></td>
+  </tr>
+  <tr>
+    <td>Event Details</td>
+    <td></td>
+    <td>Add Events</td>
   </tr>
   <tr>
     <td><img src="./Screenshots/event-details.jpg?raw=true" width="256px"></td>
