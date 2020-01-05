@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./app/src/main/ic_launcher-web.png?raw=true" width="200px"/>
+<img src="./GroupCal/app/src/main/ic_launcher-web.png?raw=true" width="200px"/>
 </p>
 
 <h1 align="center">GroupCal</h1>
@@ -9,14 +9,14 @@ Android application for traveling in a group.
 ## Screenshots
 
 <p align="center">
-<img src="./screenshots/groups.jpg?raw=true" width="256px">
-<img src="./screenshots/add-group.jpg?raw=true" width="256px">
-<img src="./screenshots/drawer.jpg?raw=true" width="256px">
-<img src="./screenshots/dayview.jpg?raw=true" width="256px">
-<img src="./screenshots/threedayview.jpg?raw=true" width="256px">
-<img src="./screenshots/weekview.jpg?raw=true" width="256px">
-<img src="./screenshots/event-details.jpg?raw=true" width="256px">
-<img src="./screenshots/add-event.jpg?raw=true" width="256px">
+<img src="./Screenshots/groups.jpg?raw=true" width="256px">
+<img src="./Screenshots/add-group.jpg?raw=true" width="256px">
+<img src="./Screenshots/drawer.jpg?raw=true" width="256px">
+<img src="./Screenshots/dayview.jpg?raw=true" width="256px">
+<img src="./Screenshots/threedayview.jpg?raw=true" width="256px">
+<img src="./Screenshots/weekview.jpg?raw=true" width="256px">
+<img src="./Screenshots/event-details.jpg?raw=true" width="256px">
+<img src="./Screenshots/add-event.jpg?raw=true" width="256px">
 </p>
 
 ---
