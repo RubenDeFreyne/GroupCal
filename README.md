@@ -12,14 +12,11 @@ Android application for traveling in a group.
 <img align="left" src="./Screenshots/groups.jpg?raw=true" width="256px">
 <img src="./Screenshots/add-group.jpg?raw=true" width="256px">
 <img align="right" src="./Screenshots/drawer.jpg?raw=true" width="256px">
-
 <img align="left" src="./Screenshots/dayview.jpg?raw=true" width="256px">
 <img src="./Screenshots/threedayview.jpg?raw=true" width="256px">
 <img align="right" src="./Screenshots/weekview.jpg?raw=true" width="256px">
-
 <img src="./Screenshots/event-details.jpg?raw=true" width="256px">
 <img src="./Screenshots/add-event.jpg?raw=true" width="256px">
-
 </p>
 
 
