@@ -19,10 +19,23 @@ Android application for traveling in a group.
 <img src="./Screenshots/add-event.jpg?raw=true" width="256px">
 </p>
 
-| <img src="./Screenshots/groups.jpg?raw=true" width="256px"> | <img src="./Screenshots/add-group.jpg?raw=true" width="256px"> | <img src="./Screenshots/drawer.jpg?raw=true" width="256px">  |
-| <img src="./Screenshots/dayview.jpg?raw=true" width="256px">     | <img src="./Screenshots/threedayview.jpg?raw=true" width="256px"> | <img src="./Screenshots/weekview.jpg?raw=true" width="256px"> |
-| <img src="./Screenshots/event-details.jpg?raw=true" width="256px"> |  | <img src="./Screenshots/add-event.jpg?raw=true" width="256px"> |
-
+<table>
+  <tr>
+    <td><img src="./Screenshots/groups.jpg?raw=true" width="256px"></td>
+    <td><img src="./Screenshots/add-group.jpg?raw=true" width="256px"></td>
+    <td><img src="./Screenshots/drawer.jpg?raw=true" width="256px"></td>
+  </tr>
+  <tr>
+    <td><img src="./Screenshots/dayview.jpg?raw=true" width="256px"></td>
+    <td><img src="./Screenshots/threedayview.jpg?raw=true" width="256px"></td>
+    <td><img src="./Screenshots/weekview.jpg?raw=true" width="256px"></td>
+  </tr>
+  <tr>
+    <td><img src="./Screenshots/event-details.jpg?raw=true" width="256px"></td>
+    <td></td>
+    <td><img src="./Screenshots/add-event.jpg?raw=true" width="256px"></td>
+  </tr>
+</table>
 
 
 ## Built with
