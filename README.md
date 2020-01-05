@@ -10,6 +10,8 @@ Android application for traveling in a group.
 
 <table>
   <tr>
+  </tr>
+  <tr>
     <td>Group View</td>
     <td>Add Groups</td>
     <td>Navigation</td>
