@@ -47,7 +47,6 @@ class GroupListFragment : Fragment() {
         binding.groupRecycler.let {
             adapter =
                 GroupListAdapter(GroupListener { groupId ->
-                    Toast.makeText(context, groupId, Toast.LENGTH_LONG).show()
                     view!!.findNavController().navigate(
                         GroupListFragmentDirections.ActionGroupListFragmentToPlannerFragment(
                             groupId
