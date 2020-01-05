@@ -74,5 +74,10 @@ class AddGroupFragment : Fragment() {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG).show()
             }
         }
+
+        // Cancel
+        binding.cancelGroupButton.setOnClickListener {
+            view!!.findNavController().navigateUp()
+        }
     }
 }

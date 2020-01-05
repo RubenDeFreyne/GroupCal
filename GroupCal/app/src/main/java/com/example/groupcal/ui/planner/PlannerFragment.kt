@@ -69,6 +69,7 @@ class PlannerFragment : Fragment() {
 
         weekView.minDate = viewModel.startDate
         weekView.maxDate = viewModel.endDate
+        weekView.goToCurrentTime()
     }
 
     override fun onStart() {
@@ -78,6 +79,7 @@ class PlannerFragment : Fragment() {
         weekView.setOnRangeChangeListener { firstVisibleDate, lastVisibleDate ->
             run {
                 viewModel.currentlyViewing = firstVisibleDate
+
 
                 if (firstVisibleDate == lastVisibleDate) {
                     dayText.setText(

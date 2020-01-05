@@ -70,13 +70,14 @@ class AddEventFragment : Fragment() {
         cal.time = viewModel.time
 
         // Set Listener for DatePicker
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            cal.set(Calendar.YEAR, year)
-            cal.set(Calendar.MONTH, monthOfYear)
-            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            viewModel.time = cal.time
-            binding.datePreviewText.setText(viewModel.getDatePreview())
-        }
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                viewModel.time = cal.time
+                binding.datePreviewText.setText(viewModel.getDatePreview())
+            }
 
         // Set DateTextView click listener
         binding.dateTextView.setOnClickListener {
@@ -84,7 +85,8 @@ class AddEventFragment : Fragment() {
                 this.context!!, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
         // Set startTime to clicked time
@@ -104,7 +106,8 @@ class AddEventFragment : Fragment() {
             TimePickerDialog(
                 this.context!!, timeSetListener,
                 cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE), true).show()
+                cal.get(Calendar.MINUTE), true
+            ).show()
         }
 
         // Set endTime to clicked time
@@ -124,7 +127,8 @@ class AddEventFragment : Fragment() {
             TimePickerDialog(
                 this.context!!, endTimeSetListener,
                 cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE), true).show()
+                cal.get(Calendar.MINUTE), true
+            ).show()
         }
 
         // Set ColorPicker start color
@@ -137,11 +141,13 @@ class AddEventFragment : Fragment() {
         }
 
         // Set listener for ColorPicker
-        cp.setCallback { color -> run {
-            viewModel.color = color.toString()
-            binding.colorTextView.setBackgroundColor(color)
-            binding.colorTextView.setText(color.toString())
-            binding.colorTextView.setTextColor(color) }
+        cp.setCallback { color ->
+            run {
+                viewModel.color = color.toString()
+                binding.colorTextView.setBackgroundColor(color)
+                binding.colorTextView.setText(color.toString())
+                binding.colorTextView.setTextColor(color)
+            }
         }
 
         // Save the event
@@ -154,14 +160,24 @@ class AddEventFragment : Fragment() {
             if (result) {
                 Toast.makeText(context, "Added new Event", Toast.LENGTH_LONG).show()
                 if (viewModel.checkTime()) {
-                view!!.findNavController().navigate(
-                    AddEventFragmentDirections.ActionAddEventFragmentToPlannerFragment(viewModel.groupId)
-                ) } else {
-                    Toast.makeText(context, "End Time cannot be before Start Time", Toast.LENGTH_LONG).show()
+                    view!!.findNavController().navigate(
+                        AddEventFragmentDirections.ActionAddEventFragmentToPlannerFragment(viewModel.groupId)
+                    )
+                } else {
+                    Toast.makeText(
+                        context,
+                        "End Time cannot be before Start Time",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             } else {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG).show()
             }
+        }
+
+        // Cancel
+        binding.cancelEventButton.setOnClickListener {
+            view!!.findNavController().navigateUp()
         }
     }
 }
