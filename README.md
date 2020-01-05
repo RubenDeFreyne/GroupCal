@@ -17,8 +17,8 @@ Android application for traveling in a group.
 <img src="./Screenshots/threedayview.jpg?raw=true" width="256px">
 <img align="right" src="./Screenshots/weekview.jpg?raw=true" width="256px">
   <br/>
-<img align="left" src="./Screenshots/event-details.jpg?raw=true" width="256px">
-<img align="right" src="./Screenshots/add-event.jpg?raw=true" width="256px">
+<img src="./Screenshots/event-details.jpg?raw=true" width="256px">
+<img src="./Screenshots/add-event.jpg?raw=true" width="256px">
 </p>
 
 <br/>
