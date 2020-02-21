@@ -17,7 +17,7 @@ Demo of an Android application for traveling in a group. For the time being this
     <td>Navigation</td>
   </tr>
   <tr>
-    <td><img src="./Screenshots/groups.jpg?raw=true" width="256px"></td>
+    <td><kbd><img src="./Screenshots/groups.jpg?raw=true" width="256px"></kbd></td>
     <td><img src="./Screenshots/add-group.jpg?raw=true" width="256px"></td>
     <td><img src="./Screenshots/drawer.jpg?raw=true" width="256px"></td>
   </tr>
