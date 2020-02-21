@@ -18,8 +18,8 @@ Demo of an Android application for traveling in a group. For the time being this
   </tr>
   <tr>
     <td><kbd><img src="./Screenshots/groups.jpg?raw=true" width="256px"></kbd></td>
-    <td><img src="./Screenshots/add-group.jpg?raw=true" width="256px"></td>
-    <td><img src="./Screenshots/drawer.jpg?raw=true" width="256px"></td>
+    <td><kbd><img src="./Screenshots/add-group.jpg?raw=true" width="256px"></kbd></td>
+    <td><kbd><img src="./Screenshots/drawer.jpg?raw=true" width="256px"></kbd></td>
   </tr>
   <tr>
     <td>Calendar Day View</td>
@@ -27,9 +27,9 @@ Demo of an Android application for traveling in a group. For the time being this
     <td>Calendar Week View</td>
   </tr>
   <tr>
-    <td><img src="./Screenshots/dayview.jpg?raw=true" width="256px"></td>
-    <td><img src="./Screenshots/threedayview.jpg?raw=true" width="256px"></td>
-    <td><img src="./Screenshots/weekview.jpg?raw=true" width="256px"></td>
+    <td><kbd><img src="./Screenshots/dayview.jpg?raw=true" width="256px"></kbd></td>
+    <td><kbd><img src="./Screenshots/threedayview.jpg?raw=true" width="256px"></kbd></td>
+    <td><kbd><img src="./Screenshots/weekview.jpg?raw=true" width="256px"></kbd></td>
   </tr>
   <tr>
     <td>Event Details</td>
@@ -37,9 +37,9 @@ Demo of an Android application for traveling in a group. For the time being this
     <td>Add Events</td>
   </tr>
   <tr>
-    <td><img src="./Screenshots/event-details.jpg?raw=true" width="256px"></td>
+    <td><kbd><img src="./Screenshots/event-details.jpg?raw=true" width="256px"></kbd></td>
     <td></td>
-    <td><img src="./Screenshots/add-event.jpg?raw=true" width="256px"></td>
+    <td><kbd><img src="./Screenshots/add-event.jpg?raw=true" width="256px"></kbd></td>
   </tr>
 </table>
 
