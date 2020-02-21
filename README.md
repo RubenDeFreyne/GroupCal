@@ -4,7 +4,7 @@
 
 <h1 align="center">GroupCal</h1>
 
-Android application for traveling in a group.
+Demo of an Android application for traveling in a group. For the time being this is only an application for creating groups and adding events for this group. This is only a demo version for the course 'Native Apps : Android' at HoGent University College.
 
 ## Screenshots
 
